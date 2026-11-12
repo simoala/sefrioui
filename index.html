@@ -2,585 +2,587 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Cartes mentales de séance</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&display=swap">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapitre II — La Boîte à merveilles</title>
 <style>
-/* Layout : écran de connexion centré ; puis éditeur à gauche, feuille A4 à droite (empilés sur téléphone). */
-:root{
-  --bg:#F3F5F9; --panel:#FFFFFF; --fg:#1C2033; --muted:#5E6582; --line:#DCE1EC;
-  --accent:#2D63D6; --accent-ink:#FFFFFF; --soft:#EAF0FC; --danger:#C93A3A; --ok:#2E8B4A; --warn-bg:#FFF4D6; --warn-fg:#7A5300;
-  --font:"Lexend","Segoe UI",Arial,sans-serif;
-  color-scheme:light;
-}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#12141C; --panel:#1B1E29; --fg:#E7E9F2; --muted:#9AA1BC; --line:#2C3142;
-  --accent:#6F98F2; --accent-ink:#0E1220; --soft:#222A40; --danger:#F07373; --ok:#6CCB86; --warn-bg:#3A3018; --warn-fg:#F5D58A; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#12141C; --panel:#1B1E29; --fg:#E7E9F2; --muted:#9AA1BC; --line:#2C3142;
-  --accent:#6F98F2; --accent-ink:#0E1220; --soft:#222A40; --danger:#F07373; --ok:#6CCB86; --warn-bg:#3A3018; --warn-fg:#F5D58A; color-scheme:dark}
+:root{--navy:#0F4C5C;--ink:#1f2937;--muted:#6b7280;--bg:#f6f7f9;--card:#fff;--line:#e5e7eb;
+--c-text:#1D4E89;--c-voc:#6A4C93;--c-fig:#1B7F79;--c-lex:#B23A6B;--c-q:#D9690F;--c-res:#E9A23B;--fs:19px}
 *{box-sizing:border-box}
-html,body{height:100%}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:14px}
-[hidden]{display:none!important}
-button,input,textarea,select{font:inherit;color:inherit}
-.app{display:grid;grid-template-columns:minmax(320px,430px) 1fr;gap:16px;padding:16px;min-height:100%}
-.side{display:flex;flex-direction:column;gap:12px;min-width:0}
-.brand{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
-.brand h1{font-size:19px;margin:0;font-weight:700;letter-spacing:-.01em}
-.brand h1 span{color:var(--accent)}
-.who{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
-.tabs{display:flex;gap:4px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:4px}
-.tabs button{flex:1;border:0;background:transparent;padding:8px 4px;border-radius:7px;cursor:pointer;color:var(--muted);font-weight:500;font-size:13px}
-.tabs button[aria-selected="true"]{background:var(--accent);color:var(--accent-ink)}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px}
-.card h2{font-size:13px;margin:0;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-label.f{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);min-width:0}
-input[type=text],input[type=email],input[type=password],textarea,select{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:8px 10px;font-size:14px}
-textarea{resize:vertical;line-height:1.5}
-input:focus,textarea:focus,select:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
-.btn{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:8px 12px;cursor:pointer;font-weight:500}
-.btn:hover{border-color:var(--accent)}
-.btn:disabled{opacity:.5;cursor:default}
-.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-.btn.danger{color:var(--danger)}
-.btn.sm{padding:4px 8px;font-size:12px}
-.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.br{border:1px solid var(--line);border-left:6px solid var(--c);border-radius:0 10px 10px 0;padding:10px;display:flex;flex-direction:column;gap:8px;background:var(--bg)}
-.br-head{display:grid;grid-template-columns:1fr 92px;gap:6px}
-.sw{display:flex;gap:5px;flex-wrap:wrap}
-.sw button{width:22px;height:22px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0}
-.sw button[aria-pressed="true"]{border-color:var(--fg)}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.seg button{border:0;background:transparent;padding:4px 10px;cursor:pointer;font-size:12px;color:var(--muted)}
-.seg button[aria-pressed="true"]{background:var(--soft);color:var(--fg);font-weight:600}
-.hint{font-size:12px;color:var(--muted);line-height:1.5;margin:0}
-.err{font-size:13px;color:var(--danger);margin:0}
-.okmsg{font-size:13px;color:var(--ok);margin:0}
-code{font-size:12px;background:var(--soft);padding:1px 5px;border-radius:4px}
-.lib-item{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
-.lib-item.cur{border-color:var(--accent)}
-.lib-item>div:first-child{min-width:0}
-.lib-item b{font-weight:600}
-.lib-item small{color:var(--muted);display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.badge{font-size:11px;padding:1px 7px;border-radius:10px;background:var(--soft);color:var(--accent);font-weight:600}
-.main{display:flex;flex-direction:column;gap:12px;min-width:0}
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
-.stage-wrap{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;justify-content:center;overflow:hidden}
-.stage{position:relative;flex:none;overflow:hidden}
-.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:50}
-.toast.on{opacity:1}
-.note{font-size:12px;color:var(--muted)}
-.demo{background:var(--warn-bg);color:var(--warn-fg);border-radius:10px;padding:10px 12px;font-size:12px;line-height:1.5}
-/* Connexion */
-.login-wrap{min-height:100%;display:grid;place-items:center;padding:24px 16px}
-.login{width:100%;max-width:400px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px 24px;display:flex;flex-direction:column;gap:14px}
-.login h1{margin:0;font-size:24px;font-weight:700;text-wrap:balance}
-.login h1 span{color:var(--accent)}
-.login .mini{display:flex;gap:6px;margin-bottom:4px}
-.login .mini i{display:block;height:6px;flex:1;border-radius:3px}
-.loading{min-height:100%;display:grid;place-items:center;color:var(--muted)}
-@media (max-width:900px){.app{grid-template-columns:1fr}}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
-
-/* ===== Feuille A4 (toujours blanche : c'est un document imprimé) ===== */
-#page{position:absolute;top:0;left:0;width:1414px;height:2000px;background:#fff;color:#151826;overflow:hidden;transform-origin:0 0;font-family:var(--font);--k:1}
-#page *{box-sizing:border-box}
-#page .h1{position:absolute;top:30px;left:25px;right:25px;text-align:center;font-size:21px;color:#2a2e40}
-#page .h1 b{font-weight:700}
-#page .h2{position:absolute;top:74px;left:25px;right:25px;height:60px;border-top:1.5px solid #9aa0b4;border-bottom:1.5px solid #9aa0b4;display:flex;justify-content:space-between;align-items:center;padding:0 18px;font-size:21px}
-#page .h2 b{font-weight:700}
-#page svg.links{position:absolute;left:0;top:0;width:1414px;height:2000px}
-#page .col{position:absolute;top:235px;bottom:130px;width:540px;display:flex;flex-direction:column;justify-content:space-around;gap:calc(26px*var(--k))}
-#page .col.L{left:25px}#page .col.R{right:25px;align-items:flex-end}
-#page .grp{position:relative;width:520px}
-#page .col.R .grp{text-align:right}
-#page .pill{display:inline-flex;align-items:center;gap:14px;color:#fff;font-weight:700;font-size:calc(25px*var(--k));height:calc(62px*var(--k));padding:0 28px;border-radius:40px;position:relative;z-index:2;white-space:nowrap}
-#page .dur{background:#fff;font-size:calc(17px*var(--k));font-weight:700;border-radius:16px;padding:2px 13px}
-#page .items{position:relative;margin-top:calc(10px*var(--k));display:flex;flex-direction:column;gap:calc(11px*var(--k))}
-#page .col.L .items{padding-left:55px}#page .col.R .items{padding-right:55px;align-items:flex-end}
-#page .rail{position:absolute;top:calc(-10px*var(--k));width:3px;z-index:1}
-#page .col.L .rail{left:24px}#page .col.R .rail{right:24px}
-#page .it{position:relative;z-index:2;border:2px solid;border-radius:12px;padding:calc(12px*var(--k)) 20px;font-size:calc(20px*var(--k));font-weight:500;line-height:1.5;text-align:left;width:420px}
-#page .it .tick{position:absolute;top:50%;width:31px;height:3px;margin-top:-1.5px}
-#page .col.L .tick{left:-33px}#page .col.R .tick{right:-33px}
-#page .center{position:absolute;left:532px;top:880px;width:350px;height:240px;border:4px solid;border-radius:32px;padding:9px;background:#fff;z-index:3}
-#page .center .in{border-radius:22px;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 16px;color:#fff}
-#page .center .t{font-size:46px;font-weight:800;line-height:1.1}
-#page .center .s{font-size:21px;font-weight:600;margin-top:10px}
-#page .center .d{font-size:17px;margin-top:12px;opacity:.8}
-#page .foot{position:absolute;bottom:40px;left:0;right:0;text-align:center;color:#8a90a6;font-size:17px}
-
-@media print{
-  @page{size:A4;margin:0}
-  html,body{background:#fff!important;height:auto}
-  .side,.toolbar,.toast,#login,#loading{display:none!important}
-  .app{display:block;padding:0}
-  .stage-wrap{border:0;padding:0;background:#fff;border-radius:0}
-  .stage{width:210mm!important;height:297mm!important}
-  #page{transform:scale(.5615)!important}
-}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:var(--fs)/1.55 Calibri,"Segoe UI",Arial,sans-serif}
+#bar{position:sticky;top:0;z-index:10;background:var(--navy);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+#bar .in{display:flex;align-items:center;gap:10px;padding:8px 14px}
+#bar .brand{font:700 17px Georgia,serif;white-space:nowrap;cursor:pointer}
+#tabs{display:flex;gap:6px;overflow-x:auto;flex:1;padding:2px 0;scrollbar-width:thin}
+.tab{flex:none;border:0;background:rgba(255,255,255,.12);color:#fff;font:600 15px inherit;font-family:inherit;padding:8px 12px;border-radius:8px;cursor:pointer}
+.tab span{display:none;font-weight:400}
+.tab:hover{background:rgba(255,255,255,.25)}
+.tab.on{background:#E0A526;color:#1a1a1a}
+@media(min-width:1100px){.tab span{display:inline}}
+.tools{display:flex;gap:6px;flex:none}
+.tools button{border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;border-radius:8px;padding:7px 10px;font:600 14px inherit;font-family:inherit;cursor:pointer}
+.tools button:hover{background:rgba(255,255,255,.2)}
+main{max-width:1020px;margin:0 auto;padding:22px 16px 80px}
+.part[hidden]{display:none}
+.cover{background:var(--navy);color:#fff;border-radius:14px;padding:46px 34px;border-bottom:6px solid #E0A526;text-align:center}
+.cover h1{font:700 52px Georgia,serif;margin:10px 0 4px}.cover p{margin:0;font-size:22px;opacity:.9}
+.kick{font:700 13px Calibri,sans-serif;letter-spacing:.18em;color:#E0A526}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;margin:22px 0}
+.card{display:flex;flex-direction:column;gap:2px;text-align:left;background:var(--card);border:1px solid var(--line);border-left:6px solid var(--c-q);border-radius:10px;padding:14px 16px;cursor:pointer;font:inherit;color:inherit}
+.card:hover{box-shadow:0 4px 14px rgba(0,0,0,.12)}.card b{color:var(--c-q);font-size:15px}.card span{font:700 19px Georgia,serif}.card small{color:var(--muted)}
+.box{border-radius:10px;padding:14px 18px;margin:16px 0}
+.how{background:#E8F5F3;border:1px solid #C9E4E1}.how ul{margin:6px 0 0;padding-left:20px}
+.banner{background:var(--navy);color:#fff;border-radius:12px;padding:22px 26px;border-left:8px solid #E0A526}
+.banner h2{font:700 32px Georgia,serif;margin:4px 0}.banner .ref{opacity:.8;font-style:italic;font-size:16px}
+.resume{background:#FFF6E6;border-left:5px solid var(--c-res)}.resume b{color:#9a6a12;font-size:14px;letter-spacing:.08em;text-transform:uppercase}.resume p{margin:6px 0 0}
+h3.t{font:700 22px Calibri,sans-serif;margin:34px 0 12px;padding:8px 14px;border-left:6px solid;border-radius:0 8px 8px 0}
+h3.texte{color:var(--c-text);background:#F4F7FB}h3.vocab{color:var(--c-voc);background:#F3EFF8}
+h3.fig{color:var(--c-fig);background:#E8F5F3}h3.lex{color:var(--c-lex);background:#FBEEF3}h3.quest{color:var(--c-q);background:#FDF1E6}
+.scene{background:var(--card);border:1px solid var(--line);border-left:5px solid #A9C1DE;border-radius:10px;padding:16px 26px;font:1.05em/1.75 Georgia,serif;font-style:italic;color:#2b2b2b}
+.scene p{margin:0 0 .75em;text-align:justify;text-indent:1.6em}.scene p.dial{text-indent:0}.scene p.vide{color:var(--muted);text-indent:0}
+table{width:100%;border-collapse:collapse;background:var(--card);border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+th{color:#fff;text-align:left;padding:9px 12px;font-size:.85em}td{padding:8px 12px;border-top:1px solid var(--line);vertical-align:top}
+.voc th{background:var(--c-voc)}.voc tr:nth-child(even) td{background:#F3EFF8}.voc .mot{font-weight:700;color:var(--c-voc)}
+.ar{text-align:right;font:1.25em "Traditional Arabic","Sakkal Majalla","Segoe UI",serif}th.ar{font:700 .85em Calibri,sans-serif}
+.fig th{background:var(--c-fig)}.fig tr:nth-child(even) td{background:#F1FAF8}.fig .nm{font-weight:700;color:var(--c-fig);white-space:nowrap}
+.lex th{background:var(--c-lex)}.lex tr:nth-child(even) td{background:#FDF3F7}.lex .nm{font-weight:700;color:var(--c-lex)}
+tr.none td{color:var(--muted)}
+.hid[hidden]{display:none}.hid{margin-top:10px}
+.rev{cursor:pointer;font:700 .85em inherit;font-family:inherit;border:2px solid;border-radius:999px;padding:7px 16px;background:#fff;transition:.15s}
+h3.fig + .rev{color:var(--c-fig);border-color:var(--c-fig)}h3.lex + .rev{color:var(--c-lex);border-color:var(--c-lex)}
+.rev:hover{filter:brightness(.95);transform:translateY(-1px)}
+h3.fig + .rev{color:var(--c-fig);border-color:var(--c-fig)}h3.lex + .rev{color:var(--c-lex);border-color:var(--c-lex)}
+.qs .rev{color:var(--c-q);border-color:var(--c-q)}
+h3.fig + .rev.open{background:var(--c-fig);color:#fff}h3.lex + .rev.open{background:var(--c-lex);color:#fff}
+.qs .rev.open{background:var(--c-q);color:#fff}
+.qs{list-style:none;counter-reset:q;padding:0;margin:0}
+.qs>li{counter-increment:q;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px 14px 62px;margin:0 0 12px;position:relative}
+.qs>li::before{content:counter(q);position:absolute;left:16px;top:12px;width:34px;height:34px;border-radius:50%;background:var(--c-q);color:#fff;font:700 18px Georgia,serif;display:grid;place-items:center}
+.q{font:700 1.08em Georgia,serif;margin-bottom:10px}
+.rep{background:#FFF8F0;border-left:5px solid var(--c-q);border-radius:0 8px 8px 0;padding:8px 16px;font-weight:600}
+.rep p{margin:.4em 0}.rep ul{margin:.4em 0;padding-left:22px}.rep li{margin:.2em 0}
+.note{color:var(--c-lex);font-style:italic;margin:10px 0 0}
+.pager{display:flex;justify-content:space-between;margin-top:30px}
+.nav{border:0;background:var(--navy);color:#fff;font:700 16px inherit;font-family:inherit;padding:11px 20px;border-radius:10px;cursor:pointer}
+@media(max-width:700px){:root{--fs:17px}#bar .brand{display:none}.banner h2{font-size:24px}.cover h1{font-size:36px}.qs>li{padding-left:56px}.scene{padding:12px 14px}.fig .nm{white-space:normal}}
+@media print{#bar,.rev,.pager{display:none}.hid[hidden],.part[hidden]{display:block!important}}
 </style>
 </head>
 <body>
-
-<div id="loading" class="loading">Chargement…</div>
-
-<!-- ===== Écran de connexion ===== -->
-<div id="login" class="login-wrap" hidden>
-  <form class="login" id="loginForm" novalidate>
-    <div class="mini" aria-hidden="true"><i style="background:#7550D8"></i><i style="background:#0E9384"></i><i style="background:#D8407A"></i><i style="background:#E8702A"></i><i style="background:#3F9A35"></i></div>
-    <h1>Cartes <span>mentales</span> de séance</h1>
-    <p class="hint">Accès réservé aux enseignants validés. Utilisez l'email et le mot de passe que l'administrateur vous a donnés.</p>
-    <label class="f">Email<input type="email" id="lgEmail" autocomplete="username" required></label>
-    <label class="f">Mot de passe<input type="password" id="lgPass" autocomplete="current-password" required></label>
-    <p class="err" id="lgErr" role="alert"></p>
-    <button class="btn primary" id="lgBtn" type="submit">Se connecter</button>
-    <button class="btn sm" id="lgReset" type="button">Mot de passe oublié</button>
-    <p class="okmsg" id="lgOk" role="status"></p>
-  </form>
+<div id="bar"><div class="in">
+<span class="brand" data-go="home">Chapitre II</span>
+<nav id="tabs"><button class="tab" data-go="home">Accueil</button><button class="tab" data-go="p1" title="Le mardi, jour néfaste au Msid">1<span> · Le mardi, jour néfaste au Msid</span></button><button class="tab" data-go="p2" title="La migraine de la mère et la visite de Lalla Aïcha">2<span> · La migraine de la mère et la visite de Lalla Aïcha</span></button><button class="tab" data-go="p3" title="Le voyage vers le sanctuaire">3<span> · Le voyage vers le sanctuaire</span></button><button class="tab" data-go="p4" title="Au sanctuaire : prières et rituels">4<span> · Au sanctuaire : prières et rituels</span></button><button class="tab" data-go="p5" title="La griffure du chat">5<span> · La griffure du chat</span></button><button class="tab" data-go="p6" title="Le matin à Dar Chouafa">6<span> · Le matin à Dar Chouafa</span></button><button class="tab" data-go="p7" title="Les beignets, Driss le teigneux et l&#x27;origine des parents">7<span> · Les beignets, Driss le teigneux et l&#x27;origine des parents</span></button><button class="tab" data-go="p8" title="Le cabochon de verre de Rahma">8<span> · Le cabochon de verre de Rahma</span></button></nav>
+<div class="tools"><button id="all" title="Afficher ou masquer tout ce qui est caché dans la partie ouverte">Tout afficher</button><button id="sm">A−</button><button id="lg">A+</button></div>
+</div></div>
+<main>
+<section id="home" class="part"><div class="cover"><span class="kick">LA BOÎTE À MERVEILLES · AHMED SEFRIOUI</span><h1>Chapitre II</h1><p>Décorticage et questions</p></div><div class="cards"><button class="card" data-go="p1"><b>Partie 1</b><span>Le mardi, jour néfaste au Msid</span><small>p. 8</small></button><button class="card" data-go="p2"><b>Partie 2</b><span>La migraine de la mère et la visite de Lalla Aïcha</span><small>p. 8-9</small></button><button class="card" data-go="p3"><b>Partie 3</b><span>Le voyage vers le sanctuaire</span><small>p. 9-10</small></button><button class="card" data-go="p4"><b>Partie 4</b><span>Au sanctuaire : prières et rituels</span><small>p. 10-11</small></button><button class="card" data-go="p5"><b>Partie 5</b><span>La griffure du chat</span><small>p. 11</small></button><button class="card" data-go="p6"><b>Partie 6</b><span>Le matin à Dar Chouafa</span><small>p. 11-13</small></button><button class="card" data-go="p7"><b>Partie 7</b><span>Les beignets, Driss le teigneux et l&#x27;origine des parents</span><small>p. 13-14</small></button><button class="card" data-go="p8"><b>Partie 8</b><span>Le cabochon de verre de Rahma</span><small>p. 14-15</small></button></div><div class="box how"><b>Comment utiliser cette page</b><ul><li>Cliquer sur un onglet en haut pour ouvrir un événement (ou utiliser les flèches ← → du clavier).</li><li>Les <b>figures de style</b>, les <b>champs lexicaux</b> et les <b>réponses</b> sont cachés : cliquer sur le bouton pour les afficher.</li><li>Le bouton « Tout afficher / tout masquer » (en haut à droite) agit sur la partie ouverte.</li><li>Les boutons A− et A+ changent la taille du texte (pratique pour la télé).</li></ul></div></section>
+<section id="p1" class="part" hidden>
+<header class="banner"><span class="kick">PARTIE 1</span><h2>Le mardi, jour néfaste au Msid</h2><span class="ref">Chapitre II, p. 8</span></header>
+<div class="box resume"><b>Résumé de la scène</b><p>Le mardi est le jour le plus redouté des élèves du Msid : celui de la récitation. Après une nuit de cauchemars, l’enfant retrouve le regard sans pitié du fqih. À six ans, il connaît déjà la peur et la douleur de la baguette.</p></div>
+<h3 class="t texte">Texte de la scène</h3><div class="scene">
+<p class="">Le MARDI, jour néfaste pour les élèves du Msid, me laisse dans la bouche un goût d&#x27;amertume. Tous les mardis sont pour moi couleur de cendre.</p>
+<p class="">Il faisait froid, ma nuit avait été peuplée de cauchemars. Des femmes échevelées menaçaient de me crever les yeux, m&#x27;envoyaient au visage les pires injures. Parfois, l&#x27;une d&#x27;elles me balançait à travers la fenêtre et je m&#x27;enfonçais lourdement dans le vide. Je criai. Une main, combien douce, se posa sur mon front.</p>
+<p class="">Le matin, je me rendis au Msid selon mon habitude. Le fqih avait son regard de tous les mardis.</p>
+<p class="">Se yeux n&#x27;étaient perméables à aucune pitié. Je décrochai ma planchette et me mis à ânonner les deux ou trois versets qui y étaient écrits.</p>
+<p class="">A six ans, j&#x27;avais déjà conscience de l&#x27;hostilité du monde et de ma fragilité. Je connaissais la peur, je connaissais la souffrance de la chair au contact de la baguette de cognassier. Mon petit corps tremblait dans ses vêtements trop minces. J&#x27;appréhendais le soir consacré aux révisions.</p>
+<p class="">Je devais, selon la coutume, réciter les quelques chapitres du Coran que j&#x27;avais appris depuis mon entrée à l&#x27;école.</p>
+<p class="">A l&#x27;heure du déjeuner, le maître me fit signe de partir. J&#x27;accrochai ma planchette. J&#x27;enfilai mes babouches qui m&#x27;attendaient à la porte du Msid et je traversai la rue.</p>
 </div>
-
-<!-- ===== Application ===== -->
-<div class="app" id="app" hidden>
-  <aside class="side">
-    <div class="brand">
-      <h1>Cartes <span>mentales</span> de séance</h1>
-      <div class="who"><span id="whoName"></span><button class="btn sm" id="logout">Déconnexion</button></div>
-    </div>
-    <div class="demo" id="demoBanner" hidden>Mode démo : Firebase n'est pas encore configuré. Il n'y a pas de connexion et les séances restent dans ce navigateur. Remplissez <code>firebase-config.js</code> pour activer les comptes.</div>
-    <div class="tabs" role="tablist">
-      <button role="tab" aria-selected="true" data-tab="edit" id="tab-edit">Éditer</button>
-      <button role="tab" aria-selected="false" data-tab="text" id="tab-text">Saisie rapide</button>
-      <button role="tab" aria-selected="false" data-tab="lib" id="tab-lib">Mes séances</button>
-      <button role="tab" aria-selected="false" data-tab="admin" id="tab-admin" hidden>Utilisateurs</button>
-    </div>
-
-    <section data-panel="edit" class="side">
-      <div class="card">
-        <h2>En-tête</h2>
-        <label class="f">Programme<input type="text" id="programme"></label>
-        <div class="grid2">
-          <label class="f">Matière<input type="text" id="matiere"></label>
-          <label class="f">Niveau<input type="text" id="niveau"></label>
-          <label class="f">Enseignant<input type="text" id="enseignant"></label>
-          <label class="f">École<input type="text" id="ecole"></label>
-          <label class="f">Titre du document<input type="text" id="doc"></label>
-          <label class="f">Date (vide = pointillés)<input type="text" id="date"></label>
-        </div>
-      </div>
-      <div class="card">
-        <h2>Centre</h2>
-        <div class="grid2">
-          <label class="f">Titre<input type="text" id="titre"></label>
-          <label class="f">Durée totale<input type="text" id="duree"></label>
-        </div>
-        <label class="f">Sous-titre<input type="text" id="soustitre"></label>
-      </div>
-      <div class="card">
-        <div class="row" style="justify-content:space-between">
-          <h2>Branches</h2>
-          <button class="btn sm primary" id="addBranch">+ Ajouter une branche</button>
-        </div>
-        <p class="hint">Une ligne = une case. Le déroulé en bas de page reprend, dans l'ordre, les branches qui ont une durée. <span id="sumInfo"></span></p>
-        <div id="branches" style="display:flex;flex-direction:column;gap:10px"></div>
-      </div>
-    </section>
-
-    <section data-panel="text" class="side" hidden>
-      <div class="card">
-        <h2>Saisie rapide</h2>
-        <p class="hint">Écrivez ou collez le plan de la séance, puis cliquez sur « Générer la carte ».<br>
-        1<sup>re</sup> ligne : <code>Titre | sous-titre | durée</code><br>
-        Branche : <code>## Lecture | 20 min</code> (ajoutez <code>| gauche</code> ou <code>| droite</code> pour choisir le côté)<br>
-        Case : <code>- Lire en silence</code></p>
-        <textarea id="quick" rows="22" spellcheck="false"></textarea>
-        <div class="row">
-          <button class="btn primary" id="genQuick">Générer la carte</button>
-          <button class="btn" id="fillQuick">Reprendre la carte actuelle</button>
-        </div>
-        <p class="hint" id="quickMsg" role="status"></p>
-      </div>
-    </section>
-
-    <section data-panel="lib" class="side" hidden>
-      <div class="card">
-        <h2>Mes séances</h2>
-        <p class="hint" id="libHint">Chaque modification est enregistrée automatiquement.</p>
-        <div class="row">
-          <button class="btn primary" id="newMap">Nouvelle carte</button>
-          <button class="btn" id="dupMap">Dupliquer la carte actuelle</button>
-        </div>
-        <input type="text" id="libSearch" placeholder="Rechercher (titre, matière, niveau…)" aria-label="Rechercher une séance">
-        <div id="libList" style="display:flex;flex-direction:column;gap:6px"></div>
-      </div>
-      <div class="card">
-        <h2>Fichier</h2>
-        <div class="row">
-          <button class="btn" id="exportJson">Exporter la carte (.json)</button>
-          <label class="btn" for="importJson">Importer une carte</label>
-          <input type="file" id="importJson" accept=".json,application/json" hidden>
-        </div>
-      </div>
-    </section>
-
-    <section data-panel="admin" class="side" hidden>
-      <div class="card">
-        <h2>Valider un enseignant</h2>
-        <form id="adForm" novalidate style="display:flex;flex-direction:column;gap:8px">
-          <label class="f">Email<input type="email" id="adEmail" required></label>
-          <label class="f">Mot de passe à lui donner
-            <span class="row" style="flex-wrap:nowrap"><input type="text" id="adPass" required><button class="btn sm" type="button" id="adGen">Générer</button></span>
-          </label>
-          <div class="grid2">
-            <label class="f">Nom affiché<input type="text" id="adNom"></label>
-            <label class="f">École<input type="text" id="adEcole"></label>
-          </div>
-          <label class="f">Rôle
-            <select id="adRole"><option value="enseignant">Enseignant</option><option value="admin">Administrateur</option></select>
-          </label>
-          <p class="err" id="adErr" role="alert"></p>
-          <p class="okmsg" id="adOk" role="status"></p>
-          <div class="row">
-            <button class="btn primary" type="submit" id="adBtn">Créer et valider le compte</button>
-            <button class="btn" type="button" id="adCopy" hidden>Copier les identifiants</button>
-          </div>
-        </form>
-      </div>
-      <div class="card">
-        <div class="row" style="justify-content:space-between"><h2>Comptes validés</h2><span class="note" id="adCount"></span></div>
-        <p class="hint">« Retirer l'accès » bloque immédiatement le compte, même si la personne connaît son mot de passe.</p>
-        <div id="adList" style="display:flex;flex-direction:column;gap:6px"></div>
-      </div>
-    </section>
-  </aside>
-
-  <main class="main">
-    <div class="toolbar">
-      <div class="row">
-        <span class="note">Style</span>
-        <div class="seg" id="styleSeg">
-          <button aria-pressed="true" data-style="couleur">Couleur</button>
-          <button aria-pressed="false" data-style="nb">Noir et blanc</button>
-        </div>
-        <span class="note" id="saveState"></span>
-      </div>
-      <div class="row">
-        <button class="btn" id="exportPng">Télécharger l'image (PNG)</button>
-        <button class="btn primary" id="printBtn">Imprimer / PDF</button>
-      </div>
-    </div>
-    <div class="stage-wrap" id="stageWrap">
-      <div class="stage" id="stage"><div id="page"></div></div>
-    </div>
-  </main>
+<h3 class="t vocab">Vocabulaire difficile</h3><table class="voc"><thead><tr><th>Mot / Expression</th><th>Explication en français</th><th class="ar">En arabe</th></tr></thead><tbody>
+<tr><td class="mot">néfaste</td><td>qui porte malheur</td><td class="ar" dir="rtl" lang="ar">مشؤوم</td></tr>
+<tr><td class="mot">l&#x27;amertume</td><td>goût amer ; ici, sentiment de tristesse</td><td class="ar" dir="rtl" lang="ar">المرارة</td></tr>
+<tr><td class="mot">un cauchemar</td><td>mauvais rêve qui fait peur</td><td class="ar" dir="rtl" lang="ar">كابوس</td></tr>
+<tr><td class="mot">échevelé(e)</td><td>qui a les cheveux en désordre</td><td class="ar" dir="rtl" lang="ar">منفوش الشعر</td></tr>
+<tr><td class="mot">ânonner</td><td>lire ou réciter avec difficulté, en hésitant</td><td class="ar" dir="rtl" lang="ar">يتلعثم في القراءة</td></tr>
+<tr><td class="mot">perméable à</td><td>qui laisse passer ; ici, sensible à</td><td class="ar" dir="rtl" lang="ar">يتأثر بـ</td></tr>
+<tr><td class="mot">l&#x27;hostilité</td><td>attitude d&#x27;ennemi, méchanceté</td><td class="ar" dir="rtl" lang="ar">العداء</td></tr>
+<tr><td class="mot">la fragilité</td><td>faiblesse, manque de force</td><td class="ar" dir="rtl" lang="ar">الهشاشة / الضعف</td></tr>
+<tr><td class="mot">le cognassier</td><td>arbre qui donne le coing (sa branche sert de baguette)</td><td class="ar" dir="rtl" lang="ar">شجرة السفرجل</td></tr>
+<tr><td class="mot">appréhender</td><td>avoir peur de ce qui va arriver</td><td class="ar" dir="rtl" lang="ar">يتوجّس / يخشى</td></tr>
+<tr><td class="mot">un verset</td><td>phrase du Coran</td><td class="ar" dir="rtl" lang="ar">آية</td></tr>
+<tr><td class="mot">une planchette</td><td>petite planche où l&#x27;élève écrit sa leçon</td><td class="ar" dir="rtl" lang="ar">اللوح</td></tr>
+</tbody></table>
+<h3 class="t fig">Figures de style</h3><button class="rev" data-open="Masquer les figures de style" data-closed="Afficher les figures de style">Afficher les figures de style</button><div class="hid" hidden><table class="grid fig"><thead><tr><th>Figure</th><th>Exemple dans le texte</th><th>Explication</th></tr></thead><tbody>
+<tr><td class="nm">Métaphore</td><td><i>« me laisse dans la bouche un goût d’amertume »</i></td><td>Le souvenir pénible du mardi est assimilé à un goût amer qui reste dans la bouche.</td></tr>
+<tr><td class="nm">Métaphore</td><td><i>« Tous les mardis sont pour moi couleur de cendre »</i></td><td>Les mardis reçoivent une couleur, le gris de la cendre : ce sont des jours tristes, sans joie.</td></tr>
+<tr><td class="nm">Personnification</td><td><i>« mes babouches qui m’attendaient à la porte du Msid »</i></td><td>Les babouches attendent l’enfant comme des personnes fidèles.</td></tr>
+<tr class="none"><td class="nm">Comparaison</td><td>—</td><td><i>Aucune comparaison dans cet extrait.</i></td></tr>
+</tbody></table></div>
+<h3 class="t lex">Champs lexicaux</h3><button class="rev" data-open="Masquer les champs lexicaux" data-closed="Afficher les champs lexicaux">Afficher les champs lexicaux</button><div class="hid" hidden><table class="grid lex"><thead><tr><th>Champ lexical</th><th>Mots et expressions du texte</th></tr></thead><tbody>
+<tr><td class="nm">L’école coranique</td><td>Msid, fqih, planchette, versets, révisions, réciter, Coran, maître, école</td></tr>
+<tr><td class="nm">Le corps</td><td>bouche, yeux, visage, front, chair, corps, main</td></tr>
+</tbody></table></div>
+<p class="note">→ À vous : relevez le champ lexical de la peur et de la souffrance (question 7).</p>
+<h3 class="t quest">Questions de compréhension</h3><ol class="qs">
+<li><div class="q">Pourquoi le mardi est-il un jour « néfaste » pour les élèves du Msid ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>C’est le jour des révisions. Le mardi soir, chaque élève doit réciter les chapitres du Coran qu’il a appris depuis son entrée à l’école, sous le regard sévère du fqih et la menace de la baguette. Le narrateur en garde « un goût d’amertume ».</p></div></li>
+<li><div class="q">Comment s&#x27;est passée la nuit du narrateur avant ce mardi ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Sa nuit a été « peuplée de cauchemars » : des femmes échevelées le menaçaient, l’insultaient, et l’une d’elles le jetait par la fenêtre. Il a crié, puis une main « combien douce » s’est posée sur son front.</p></div></li>
+<li><div class="q">Comment le narrateur décrit-il le regard du fqih ce jour-là ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Le fqih a « son regard de tous les mardis » : ses yeux ne sont « perméables à aucune pitié ». C’est un regard dur, qui n’annonce aucune indulgence.</p></div></li>
+<li><div class="q">De quoi le narrateur a-t-il déjà conscience à l&#x27;âge de six ans ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Il a déjà conscience « de l’hostilité du monde et de ma fragilité » : il connaît la peur et la souffrance.</p></div></li>
+<li><div class="q">Avec quoi le fqih punit-il les élèves ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Avec une baguette de cognassier, dont l’enfant connaît la douleur sur sa chair.</p></div></li>
+<li><div class="q">Que doit faire l&#x27;enfant le mardi soir, « selon la coutume » ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Il doit réciter « les quelques chapitres du Coran » qu’il a appris depuis son entrée à l’école : c’est le soir des révisions.</p></div></li>
+<li><div class="q">Relevez le champ lexical de la peur et de la souffrance.</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Champ lexical de la peur et de la souffrance :</p><ul><li>la peur : « cauchemars », « menaçaient », « je criai », « la peur », « tremblait », « J’appréhendais » ;</li><li>la souffrance : « un goût d’amertume », « les pires injures », « la souffrance de la chair », « l’hostilité du monde », « ma fragilité ».</li></ul><p>Ce champ lexical montre un enfant terrorisé par le Msid : l’école est vécue comme un lieu de menace et de douleur.</p></div></li>
+</ol>
+<div class="pager"><span></span><button class="nav" data-go="p2">Partie suivante →</button></div>
+</section>
+<section id="p2" class="part" hidden>
+<header class="banner"><span class="kick">PARTIE 2</span><h2>La migraine de la mère et la visite de Lalla Aïcha</h2><span class="ref">Chapitre II, p. 8-9</span></header>
+<div class="box resume"><b>Résumé de la scène</b><p>De retour à la maison, l’enfant trouve sa mère souffrant d’une terrible migraine. Lalla Aïcha, une ancienne voisine, remarque la pâleur de l’enfant, que la mère attribue au mauvais œil. Elle les convainc d’aller l’après-midi même au sanctuaire de Sidi Ali Boughaleb. On boit le thé, puis chacun s’habille pour ce « grand jour ».</p></div>
+<h3 class="t texte">Texte de la scène</h3><div class="scene">
+<p class="">Ma mère me reçut assez froidement. Elle souffrait d&#x27;une terrible migraine. Pour enrayer le mal, elle avait les tempes garnies de rondelles de papier copieusement enduites de colle de farine.</p>
+<p class="">Le déjeuner fut improvisé et la bouilloire sur son brasero entama timidement sa chanson.</p>
+<p class="">Lalla Aïcha, une ancienne voisine, vint nous rendre visite. Ma mère la reçut en se plaignant de ses maux tant physiques que moraux. Elle affectait une voix faible de convalescente, s&#x27;étendait sur les souffrances de telle partie de son corps, serrait violemment des deux mains sa tête empaquetée dans un foulard. Lalla Aïcha lui prodigua toutes sortes de conseils, lui indiqua un fqih dans un quartier éloigné, dont les talismans faisaient miracle. Je me tenais timide et silencieux dans mon coin. La visiteuse remarqua la pâleur de mon visage.</p>
+<p class="dial">- Qu&#x27;a-t-il ton fils? demanda-t-elle.</p>
+<p class="">Et ma mère de répondre :</p>
+<p class="dial">- Les yeux du monde sont si mauvais, le regard des envieux a éteint l&#x27;éclat de ce visage qui évoquait un bouquet de roses. Te souviens-tu de ses joues qui suaient le carmin? et de ses yeux aux longs cils, noirs comme les ailes du corbeau? Dieu est mon mandataire, sa vengeance sera terrible.</p>
+<p class="dial">- Je peux te donner un conseil; dit Lalla Aïcha: montons tous les trois cet après-midi à Sidi Ali Boughaleb. Cet enfant ne pourra pas supporter le Msid; si tu lui faisais boire de l&#x27;eau du sanctuaire, il retrouverait sa gaîté et sa force.</p>
+<p class="">Ma mère hésitait encore. Pour la convaincre Lalla Aïcha parla longuement de ses douleurs de jointures, de ses jambes qui ne lui obéissaient plus, de ses mains lourdes comme du plomb, des difficultés qu&#x27;elle éprouvait à se retourner dans son lit et des nuits blanches qu&#x27;elle avait passées à gémir comme Job sur son grabat. Grâce à Sidi Ali Boughaleb, patron des médecins et des barbiers, ses douleurs ont disparu.</p>
+<p class="">Lalla Zoubida, c&#x27;est Dieu qui m&#x27;envoie pour te secourir, t&#x27;indiquer la voie de la guérison, je vous aime, toi et ton fils, je ne retrouverai jamais le goût ni de la nourriture, ni de la boisson si je vous abandonne à vos souffrances. Ma mère promit de visiter Sidi Ali Boughaleb et de m&#x27;emmener cet après-midi même. Lalla Aïcha soupira de satisfaction.</p>
+<p class="">Les deux femmes restèrent à bavarder encore longtemps. Ma mère monta sur la terrasse, redescendit avec une brassée de plantes aromatiques qu&#x27;elle cultivait dans des pots ébréchés et de vieilles marmites d&#x27;émail. Elle parfuma son thé de verveine et de sauge, proposa à</p>
+<p class="">Lalla Aïcha une petite branche d&#x27;absinthe à mettre dans son verre. Elle refusa poliment, déclara que ce thé était déjà un véritable printemps. Je mis dans mon verre toutes sortes de plantes aromatiques. Je les laissai longtemps macérer. Mon thé devint amer, mais je savais que cette boisson soulageait mes fréquentes coliques.</p>
+<p class="">Ma mère se leva pour se préparer. Elle changea de chemise et de mansouria, chercha au fond du coffre une vieille ceinture brodée d&#x27;un vert passé, trouva un morceau de cotonnade blanche qui lui servait de voile, se drapa dignement dans son haïk fraîchement lavé.</p>
+<p class="">C&#x27;était, en vérité, un grand jour. J&#x27;eus droit à ma djellaba blanche et je dus quitter celle de tous les jours, une djellaba grise, d&#x27;un gris indéfinissable, constellée de taches d&#x27;encre et de ronds de graisse. Lalla Aïcha éprouva toutes sortes de difficultés à s&#x27;arracher du matelas où elle gisait.</p>
+<p class="">J&#x27;ai gardé un vif souvenir de cette femme, plus large que haute, avec une tête qui reposait directement sur le tronc, des bras courts qui s&#x27;agitaient constantly. Son visage lisse et rond m&#x27;inspirait un certain dégoût. Je n&#x27;aimais pas qu&#x27;elle m&#x27;embrassât. Quand elle venait chez nous, ma mère m&#x27;obligeait à lui baiser la main parce qu&#x27;elle était chérifa, fille du Prophète, parce qu&#x27;elle avait connu la fortune et qu&#x27;elle était restée digne malgré les revers du sort. Une relation comme Lalla Aïcha flattait l&#x27;orgueil de ma mère.</p>
 </div>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script type="module">
-/* ================= Données de base ================= */
-const COLORS={teal:"#0E9384",bleu:"#2F6FDB",violet:"#7550D8",rose:"#D8407A",orange:"#E8702A",ambre:"#C98A0B",vert:"#3F9A35",rouge:"#CF3B33"};
-const INK="#22264A";
-const EXAMPLE={
-  programme:"Programme de soutien des apprentissages fondamentaux",
-  matiere:"Français", niveau:"Niveau 4", doc:"Carte mentale de la séance",
-  enseignant:"", ecole:"", date:"",
-  titre:"Séance 5", soustitre:"Semaine 3 · Mes projets", duree:"70 min", style:"couleur",
-  branches:[
-    {t:"Objectifs",side:"L",c:"violet",items:["Parler de ses projets au futur simple","Comprendre le texte « Les vacances de Sofia »","Écrire des phrases correctes"]},
-    {t:"Matériel",side:"R",c:"bleu",items:["Vidéo et diaporama","Livret p. 125 et 126","Cahiers et tableau"]},
-    {t:"Ouverture",d:"5 min",side:"L",c:"ambre",items:["Salutations : « Bonjour les enfants ! »","Annonce des objectifs de la séance","Visionnage de la vidéo"]},
-    {t:"Prise de parole",d:"15 min",side:"L",c:"teal",items:["Étape 1 : expliquer la situation","Étape 2 : réflexion silencieuse","Étape 3 : passage au tableau, puis tous","Modèle : « Dimanche prochain, j'aurai un match. J'irai au stade à 10 h. »"]},
-    {t:"Lecture",d:"20 min",side:"R",c:"rose",items:["Lire en silence, repérer les mots difficiles","Partie 1 : Où ira Sofia ? → à la campagne, à Beni Mellal","Partie 2 : Avec qui jouera-t-elle ? → avec ses cousines","Partie 3 : Où ira-t-elle avec ses parents ? → voir la cascade d'Ouzoud","Relecture silencieuse du texte p. 125"]},
-    {t:"Écriture",d:"20 min",side:"R",c:"orange",items:["Deux dictées et correction","Phrase avec : les vacances – la montagne","Activité 4 du livret p. 126"]},
-    {t:"Clôture",d:"10 min",side:"R",c:"vert",items:["Devoirs : relire le texte p. 125 et répondre aux questions","Qu'avons-nous appris aujourd'hui ?"]}
-  ]
-};
-const BLANK=()=>({...structuredClone(EXAMPLE),titre:"Nouvelle séance",soustitre:"",duree:"",
-  enseignant:profile.nom||"",ecole:profile.ecole||"",branches:[
-  {t:"Objectifs",side:"L",c:"violet",items:[""]},{t:"Matériel",side:"R",c:"bleu",items:[""]},
-  {t:"Ouverture",d:"",side:"L",c:"ambre",items:[""]},{t:"Activités",d:"",side:"R",c:"rose",items:[""]},
-  {t:"Clôture",d:"",side:"R",c:"vert",items:[""]}]});
-const FIELDS=["programme","matiere","niveau","enseignant","ecole","doc","date","titre","duree","soustitre"];
-
-const $=id=>document.getElementById(id);
-const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const newId=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
-function tint(hex,a){const n=parseInt(hex.slice(1),16),r=n>>16,g=(n>>8)&255,b=n&255;const m=v=>Math.round(255-(255-v)*a);return `rgb(${m(r)},${m(g)},${m(b)})`}
-function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("on");clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove("on"),2600)}
-const ls={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}};
-
-/* ================= État ================= */
-let data=structuredClone(EXAMPLE), currentId=null, seances=[], profile={}, user=null, DEMO=true, fb=null;
-
-/* ================= Stockage (Firestore ou navigateur) ================= */
-const db={
-  async list(){
-    if(DEMO)return ls.get("cm-demo-lib",[]);
-    const {collection,getDocs}=fb.fs;
-    const snap=await getDocs(collection(fb.db,"utilisateurs",user.uid,"seances"));
-    return snap.docs.map(d=>({id:d.id,data:d.data().data,updatedAt:d.data().updatedAt||0}));
-  },
-  async save(id,d){
-    const it={id,data:JSON.parse(JSON.stringify(d)),updatedAt:Date.now()};
-    const i=seances.findIndex(s=>s.id===id);i>=0?seances[i]=it:seances.unshift(it);
-    if(DEMO){return ls.set("cm-demo-lib",seances)}
-    const {doc,setDoc}=fb.fs;
-    await setDoc(doc(fb.db,"utilisateurs",user.uid,"seances",id),{data:it.data,updatedAt:it.updatedAt});
-    return true;
-  },
-  async remove(id){
-    seances=seances.filter(s=>s.id!==id);
-    if(DEMO)return ls.set("cm-demo-lib",seances);
-    const {doc,deleteDoc}=fb.fs;await deleteDoc(doc(fb.db,"utilisateurs",user.uid,"seances",id));
-  }
-};
-
-/* ================= Rendu de la feuille ================= */
-function colorOf(b){return data.style==="nb"?"#1d1d1d":(COLORS[b.c]||COLORS.teal)}
-function renderPage(){
-  const p=$("page"),d=data,nb=d.style==="nb";
-  const grp=b=>{const c=colorOf(b),bg=nb?"#fff":tint(c,.09);
-    return `<div class="grp"><div class="pill" style="background:${nb?"#2b2b2b":c}">${esc(b.t)}${b.d?`<span class="dur" style="color:${nb?"#111":c}">${esc(b.d)}</span>`:""}</div>
-    <div class="items"><div class="rail" style="background:${c}"></div>${(b.items||[]).filter(x=>x.trim()).map(i=>`<div class="it" style="border-color:${c};background:${bg}"><span class="tick" style="background:${c}"></span>${esc(i)}</div>`).join("")}</div></div>`};
-  const L=d.branches.filter(b=>b.side!=="R"),R=d.branches.filter(b=>b.side==="R");
-  const flow=d.branches.filter(b=>b.d).map(b=>esc(b.t)).join(" → ");
-  const ink=nb?"#111":INK;
-  p.innerHTML=`<svg class="links"></svg>
-  <div class="h1">${esc(d.programme)} — ${esc(d.matiere)} — ${esc(d.niveau)} — <b>${esc(d.doc)}</b></div>
-  <div class="h2"><span><b>Enseignant :</b> ${esc(d.enseignant)}</span><span><b>École :</b> ${esc(d.ecole)}</span><span><b>Date :</b> ${d.date?esc(d.date):"................................"}</span></div>
-  <div class="col L">${L.map(grp).join("")}</div>
-  <div class="col R">${R.map(grp).join("")}</div>
-  <div class="center" style="border-color:${ink}"><div class="in" style="background:${ink}"><div class="t">${esc(d.titre)}</div><div class="s">${esc(d.soustitre)}</div>${d.duree?`<div class="d">Durée : ${esc(d.duree)}</div>`:""}</div></div>
-  <div class="foot">${flow}</div>`;
-  fit();drawLinks();sumInfo();
+<h3 class="t vocab">Vocabulaire difficile</h3><table class="voc"><thead><tr><th>Mot / Expression</th><th>Explication en français</th><th class="ar">En arabe</th></tr></thead><tbody>
+<tr><td class="mot">une migraine</td><td>fort mal de tête</td><td class="ar" dir="rtl" lang="ar">صداع نصفي / شقيقة</td></tr>
+<tr><td class="mot">enrayer</td><td>arrêter, stopper (un mal)</td><td class="ar" dir="rtl" lang="ar">يوقف / يكبح</td></tr>
+<tr><td class="mot">les tempes</td><td>côtés de la tête, entre l&#x27;œil et l&#x27;oreille</td><td class="ar" dir="rtl" lang="ar">الصدغان</td></tr>
+<tr><td class="mot">une convalescente</td><td>personne qui se remet d&#x27;une maladie</td><td class="ar" dir="rtl" lang="ar">ناقهة</td></tr>
+<tr><td class="mot">prodiguer</td><td>donner en grande quantité</td><td class="ar" dir="rtl" lang="ar">يُغدق / يُكثر من</td></tr>
+<tr><td class="mot">un talisman</td><td>objet censé protéger par magie</td><td class="ar" dir="rtl" lang="ar">تميمة / حرز</td></tr>
+<tr><td class="mot">la pâleur</td><td>couleur très claire du visage (signe de fatigue)</td><td class="ar" dir="rtl" lang="ar">شحوب</td></tr>
+<tr><td class="mot">les envieux</td><td>ceux qui sont jaloux du bonheur des autres</td><td class="ar" dir="rtl" lang="ar">الحُسّاد</td></tr>
+<tr><td class="mot">un sanctuaire</td><td>lieu saint, tombeau d&#x27;un saint</td><td class="ar" dir="rtl" lang="ar">ضريح</td></tr>
+<tr><td class="mot">un grabat</td><td>lit misérable</td><td class="ar" dir="rtl" lang="ar">فراش بالٍ</td></tr>
+<tr><td class="mot">macérer</td><td>tremper longtemps dans un liquide</td><td class="ar" dir="rtl" lang="ar">ينقع</td></tr>
+<tr><td class="mot">une chérifa</td><td>descendante du Prophète</td><td class="ar" dir="rtl" lang="ar">شريفة</td></tr>
+<tr><td class="mot">les revers du sort</td><td>les malheurs de la vie</td><td class="ar" dir="rtl" lang="ar">نكبات الدهر</td></tr>
+</tbody></table>
+<h3 class="t fig">Figures de style</h3><button class="rev" data-open="Masquer les figures de style" data-closed="Afficher les figures de style">Afficher les figures de style</button><div class="hid" hidden><table class="grid fig"><thead><tr><th>Figure</th><th>Exemple dans le texte</th><th>Explication</th></tr></thead><tbody>
+<tr><td class="nm">Métaphore</td><td><i>« ce thé était déjà un véritable printemps »</i></td><td>Le thé parfumé aux plantes est assimilé au printemps : il est frais et plein de parfums.</td></tr>
+<tr><td class="nm">Métaphore</td><td><i>« le regard des envieux a éteint l’éclat de ce visage »</i></td><td>Le visage de l’enfant est assimilé à une lumière que la jalousie des autres a éteinte.</td></tr>
+<tr><td class="nm">Personnification</td><td><i>« la bouilloire sur son brasero entama timidement sa chanson »</i></td><td>La bouilloire chante timidement, comme une personne : c’est le bruit de l’eau qui chauffe.</td></tr>
+<tr><td class="nm">Comparaison</td><td><i>« ses mains lourdes comme du plomb »</i></td><td>Outil : « comme ». Les mains malades sont rapprochées du plomb, un métal très lourd.</td></tr>
+<tr><td class="nm">Comparaison</td><td><i>« noirs comme les ailes du corbeau »</i></td><td>Outil : « comme ». Le noir des yeux de l’enfant est rapproché du plumage du corbeau.</td></tr>
+</tbody></table></div>
+<h3 class="t lex">Champs lexicaux</h3><button class="rev" data-open="Masquer les champs lexicaux" data-closed="Afficher les champs lexicaux">Afficher les champs lexicaux</button><div class="hid" hidden><table class="grid lex"><thead><tr><th>Champ lexical</th><th>Mots et expressions du texte</th></tr></thead><tbody>
+<tr><td class="nm">La maladie et la douleur</td><td>migraine, mal, maux, souffrances, pâleur, douleurs, coliques, guérison</td></tr>
+<tr><td class="nm">Les croyances</td><td>talismans, miracle, regard des envieux, sanctuaire, chérifa, Prophète</td></tr>
+<tr><td class="nm">Le thé et les plantes</td><td>thé, verveine, sauge, absinthe, plantes aromatiques, amer</td></tr>
+<tr><td class="nm">Les vêtements</td><td>chemise, mansouria, ceinture brodée, voile, haïk, djellaba</td></tr>
+</tbody></table></div>
+<h3 class="t quest">Questions de compréhension</h3><ol class="qs">
+<li><div class="q">Dans quel état le narrateur trouve-t-il sa mère à son retour du Msid ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Sa mère le reçoit « assez froidement » : elle souffre d’une terrible migraine.</p></div></li>
+<li><div class="q">Comment la mère soigne-t-elle sa migraine ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Elle a garni ses tempes de rondelles de papier enduites de colle de farine, et sa tête est « empaquetée dans un foulard ».</p></div></li>
+<li><div class="q">Qui est Lalla Aïcha ? Pourquoi la mère est-elle fière de cette relation ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Lalla Aïcha est « une ancienne voisine », amie de la mère. C’est une chérifa, « fille du Prophète », qui a connu la fortune et qui est restée digne malgré « les revers du sort ». Une telle relation « flattait l’orgueil de ma mère ».</p></div></li>
+<li><div class="q">Comment la mère explique-t-elle la pâleur de son fils ? Que révèle cette explication ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Elle l’explique par le mauvais œil : « le regard des envieux a éteint l’éclat de ce visage ». Cette explication révèle sa croyance aux superstitions et sa méfiance envers les voisines, qu’elle croit jalouses.</p></div></li>
+<li><div class="q">Quel conseil Lalla Aïcha donne-t-elle ? Comment réussit-elle à convaincre la mère ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Elle conseille de monter l’après-midi même à Sidi Ali Boughaleb et de faire boire à l’enfant « de l’eau du sanctuaire » : il retrouverait « sa gaîté et sa force ». Pour convaincre la mère, qui hésite, elle raconte longuement ses propres douleurs, guéries grâce au saint, et affirme : « c’est Dieu qui m’envoie pour te secourir ».</p></div></li>
+<li><div class="q">Qu&#x27;est-ce qui montre que cette sortie est « un grand jour » pour l&#x27;enfant ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>L’enfant a droit à sa « djellaba blanche », au lieu de la djellaba grise de tous les jours, tachée d’encre et de graisse. La mère aussi se prépare avec soin : elle change de chemise, met une ceinture brodée et se drape dans son haïk « fraîchement lavé ».</p></div></li>
+<li><div class="q">Faites le portrait physique de Lalla Aïcha. Quel sentiment inspire-t-elle à l&#x27;enfant ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><ul><li>Portrait physique : elle est « plus large que haute », sa tête repose directement sur le tronc, ses bras courts s’agitent sans cesse et son visage est « lisse et rond ».</li><li>Sentiment de l’enfant : elle lui inspire « un certain dégoût » ; il n’aime pas qu’elle l’embrasse.</li></ul></div></li>
+</ol>
+<div class="pager"><button class="nav" data-go="p1">← Partie précédente</button><span></span><button class="nav" data-go="p3">Partie suivante →</button></div>
+</section>
+<section id="p3" class="part" hidden>
+<header class="banner"><span class="kick">PARTIE 3</span><h2>Le voyage vers le sanctuaire</h2><span class="ref">Chapitre II, p. 9-10</span></header>
+<div class="box resume"><b>Résumé de la scène</b><p>Dans les rues encombrées, les deux femmes avancent à petits pas et multiplient les recommandations. Lalla Aïcha, lente et corpulente, provoque des embouteillages. Près du cimetière, les étalages de sucreries rappellent à l’enfant sa Boîte à merveilles.</p></div>
+<h3 class="t texte">Texte de la scène</h3><div class="scene">
+<p class="">Enfin, tout le monde s&#x27;engagea dans l&#x27;escalier. Nous nous trouvámes bientôt dans la rue.</p>
+<p class="">Les deux femmes marchaient à tout petits pas, se penchant parfois l&#x27;une sur l&#x27;autre pour se communiquer leurs impressions dans un chuchotement. A la maison, elles faisaient trembler les murs en racontant les moindres futilités, tellement leurs cordes vocales étaient à toute épreuve elles devenaient, dans la rue, aphones et gentiment minaudières.</p>
+<p class="">Parfois je les devançais, mais elles me rattrapaient tous les trois pas pour me prodiguer des conseils de prudence et des recommandations. Je ne devais pas me frotter aux murs: les murs étaient si sales et j&#x27;avais ma superbe djellaba blanche, je devais me moucher souvent avec le beau mouchoir brodé pendu à mon cou, je devais de même m&#x27;écarter des ânes, ne jamais être derrière eux car ils pouvaient ruer et jamais devant car ils prenaient un malin plaisir à mordre les petits enfants.</p>
+<p class="dial">- Donne-moi la main, me disait ma mère.</p>
+<p class="">Et cinq pas après :</p>
+<p class="dial">- Va devant, tu as la main toute moite. Je reprenais ma liberté mais pour un temps très court. Lalla Aïcha se proposait de me guider dans la cohue. Elle marchait lentement et tenait beaucoup de volume. Un embouteillage ne tardait pas à se former. Les passants nous lançaient toutes sortes de remarques déplaisantes mais finissaient par se porter à notre secours. Des bras inconnus me soulevaient du sol, me faisaient passer par-dessus les têtes et je me trouvais finalement dans un espace libre. J&#x27;attendais un bon moment avant de voir surgir de la foule les deux haïks immaculés. La scène se renouvela plusieurs fois durant ce voyage. Nous traversâmes des rues sans nom ni visage particuliers. J&#x27;étais attentif aux conseils de mes deux guides, je m&#x27;appliquais à me garer des ânes, butais inévitablement dans les genoux des passants. Chaque fois que j&#x27;évitais un obstacle, il s&#x27;en présentait un autre. Nous arrivâmes enfin au cimetière qui s&#x27;étend aux abords de Sidi Ali Boughaleb. J&#x27;esquissai un timide pas d&#x27;allégresse.</p>
+<p class="">Les tombes couvertes de soucis rougeoyaient au soleil. Ça et là des marchands trônaient derrière leurs pyramides d&#x27;oranges. On entendait les coups de tambourin d&#x27;un chanteur populaire et la clochette du marchand d&#x27;eau. Sur la petite place, des campagnards vendaient du bois pour la lessive, des braseros de terre cuite, des plats pour cuire les galettes. Les éventaires des marchands de sucreries attiraient mon regard. On y voyait exposés des coqs et des poussins en sucre jaune ornementé de filets roses, des théières transparentes, de minuscules babouches et des soufflets. Ces objets magnifiques me rappelaient ma Boîte à Merveilles. Mon père m&#x27;en avait bien offert quelquefois, mais, avant d&#x27;arriver à la maison, s&#x27;émiettaient ou devenaient simplement gris et poussiéreux, indignes de figurer parmi mes trésors. Ils étaient beaux, là, au soleil, dans le bourdonnement de la foule.</p>
+</div>
+<h3 class="t vocab">Vocabulaire difficile</h3><table class="voc"><thead><tr><th>Mot / Expression</th><th>Explication en français</th><th class="ar">En arabe</th></tr></thead><tbody>
+<tr><td class="mot">un chuchotement</td><td>parole dite à voix très basse</td><td class="ar" dir="rtl" lang="ar">همس</td></tr>
+<tr><td class="mot">une futilité</td><td>chose sans importance</td><td class="ar" dir="rtl" lang="ar">أمر تافه</td></tr>
+<tr><td class="mot">aphone</td><td>sans voix</td><td class="ar" dir="rtl" lang="ar">فاقد الصوت</td></tr>
+<tr><td class="mot">minaudière</td><td>qui fait des manières pour plaire</td><td class="ar" dir="rtl" lang="ar">متصنّعة</td></tr>
+<tr><td class="mot">ruer</td><td>(âne, cheval) lancer les pattes arrière</td><td class="ar" dir="rtl" lang="ar">يرفس</td></tr>
+<tr><td class="mot">moite</td><td>légèrement humide</td><td class="ar" dir="rtl" lang="ar">رطب / نديّ</td></tr>
+<tr><td class="mot">la cohue</td><td>foule en désordre</td><td class="ar" dir="rtl" lang="ar">الزحام</td></tr>
+<tr><td class="mot">immaculé</td><td>parfaitement blanc, sans tache</td><td class="ar" dir="rtl" lang="ar">ناصع البياض</td></tr>
+<tr><td class="mot">l&#x27;allégresse</td><td>grande joie</td><td class="ar" dir="rtl" lang="ar">الابتهاج</td></tr>
+<tr><td class="mot">rougeoyer</td><td>prendre une couleur rouge</td><td class="ar" dir="rtl" lang="ar">يحمرّ / يتوهّج</td></tr>
+<tr><td class="mot">un éventaire</td><td>étalage d&#x27;un marchand en plein air</td><td class="ar" dir="rtl" lang="ar">بسطة البائع</td></tr>
+<tr><td class="mot">s&#x27;émietter</td><td>se casser en petits morceaux</td><td class="ar" dir="rtl" lang="ar">يتفتّت</td></tr>
+</tbody></table>
+<h3 class="t fig">Figures de style</h3><button class="rev" data-open="Masquer les figures de style" data-closed="Afficher les figures de style">Afficher les figures de style</button><div class="hid" hidden><table class="grid fig"><thead><tr><th>Figure</th><th>Exemple dans le texte</th><th>Explication</th></tr></thead><tbody>
+<tr><td class="nm">Métaphore</td><td><i>« leurs pyramides d’oranges »</i></td><td>Les tas d’oranges bien rangés sont assimilés à des pyramides.</td></tr>
+<tr><td class="nm">Métaphore</td><td><i>« dans le bourdonnement de la foule »</i></td><td>Le bruit de la foule est assimilé à celui d’un essaim d’abeilles.</td></tr>
+<tr><td class="nm">Personnification</td><td><i>« ils prenaient un malin plaisir à mordre les petits enfants »</i></td><td>Les ânes reçoivent une intention humaine, la méchanceté : c’est la peur des deux femmes qui parle.</td></tr>
+<tr><td class="nm">Personnification</td><td><i>« des rues sans nom ni visage particuliers »</i></td><td>Les rues ont un « visage » comme des personnes : celles-ci se ressemblent toutes.</td></tr>
+<tr class="none"><td class="nm">Comparaison</td><td>—</td><td><i>Aucune comparaison dans cet extrait.</i></td></tr>
+</tbody></table></div>
+<h3 class="t lex">Champs lexicaux</h3><button class="rev" data-open="Masquer les champs lexicaux" data-closed="Afficher les champs lexicaux">Afficher les champs lexicaux</button><div class="hid" hidden><table class="grid lex"><thead><tr><th>Champ lexical</th><th>Mots et expressions du texte</th></tr></thead><tbody>
+<tr><td class="nm">La rue et la foule</td><td>rue, passants, cohue, embouteillage, foule, murs, ânes</td></tr>
+<tr><td class="nm">Le commerce</td><td>marchands, oranges, vendaient, éventaires, sucreries, marchand d’eau</td></tr>
+<tr><td class="nm">Les sons</td><td>chuchotement, tambourin, clochette, chanteur, bourdonnement</td></tr>
+<tr><td class="nm">Les couleurs</td><td>blanche, jaune, roses, gris, rougeoyaient, immaculés</td></tr>
+</tbody></table></div>
+<h3 class="t quest">Questions de compréhension</h3><ol class="qs">
+<li><div class="q">Comment les deux femmes se comportent-elles dans la rue ? Et à la maison ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Dans la rue, elles marchent « à tout petits pas » et se parlent « dans un chuchotement » : elles deviennent « aphones et gentiment minaudières ». À la maison, au contraire, elles parlent si fort qu’elles font « trembler les murs ».</p></div></li>
+<li><div class="q">Quelles recommandations l&#x27;enfant reçoit-il pendant le trajet ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><ul><li>ne pas se frotter aux murs, qui sont sales, à cause de sa djellaba blanche ;</li><li>se moucher souvent avec son mouchoir brodé ;</li><li>s’écarter des ânes : jamais derrière eux, car ils peuvent ruer, ni devant, car ils mordent les petits enfants.</li></ul></div></li>
+<li><div class="q">Pourquoi un embouteillage se forme-t-il autour de Lalla Aïcha ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Lalla Aïcha veut guider l’enfant dans la cohue, mais elle marche lentement et « tenait beaucoup de volume » : elle bloque le passage dans les rues étroites.</p></div></li>
+<li><div class="q">Comment les passants réagissent-ils ? Comment l&#x27;enfant sort-il de la cohue ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Les passants lancent d’abord des « remarques déplaisantes », puis ils viennent à leur secours. Des « bras inconnus » soulèvent l’enfant, le font passer par-dessus les têtes et le déposent dans un espace libre, où il attend les deux femmes.</p></div></li>
+<li><div class="q">Que vend-on aux abords du cimetière ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>On y vend des oranges, de l’eau, du bois pour la lessive, des braseros de terre cuite, des plats pour cuire les galettes et des sucreries. Un chanteur populaire joue du tambourin.</p></div></li>
+<li><div class="q">Quels objets attirent le regard de l&#x27;enfant ? À quoi lui font-ils penser ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Ce sont les sucreries : des coqs et des poussins en sucre jaune, des théières transparentes, de minuscules babouches et des soufflets. Ces objets lui rappellent sa Boîte à merveilles.</p></div></li>
+<li><div class="q">Pourquoi les sucreries offertes par son père n&#x27;entraient-elles pas dans la Boîte à merveilles ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Avant d’arriver à la maison, elles s’émiettaient ou devenaient « gris et poussiéreux » : elles étaient « indignes de figurer parmi mes trésors ».</p></div></li>
+</ol>
+<div class="pager"><button class="nav" data-go="p2">← Partie précédente</button><span></span><button class="nav" data-go="p4">Partie suivante →</button></div>
+</section>
+<section id="p4" class="part" hidden>
+<header class="banner"><span class="kick">PARTIE 4</span><h2>Au sanctuaire : prières et rituels</h2><span class="ref">Chapitre II, p. 10-11</span></header>
+<div class="box resume"><b>Résumé de la scène</b><p>Au sanctuaire, la mère fait boire à son fils l’eau sacrée et lui en passe sur le visage et les membres. Devant le catafalque, les deux femmes implorent le saint à grands cris. La gardienne les félicite, parle de la bonté de Dieu et de l’amour du saint pour les chats, puis reçoit leur offrande.</p></div>
+<h3 class="t texte">Texte de la scène</h3><div class="scene">
+<p class="">Le toit de tuiles vertes qui couvre le mausolée se dressait dans un tendre azur où batifolaient de nuages blancs et roses aux formes capricieuses. Sur les marches de l&#x27;entrée principale, des femmes, assises à même le sol, devisaient entre elles, mâchaient sous leur voile de la gomme parfumée, interpellaient leurs enfants qui jouaient dans la poussière. Elles se serrèrent pour nous laisser un étroit passage.</p>
+<p class="">Nous nous trouvâmes bientôt dans une cour qui me parut immense. Au centre trônaient quatre vaisseaux en terre cuite remplis d&#x27;eau. Ma mère trouva un gobelet et me fit boire. Elle se versa un peu de liquide dans le creux de la main, me passa les doigts sur le visage, les yeux, les jointures des mains et sur les chevilles. Tout en procédant à ce rituel, elle marmonnait de vagues prières, des invocations, me recommandait de rester tranquille, rappelait à Lalla Aïcha telle ou telle péripétie de notre promenade. Je subissais tout cela avec ma patience coutumière. Je me tortillais le cou pour regarder une armée de chats qui se livraient à une folle sarabande à l&#x27;intérieur de ce temple étrange. Au delà de cette cour s&#x27;ouvrait la Zaouia. De chaque côté d&#x27;une pièce carrée où se dressait le catafalque du Saint, deux portes conduisaient aux chambres des pèlerins. Des gens venus de loin, pour se débarrasser de leurs maux, vivaient là avec leurs enfants, attendant la guérison.</p>
+<p class="">En arrivant devant le catafalque, Lalla Aïcha et mère se mirent à appeler à grands cris le saint à leur secours. L&#x27;une ignorant les paroles de l&#x27;autre, chacune lui exposait ses petites misères, frappait du plat de la main le bois du catafalque, gémissait, suppliait, vitupérait contre ses ennemis. Les voix montaient, les mains frappaient le bois du catafalque avec plus d&#x27;énergie et de passion. Un délire sacré, s&#x27;était emparé des deux femmes. Elles énuméraient leurs maux, exposaient leurs faiblesses, demandaient protection, réclamaient vengeance, avouaient impuretés, proclamaient la miséricorde de Dieu et la puissance de Sidi Ali Boughaleb, en appelaient à sa pitié. Épuisées par leur ferveur, elles s&#x27;arrêtèrent enfin. La gardienne du mausolée vint les complimenter sur leur piété et joindre ses prières aux leurs.</p>
+<p class="dial">- Vos vœux seront exaucés et vos désirs comblés, dit-elle pour conclure. Dieu est généreux, il soulage les souffrances et panse toutes les blessures. Sa bonté s&#x27;étend à toutes les créatures. N&#x27;est-ce pas un signe de Sa Bonté de nous avoir envoyé des Prophètes pour détourner de la voie du mal et nous indiquer le chemin du Paradis? C&#x27;est un effet de sa générosité nous avoir révélé par l&#x27;intermédiaire de Notre- Seigneur Mohammed (le salut et la paix soient sur lui) sa Parole très vénérée qui nous enseigne les vertus capitales : la charité, l&#x27;amour des parents, le bienfait envers toutes les créatures. Ceux qui ont pratiqué ces vertus dans toute leur intégrité deviennent les Amis de Dieu et intercèdent en notre faveur. Sidi Ali Boughaleb figure parmi les plus dignes. Il aimait tous les êtres et affectionnait en particulier les chats. Nous en avons actuellement plus de cinquante. On nous les amène malades, galeux et efflanqués. Peu de temps suffit pour qu&#x27;ils retrouvent la santé et la joie. Pour plaire au Saint, nous devons les nourrir et les soigner.</p>
+<p class="">Ma mère fouillait dans ses vêtements. Elle ne tarda pas à sortir un mouchoir avec un gros nœud. Lentement, elle dénoua en s&#x27;aidant plusieurs fois de ses incisives. Lalla Aicha lui chuchota à l&#x27;oreille une phrase mystérieuse, ma mère hocha la tête et offrit à la Moqadma deux pièces d&#x27;un franc accompagnées de cette explication :</p>
+<p class="">Voici pour moi et pour la chérifa qui m&#x27;accompagne.</p>
+<p class="">La gardienne ouvrit ses deux mains, reçut le don et entama une longue oraison. Des femmes arrivèrent de l&#x27;extérieur et se joignirent à notre petit groupe pour bénéficier de ce moment de grâce, pour profiter de cette rosée spirituelle qui rafraîchit les cœurs.</p>
+</div>
+<h3 class="t vocab">Vocabulaire difficile</h3><table class="voc"><thead><tr><th>Mot / Expression</th><th>Explication en français</th><th class="ar">En arabe</th></tr></thead><tbody>
+<tr><td class="mot">un mausolée</td><td>grand tombeau d&#x27;un saint</td><td class="ar" dir="rtl" lang="ar">ضريح / مقام</td></tr>
+<tr><td class="mot">batifoler</td><td>jouer, s&#x27;amuser gaiement</td><td class="ar" dir="rtl" lang="ar">يمرح</td></tr>
+<tr><td class="mot">un rituel</td><td>gestes religieux toujours répétés de la même façon</td><td class="ar" dir="rtl" lang="ar">طقس</td></tr>
+<tr><td class="mot">marmonner</td><td>dire à voix basse, entre ses dents</td><td class="ar" dir="rtl" lang="ar">يتمتم</td></tr>
+<tr><td class="mot">une invocation</td><td>prière pour demander l&#x27;aide de Dieu</td><td class="ar" dir="rtl" lang="ar">دعاء / ابتهال</td></tr>
+<tr><td class="mot">la Zaouïa</td><td>lieu religieux bâti autour du tombeau d&#x27;un saint</td><td class="ar" dir="rtl" lang="ar">الزاوية</td></tr>
+<tr><td class="mot">le catafalque</td><td>coffre en bois posé sur le tombeau du saint</td><td class="ar" dir="rtl" lang="ar">تابوت الضريح</td></tr>
+<tr><td class="mot">un pèlerin</td><td>personne qui visite un lieu saint</td><td class="ar" dir="rtl" lang="ar">زائر / حاجّ</td></tr>
+<tr><td class="mot">vitupérer</td><td>protester avec colère</td><td class="ar" dir="rtl" lang="ar">يسخط / يشتم</td></tr>
+<tr><td class="mot">la ferveur</td><td>forte émotion religieuse</td><td class="ar" dir="rtl" lang="ar">خشوع / حماس ديني</td></tr>
+<tr><td class="mot">la miséricorde</td><td>pitié, pardon (de Dieu)</td><td class="ar" dir="rtl" lang="ar">الرحمة</td></tr>
+<tr><td class="mot">intercéder</td><td>intervenir en faveur de quelqu&#x27;un</td><td class="ar" dir="rtl" lang="ar">يتشفّع</td></tr>
+<tr><td class="mot">efflanqué</td><td>très maigre</td><td class="ar" dir="rtl" lang="ar">هزيل</td></tr>
+<tr><td class="mot">une oraison</td><td>prière</td><td class="ar" dir="rtl" lang="ar">دعاء</td></tr>
+</tbody></table>
+<h3 class="t fig">Figures de style</h3><button class="rev" data-open="Masquer les figures de style" data-closed="Afficher les figures de style">Afficher les figures de style</button><div class="hid" hidden><table class="grid fig"><thead><tr><th>Figure</th><th>Exemple dans le texte</th><th>Explication</th></tr></thead><tbody>
+<tr><td class="nm">Métaphore</td><td><i>« une armée de chats »</i></td><td>Les chats, très nombreux, sont assimilés à une armée.</td></tr>
+<tr><td class="nm">Métaphore</td><td><i>« cette rosée spirituelle qui rafraîchit les cœurs »</i></td><td>La prière de la gardienne est assimilée à une rosée : elle apaise les fidèles.</td></tr>
+<tr><td class="nm">Personnification</td><td><i>« batifolaient de nuages blancs et roses »</i></td><td>Les nuages jouent dans le ciel comme des enfants : le décor est gai et paisible.</td></tr>
+<tr class="none"><td class="nm">Comparaison</td><td>—</td><td><i>Aucune comparaison dans cet extrait.</i></td></tr>
+</tbody></table></div>
+<h3 class="t lex">Champs lexicaux</h3><button class="rev" data-open="Masquer les champs lexicaux" data-closed="Afficher les champs lexicaux">Afficher les champs lexicaux</button><div class="hid" hidden><table class="grid lex"><thead><tr><th>Champ lexical</th><th>Mots et expressions du texte</th></tr></thead><tbody>
+<tr><td class="nm">La religion</td><td>mausolée, Saint, prières, invocations, Zaouia, catafalque, pèlerins, piété, miséricorde, Paradis, oraison</td></tr>
+<tr><td class="nm">L’eau et le rituel</td><td>eau, gobelet, boire, liquide, rituel</td></tr>
+<tr><td class="nm">La souffrance et la guérison</td><td>maux, misères, souffrances, blessures, malades, guérison, santé, soigner</td></tr>
+</tbody></table></div>
+<p class="note">→ À vous : relevez les verbes du « délire sacré » des deux femmes (question 4).</p>
+<h3 class="t quest">Questions de compréhension</h3><ol class="qs">
+<li><div class="q">Décrivez le lieu où arrivent les trois personnages (le toit, l&#x27;entrée, la cour).</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Le mausolée est couvert d’un « toit de tuiles vertes » qui se dresse dans le ciel bleu. Sur les marches de l’entrée, des femmes assises par terre bavardent pendant que leurs enfants jouent. À l’intérieur s’ouvre une cour qui paraît immense, avec en son centre quatre vaisseaux en terre cuite remplis d’eau. Au-delà se trouve la Zaouïa, où se dresse le catafalque du saint.</p></div></li>
+<li><div class="q">Quel rituel la mère accomplit-elle avec l&#x27;eau du sanctuaire ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Elle fait boire l’enfant dans un gobelet, puis elle lui passe de l’eau sur le visage, les yeux, les jointures des mains et les chevilles, tout en marmonnant « de vagues prières, des invocations ».</p></div></li>
+<li><div class="q">Qui vit dans les chambres de la Zaouïa ? Pourquoi ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Des pèlerins, « des gens venus de loin » avec leurs enfants. Ils vivent là pour se débarrasser de leurs maux, « attendant la guérison ».</p></div></li>
+<li><div class="q">Que font les deux femmes devant le catafalque ? Relevez les verbes qui montrent leur « délire sacré ».</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Elles appellent le saint « à grands cris », chacune lui expose ses misères sans écouter l’autre, et elles frappent du plat de la main le bois du catafalque.</p><p>Verbes du « délire sacré » : « gémissait », « suppliait », « vitupérait », « énuméraient », « exposaient », « demandaient », « réclamaient », « avouaient », « proclamaient ».</p></div></li>
+<li><div class="q">Que demandent-elles au saint ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Elles demandent la protection du saint et réclament vengeance contre leurs ennemis. Elles avouent leurs fautes et en appellent à sa pitié.</p></div></li>
+<li><div class="q">Que dit la gardienne sur Dieu et sur Sidi Ali Boughaleb ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><ul><li>Sur Dieu : il est généreux, il « soulage les souffrances et panse toutes les blessures » ; il a envoyé les Prophètes pour indiquer « le chemin du Paradis ».</li><li>Sur Sidi Ali Boughaleb : il fait partie des « Amis de Dieu » qui intercèdent en faveur des croyants ; il aimait tous les êtres et « affectionnait en particulier les chats ».</li></ul></div></li>
+<li><div class="q">Pourquoi y a-t-il plus de cinquante chats au sanctuaire ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Parce que le saint aimait les chats. On amène au sanctuaire des chats « malades, galeux et efflanqués » ; pour plaire au saint, on les nourrit et on les soigne.</p></div></li>
+<li><div class="q">Que donne la mère à la gardienne ? Pour qui ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Elle lui donne « deux pièces d’un franc » : une pour elle et une pour Lalla Aïcha, « la chérifa qui m’accompagne ».</p></div></li>
+</ol>
+<div class="pager"><button class="nav" data-go="p3">← Partie précédente</button><span></span><button class="nav" data-go="p5">Partie suivante →</button></div>
+</section>
+<section id="p5" class="part" hidden>
+<header class="banner"><span class="kick">PARTIE 5</span><h2>La griffure du chat</h2><span class="ref">Chapitre II, p. 11</span></header>
+<div class="box resume"><b>Résumé de la scène</b><p>Pendant la prière de la gardienne, l’enfant s’éloigne pour caresser un gros chat, qui le griffe jusqu’au sang. Il hurle ; les femmes l’entourent et tentent de le consoler, mais leur agitation lui donne le vertige. Il rentre en hoquetant et sa mère le couche.</p></div>
+<h3 class="t texte">Texte de la scène</h3><div class="scene">
+<p class="">Lentement, je me glissai hors de cet essaim de femmes pour aller caresser un gros matou étalé de tout son long contre le mur. Il me regarda de ses yeux jaunes, ronronna et m&#x27;envoya un magistral coup de griffe. Le sang gicla. Ma main se mit à me cuire atrocement. Je poussai un cri. Ma mère se précipita, folle d&#x27;inquiétude, bousculant ses voisines, buttant dans son haïk qui traînait sur le sol.</p>
+<p class="">La blessure me faisait mal et je hurlais sans discontinuer. Les femmes posaient des questions, s&#x27;apitoyaient, m&#x27;offraient une orange pour me consoler, m&#x27;appelaient leur petite rose, leur bouquet de jasmin, leur petit fromage blanc. Loin de me calmer, ce tourbillon de visages me donnait le vertige. Je sanglotais à fendre l&#x27;âme. Une main mouillée se posa sur ma figure, un torchon sécha mes larmes et l&#x27;écoulement de mon nez. Le froid de cette main calma mes pleurs, mais je ne cessai pas de hoqueter le long du chemin de retour.</p>
+<p class="">Ma mère me coucha dès l&#x27;arrivée à la maison.</p>
+</div>
+<h3 class="t vocab">Vocabulaire difficile</h3><table class="voc"><thead><tr><th>Mot / Expression</th><th>Explication en français</th><th class="ar">En arabe</th></tr></thead><tbody>
+<tr><td class="mot">un essaim</td><td>groupe d&#x27;abeilles ; ici, groupe serré de personnes</td><td class="ar" dir="rtl" lang="ar">سرب / حشد</td></tr>
+<tr><td class="mot">un matou</td><td>gros chat mâle</td><td class="ar" dir="rtl" lang="ar">قطّ ذكر</td></tr>
+<tr><td class="mot">magistral</td><td>très fort, donné avec maîtrise</td><td class="ar" dir="rtl" lang="ar">قويّ / متقَن</td></tr>
+<tr><td class="mot">gicler</td><td>jaillir avec force</td><td class="ar" dir="rtl" lang="ar">يتدفّق</td></tr>
+<tr><td class="mot">cuire (ici)</td><td>brûler, faire très mal</td><td class="ar" dir="rtl" lang="ar">يُحرق / يؤلم بشدّة</td></tr>
+<tr><td class="mot">sans discontinuer</td><td>sans s&#x27;arrêter</td><td class="ar" dir="rtl" lang="ar">دون انقطاع</td></tr>
+<tr><td class="mot">s&#x27;apitoyer</td><td>avoir pitié</td><td class="ar" dir="rtl" lang="ar">يُشفق</td></tr>
+<tr><td class="mot">un tourbillon</td><td>mouvement rapide qui tourne</td><td class="ar" dir="rtl" lang="ar">دوّامة</td></tr>
+<tr><td class="mot">le vertige</td><td>sensation que tout tourne</td><td class="ar" dir="rtl" lang="ar">الدُّوار</td></tr>
+<tr><td class="mot">hoqueter</td><td>respirer par secousses en pleurant</td><td class="ar" dir="rtl" lang="ar">يشهق</td></tr>
+</tbody></table>
+<h3 class="t fig">Figures de style</h3><button class="rev" data-open="Masquer les figures de style" data-closed="Afficher les figures de style">Afficher les figures de style</button><div class="hid" hidden><table class="grid fig"><thead><tr><th>Figure</th><th>Exemple dans le texte</th><th>Explication</th></tr></thead><tbody>
+<tr><td class="nm">Métaphore</td><td><i>« cet essaim de femmes »</i></td><td>Le groupe serré des femmes est assimilé à un essaim d’abeilles.</td></tr>
+<tr><td class="nm">Métaphore</td><td><i>« leur petite rose, leur bouquet de jasmin »</i></td><td>Pour le consoler, les femmes désignent l’enfant par des noms de fleurs : mots de tendresse.</td></tr>
+<tr><td class="nm">Métaphore</td><td><i>« ce tourbillon de visages »</i></td><td>Les visages qui s’agitent autour de l’enfant sont assimilés à un tourbillon qui donne le vertige.</td></tr>
+<tr class="none"><td class="nm">Personnification</td><td>—</td><td><i>Aucune personnification dans cet extrait.</i></td></tr>
+<tr class="none"><td class="nm">Comparaison</td><td>—</td><td><i>Aucune comparaison dans cet extrait.</i></td></tr>
+</tbody></table></div>
+<h3 class="t lex">Champs lexicaux</h3><button class="rev" data-open="Masquer les champs lexicaux" data-closed="Afficher les champs lexicaux">Afficher les champs lexicaux</button><div class="hid" hidden><table class="grid lex"><thead><tr><th>Champ lexical</th><th>Mots et expressions du texte</th></tr></thead><tbody>
+<tr><td class="nm">La douleur et les pleurs</td><td>coup de griffe, sang, cri, blessure, hurlais, sanglotais, larmes, pleurs, hoqueter</td></tr>
+<tr><td class="nm">Le chat</td><td>matou, yeux jaunes, ronronna, griffe, caresser</td></tr>
+<tr><td class="nm">La consolation</td><td>consoler, orange, petite rose, calma</td></tr>
+</tbody></table></div>
+<h3 class="t quest">Questions de compréhension</h3><ol class="qs">
+<li><div class="q">Pourquoi l&#x27;enfant s&#x27;éloigne-t-il du groupe des femmes ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Pendant la longue prière de la gardienne, il se glisse hors du groupe pour aller caresser « un gros matou » allongé contre le mur.</p></div></li>
+<li><div class="q">Comment le chat réagit-il à la caresse de l&#x27;enfant ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Le chat le regarde de ses yeux jaunes, ronronne, puis lui envoie « un magistral coup de griffe » : le sang gicle.</p></div></li>
+<li><div class="q">Comment la mère réagit-elle au cri de son fils ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Elle se précipite, « folle d’inquiétude », en bousculant ses voisines et en butant dans son haïk.</p></div></li>
+<li><div class="q">Que font les femmes pour consoler l&#x27;enfant ? Y parviennent-elles ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Elles posent des questions, s’apitoient, lui offrent une orange et lui donnent des noms tendres : « leur petite rose », « leur bouquet de jasmin », « leur petit fromage blanc ». Elles n’y parviennent pas : « ce tourbillon de visages » lui donne le vertige et il sanglote « à fendre l’âme ».</p></div></li>
+<li><div class="q">Qu&#x27;est-ce qui finit par calmer ses pleurs ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Une main mouillée se pose sur sa figure et un torchon sèche ses larmes : « Le froid de cette main calma mes pleurs ». Mais il continue de hoqueter sur le chemin du retour.</p></div></li>
+<li><div class="q">Pourquoi peut-on dire que cette scène est ironique ? (Pensez au but de la visite.)</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>L’enfant est conduit au sanctuaire pour retrouver « sa gaîté et sa force » : il en repart blessé et en larmes. De plus, c’est un chat qui le griffe, l’animal que le saint protège. Le résultat est le contraire de ce qu’on attendait.</p></div></li>
+</ol>
+<div class="pager"><button class="nav" data-go="p4">← Partie précédente</button><span></span><button class="nav" data-go="p6">Partie suivante →</button></div>
+</section>
+<section id="p6" class="part" hidden>
+<header class="banner"><span class="kick">PARTIE 6</span><h2>Le matin à Dar Chouafa</h2><span class="ref">Chapitre II, p. 11-13</span></header>
+<div class="box resume"><b>Résumé de la scène</b><p>Le lendemain, le père, levé le premier, demande que l’enfant n’aille pas au Msid. De son lit, celui-ci écoute la maison s’éveiller : les moineaux dont il croit comprendre le langage, la Chouafa, Rahma qui gronde Zineb, puis les salutations que les femmes échangent chaque matin sans s’écouter. Il se réjouit d’avoir deux jours et demi loin du fqih.</p></div>
+<h3 class="t texte">Texte de la scène</h3><div class="scene">
+<p class="">Mon père se levait toujours le premier. Je voyais vaguement sa silhouette dans le demi-jour danser lentement. Il s&#x27;enroulait autour des reins une corde de plusieurs coudées en poil de chèvre, qui lui servait de ceinture. Pour cela, il tournait sur lui-même, soulevait une jambe pour laisser passer la corde, soulevait l&#x27;autre alternativement, faisait des gestes larges de ses bras. Il procédait ensuite à l&#x27;arrangement de son turban, mettait sa djellaba et sortait en silence. Ma mère dormait.</p>
+<p class="">Ce matin, j&#x27;entendis mon père lui chuchoter :</p>
+<p class="dial">- Ne l&#x27;envoie pas au Msid, il semble bien fatigué. Ma mère acquiesça et se replongea dans ses couvertures.</p>
+<p class="">Toute la maison dormait encore.</p>
+<p class="">Deux moineaux vinrent se poser sur le mur du patio, je les entendais sautiller d&#x27;un endroit à l&#x27;autre, frappant l&#x27;air de leurs courtes ailes. Ils discutaient avec passion et je comprenais leur langage. Ce fut un dialogue passionné: ils affirmèrent ceci avec conviction :</p>
+<p class="dial">- J&#x27;aime les figues sèches.</p>
+<p class="">Pourquoi aimes-tu les figues sèches ?</p>
+<p class="">Tout le monde aime les figues sèches.</p>
+<p class="dial">- Oui! Oui! Oui!</p>
+<p class="dial">- Tout le monde aime les figues sèches.</p>
+<p class="">Les figues sèches! Les figues sèches! Les figues sèches !</p>
+<p class="">Les ailes froufroutèrent, les deux moineaux partirent continuer leur conversation sur d&#x27;autres toits.</p>
+<p class="">Je comprenais le langage des oiseaux et de bien d&#x27;autres bêtes encore, mais ils ne le savaient pas et s&#x27;enfuyaient à mon approche. J&#x27;en éprouvais beaucoup de peine.</p>
+<p class="">Des seaux entrechoqués cliquetèrent dans le patio. La chouafa se levait la première et c&#x27;était tant mieux ! Les ombres de la nuit s&#x27;attardaient encore à cette heure autour de la fontaine et du puits, dans les lieux d&#x27;aisances et dans l&#x27;immense débarras où chaque locataire à tour de rôle procédait à sa toilette.</p>
+<p class="">La chouafa connaissait les paroles efficaces qui rendaient ces ombres inoffensives. Chaque jeudi soir, elle brûlait des aromates, aspergeait les coins de lait ou d&#x27;eaux odoriférantes, prononçait de longues incantations.</p>
+<p class="">Une porte claqua. Zineb, la fille de Rahma, se mit à geindre. Sa mère la gratifia d&#x27;une gifle sonore et la noya sous un flot d&#x27;injures.</p>
+<p class="dial">- A ton âge! N&#x27;as-tu pas honte de mouiller ton lit presque chaque nuit ? Je devrais te lâcher dans une étable, au lieu de te préparer chaque soir, ton matelas.</p>
+<p class="">La chouafa l&#x27;interrompit:</p>
+<p class="dial">- Que ta matinée soit heureuse, Rahma!</p>
+<p class="dial">- Que ta journée soit ensoleillée, Lalla!</p>
+<p class="">Comment te sens-tu ce matin ?</p>
+<p class="dial">- Je remercie le Seigneur, il m&#x27;a infligé une terrible punition le jour où il m&#x27;a donné cette pisseuse de mauvais augure. Je le remercie pour ses dons innombrables, je le remercie dans la joie comme dans l&#x27;affliction.</p>
+<p class="">Éloigné soit de toi tout sujet de chagrin. Prends patience! Cette enfant guérira, elle sera ta consolation dans ce monde de misères,</p>
+<p class="dial">- Dieu t&#x27;entende, Lalla! Qu&#x27;il répande sans mesure ses bénédictions sur toi, sur ceux qui te sont chers.</p>
+<p class="">Ma mère remua dans son lit, toussa, soupira, finit par se mettre sur son séant. Elle se leva et ouvrit la fenêtre. La lumière m&#x27;éclaboussa les yeux et me fit mal. J&#x27;entendis s&#x27;ouvrir les volets de Fatma Bziouya.</p>
+<p class="">D&#x27;une voix ensommeillée, ma mère déroula son chapelet de salutations d&#x27;usage qu&#x27;elle adressait chaque matin à sa voisine d&#x27;en face. Celle-ci lui souhaita une heureuse journée avec les formules habituelles.</p>
+<p class="">Aucune n&#x27;écoutait les propos de l&#x27;autre. Chacun récitait son boniment sur un air monotone sans ardeur et sans enthousiasme. Elles posaient des questions mais connaissaient d&#x27;avance les réponses. Depuis trois ans que nous habitions ensemble, elles avaient répété les mêmes phrases chaque matin. Parfois elles modifiaient un mot, faisaient allusion à quelque récent événement, mais de telles circonstances étaient fort rares.</p>
+<p class="">Invariablement, ma mère demandait :</p>
+<p class="dial">- Comment te sens-tu ce matin? Ta tête ne te fait-elle pas trop souffrir? Ton sommeil a-t-il été paisible?</p>
+<p class="">Elle concluait :</p>
+<p class="dial">- La santé est chose capitale, ma sœur! Rien ne peut la remplacer.</p>
+<p class="">Ce jour-là elle ajouta:</p>
+<p class="dial">- Mon garçon n&#x27;est pas bien aujourd&#x27;hui. Dieu éloigne de toi et de ceux qui te sont chers le mal, et crève les yeux à ceux qui nous envient.</p>
+<p class="">La voix de la chouafa monta du rez-de-chaussée :</p>
+<p class="dial">- Lalla Zoubida! Que ta matinée soit bénie! Dieu éloigne de toi tout motif de peine et te conserve, toi et les tiens, en excellente santé !</p>
+<p class="">Ma mère répondit:</p>
+<p class="">Que ta journée soit lumineuse et pleine de bénédictions! Comment te sens-tu ce matin? Dieu veillera sur ton bonheur et sur celui de tous ceux qui te sont proches.</p>
+<p class="">La chouafa enchaîna :</p>
+<p class="">Ne t&#x27;inquiète pas pour ton fils, les amis de Dieu veillent sur sa santé. Il a des protecteurs dans le monde visible et dans le monde invisible. Je sais qu&#x27;il est chéri des puissances bénéfiques. Quand il sera homme, il sera un sabre parmi les sabres, un guerrier invulnérable, une ruche au miel recherché pour sa saveur et son parfum.</p>
+<p class="dial">- Lalla, dit ma mère toute remuée, le miel et le beurre coulent de ta bouche et l&#x27;odeur du Paradis parfume ton haleine.</p>
+<p class="">Et ma mère, extatique, les yeux au ciel, ajouta:</p>
+<p class="">Seigneur, qui m&#x27;écoutes du haut des cieux, répands tes trésors inépuisables, ô toi maître de tous les trésors, sur cette femme de bien; qu&#x27;elle soit vénérée comme elle le mérite dans ce monde et qu&#x27;elle bénéficie de tes largesses dans l&#x27;Autre. Que sa vie soit couronnée par l&#x27;accomplissement du pèlerinage aux Lieux qui nous sont chers, à nous tes esclaves auxquels tu as révélé la Vérité par l&#x27;intermédiaire de ton Prophète (le salut soit sur lui, sur ses compagnons et ses proches, le salut et la Paix!) Amine! O Dieu de l&#x27;Univers!</p>
+<p class="dial">- Amine! Répondirent en écho toutes les femmes. Pendant ce cérémonial, je m&#x27;étais levé et mis en djellaba. Mes oreilles bourdonnaient un peu, mais je ne me sentais nullement plus fatigué que d&#x27;habitude. La perspective de rester à la maison toute la journée, loin du fqih et de sa baguette de cognassier, me rendait tout heureux. Nous étions mercredi, le jour suivant était ordinairement jour de congé et le vendredi l&#x27;école n&#x27;ouvrait qu&#x27;après la prière de midi. J&#x27;avais devant moi deux jours et demi, deux jours et demi à vivre comme un prince.</p>
+</div>
+<h3 class="t vocab">Vocabulaire difficile</h3><table class="voc"><thead><tr><th>Mot / Expression</th><th>Explication en français</th><th class="ar">En arabe</th></tr></thead><tbody>
+<tr><td class="mot">une coudée</td><td>ancienne mesure de longueur (environ 50 cm)</td><td class="ar" dir="rtl" lang="ar">ذراع</td></tr>
+<tr><td class="mot">acquiescer</td><td>dire oui, accepter</td><td class="ar" dir="rtl" lang="ar">يوافق</td></tr>
+<tr><td class="mot">froufrouter</td><td>faire un léger bruit de frottement</td><td class="ar" dir="rtl" lang="ar">يُحدث حفيفًا</td></tr>
+<tr><td class="mot">s&#x27;attarder</td><td>rester longtemps</td><td class="ar" dir="rtl" lang="ar">يمكث / يتأخّر</td></tr>
+<tr><td class="mot">une incantation</td><td>paroles magiques</td><td class="ar" dir="rtl" lang="ar">تعويذة / رُقية</td></tr>
+<tr><td class="mot">geindre</td><td>se plaindre d&#x27;une voix faible</td><td class="ar" dir="rtl" lang="ar">يئنّ</td></tr>
+<tr><td class="mot">de mauvais augure</td><td>qui annonce un malheur</td><td class="ar" dir="rtl" lang="ar">نذير شؤم</td></tr>
+<tr><td class="mot">l&#x27;affliction</td><td>grande tristesse</td><td class="ar" dir="rtl" lang="ar">الحزن الشديد</td></tr>
+<tr><td class="mot">un boniment</td><td>discours tout fait, répété sans y penser</td><td class="ar" dir="rtl" lang="ar">كلام مكرور</td></tr>
+<tr><td class="mot">monotone</td><td>toujours pareil, sans variation</td><td class="ar" dir="rtl" lang="ar">رتيب</td></tr>
+<tr><td class="mot">invulnérable</td><td>qu&#x27;on ne peut pas blesser</td><td class="ar" dir="rtl" lang="ar">منيع / لا يُجرح</td></tr>
+<tr><td class="mot">extatique</td><td>rempli d&#x27;une joie intense</td><td class="ar" dir="rtl" lang="ar">منتشٍ</td></tr>
+<tr><td class="mot">le cérémonial</td><td>gestes et paroles fixés par l&#x27;usage</td><td class="ar" dir="rtl" lang="ar">مراسيم / طقوس</td></tr>
+</tbody></table>
+<h3 class="t fig">Figures de style</h3><button class="rev" data-open="Masquer les figures de style" data-closed="Afficher les figures de style">Afficher les figures de style</button><div class="hid" hidden><table class="grid fig"><thead><tr><th>Figure</th><th>Exemple dans le texte</th><th>Explication</th></tr></thead><tbody>
+<tr><td class="nm">Métaphore</td><td><i>« il sera un sabre parmi les sabres »</i></td><td>L’enfant est assimilé à un sabre : la Chouafa lui prédit force et courage.</td></tr>
+<tr><td class="nm">Métaphore</td><td><i>« le miel et le beurre coulent de ta bouche »</i></td><td>Les paroles agréables de la Chouafa sont assimilées à du miel et à du beurre.</td></tr>
+<tr><td class="nm">Métaphore</td><td><i>« ma mère déroula son chapelet de salutations »</i></td><td>Les salutations, récitées l’une après l’autre, sont assimilées aux grains d’un chapelet.</td></tr>
+<tr><td class="nm">Personnification</td><td><i>« Ils discutaient avec passion »</i></td><td>Les moineaux discutent comme des personnes : l’enfant croit comprendre leur langage.</td></tr>
+<tr><td class="nm">Personnification</td><td><i>« Les ombres de la nuit s’attardaient encore »</i></td><td>Les ombres « s’attardent » comme des êtres vivants : elles inquiètent l’enfant.</td></tr>
+<tr><td class="nm">Comparaison</td><td><i>« deux jours et demi à vivre comme un prince »</i></td><td>Outil : « comme ». Loin du fqih, l’enfant compare sa liberté à la vie d’un prince.</td></tr>
+</tbody></table></div>
+<h3 class="t lex">Champs lexicaux</h3><button class="rev" data-open="Masquer les champs lexicaux" data-closed="Afficher les champs lexicaux">Afficher les champs lexicaux</button><div class="hid" hidden><table class="grid lex"><thead><tr><th>Champ lexical</th><th>Mots et expressions du texte</th></tr></thead><tbody>
+<tr><td class="nm">Le réveil de la maison</td><td>se levait, demi-jour, matin, dormait, matinée, lumière, sommeil, lit</td></tr>
+<tr><td class="nm">Les oiseaux</td><td>moineaux, ailes, sautiller, oiseaux, toits</td></tr>
+<tr><td class="nm">La magie</td><td>ombres, paroles efficaces, aromates, incantations, monde invisible, puissances bénéfiques</td></tr>
+<tr><td class="nm">La religion et les bénédictions</td><td>Seigneur, Dieu, bénédictions, bénie, Paradis, pèlerinage, Prophète, Amine</td></tr>
+</tbody></table></div>
+<h3 class="t quest">Questions de compréhension</h3><ol class="qs">
+<li><div class="q">Qui se lève le premier dans la famille ? Décrivez ses gestes.</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>C’est le père. Il enroule autour de ses reins une longue corde en poil de chèvre qui lui sert de ceinture, en tournant sur lui-même. Puis il arrange son turban, met sa djellaba et sort « en silence ».</p></div></li>
+<li><div class="q">Pourquoi l&#x27;enfant ne va-t-il pas au Msid ce matin-là ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Parce que son père le trouve fatigué : « Ne l’envoie pas au Msid, il semble bien fatigué. »</p></div></li>
+<li><div class="q">De quoi « parlent » les deux moineaux ? Que révèle ce passage sur l&#x27;enfant ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Les deux moineaux parlent de figues sèches : « J’aime les figues sèches ». Ce passage révèle l’imagination de l’enfant, qui croit comprendre « le langage des oiseaux ». Il révèle aussi sa solitude : les bêtes s’enfuient à son approche et il en éprouve « beaucoup de peine ».</p></div></li>
+<li><div class="q">Pourquoi est-ce « tant mieux » que la Chouafa se lève la première ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>À cette heure, « les ombres de la nuit » s’attardent encore dans le patio. Or la Chouafa connaît « les paroles efficaces » qui rendent ces ombres inoffensives : sa présence rassure l’enfant.</p></div></li>
+<li><div class="q">Pourquoi Rahma gronde-t-elle sa fille Zineb ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Parce que Zineb mouille son lit presque chaque nuit. Rahma la gifle et la traite de « pisseuse de mauvais augure ».</p></div></li>
+<li><div class="q">Comment se passent les salutations du matin entre les femmes ? Sont-elles sincères ? Justifiez.</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Chaque matin, de fenêtre à fenêtre, les femmes échangent les mêmes formules de politesse et de bénédiction.</p><p>Elles ne sont pas vraiment sincères : « Aucune n’écoutait les propos de l’autre », chacune récite « son boniment » « sans ardeur et sans enthousiasme », et elles connaissent d’avance les réponses. Depuis trois ans, elles répètent les mêmes phrases : c’est un rituel de politesse.</p></div></li>
+<li><div class="q">Que prédit la Chouafa pour l&#x27;avenir de l&#x27;enfant ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Elle prédit que l’enfant est protégé dans le monde visible et dans le monde invisible. Devenu homme, il sera « un sabre parmi les sabres », « un guerrier invulnérable », « une ruche au miel recherché ».</p></div></li>
+<li><div class="q">Pourquoi l&#x27;enfant est-il heureux ce mercredi ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Il reste à la maison, « loin du fqih et de sa baguette de cognassier ». Comme le jeudi est jour de congé et que l’école n’ouvre le vendredi qu’après la prière de midi, il a devant lui « deux jours et demi à vivre comme un prince ».</p></div></li>
+</ol>
+<div class="pager"><button class="nav" data-go="p5">← Partie précédente</button><span></span><button class="nav" data-go="p7">Partie suivante →</button></div>
+</section>
+<section id="p7" class="part" hidden>
+<header class="banner"><span class="kick">PARTIE 7</span><h2>Les beignets, Driss le teigneux et l&#x27;origine des parents</h2><span class="ref">Chapitre II, p. 13-14</span></header>
+<div class="box resume"><b>Résumé de la scène</b><p>Après le déjeuner, Fatma Bziouya offre deux beignets : la mère refuse d’abord par politesse, puis les donne à son fils. Driss le teigneux, l’apprenti du père, vient faire le marché. Le narrateur raconte alors l’origine montagnarde de ses parents et comment son père est devenu tisserand. Cette aisance attire « l’œil des envieux ».</p></div>
+<h3 class="t texte">Texte de la scène</h3><div class="scene">
+<p class="">Ma mère m&#x27;aida à faire mes ablutions et s&#x27;affaira, dans le réduit qui lui servait de cuisine, à activer son feu. Toute la maison retentissait du bruit des soufflets. Il faisait un éclatant soleil. Bientôt la table fut mise. Il y avait des œufs frits à l&#x27;huile d&#x27;olive et du pain frais. Nous nous mîmes à manger. Allal, le mari de Fatma Bziouya, jardinier de son état, fit entendre sa voix à l&#x27;entrée de la maison.</p>
+<p class="dial">- N&#x27;y a-t-il personne? Puis-je passer? Rahma répondit :</p>
+<p class="dial">- Il n&#x27;y a personne. Passe!</p>
+<p class="">Son pas retentit dans l&#x27;escalier. Nous finissions de manger quand sa femme entra dans notre chambre. Elle tenait une assiette de faïence où reposaient deux beignets sfenj. J&#x27;en étais particulièrement friand.</p>
+<p class="">Ma mère se leva pour recevoir la visiteuse. Le visage ennuyé, la bouche pincée, elle débita les formules qu&#x27;exige la politesse en de telles occasions.</p>
+<p class="">Fatma! Pourquoi t&#x27;es-tu dérangée? Je ne peux accepter! Nous avons, louange à Dieu, amplement de quoi nous rassasier! Deux beignets! C&#x27;est beaucoup trop! Par Dieu je ne puis accepter.</p>
+<p class="">Notre voisine essayait de vaincre cette résistance. Elle prenait la main de ma mère et protestait avec chaleur.</p>
+<p class="dial">- Tu ne peux pas me faire un tel affront. Donne à Sidi Mohammed; qu&#x27;Allah lui donne la santé! Tu ne peux pas refuser, c&#x27;est si peu de chose !</p>
+<p class="">Enfin, ma mère remercia.</p>
+<p class="dial">- Dieu te comblera de ses bienfaits, et te fera goûter des nourritures du Paradis qu&#x27;il réserve à ses élus. Dieu ouvrira pour nous toutes les portes de ses trésors.</p>
+<p class="">Fatma alla rejoindre son mari et ma mère poussa de mon côté l&#x27;assiette avec les deux beignets.</p>
+<p class="dial">- Mange-les, toi qui les aimes, me dit-elle; mon estomac ne supporte pas les beignets.</p>
+<p class="">Je me régalai.</p>
+<p class="">Un apprenti de mon père, que tout le monde appelait Driss le teigneux, frappa à la porte d&#x27;entrée. Il demanda un couffin pour faire notre marché. Ma mère lui recommanda à haute voix de choisir une viande sans trop d&#x27;os, et des fèves vertes bien tendres. La situation de mon père était assez prospère. Nous pouvions nous permettre de manger de la viande trois à quatre fois par semaine.</p>
+<p class="">Papa, d&#x27;origine montagnarde comme ma mère, après avoir quitté son village situé à une cinquantaine de kilomètres de la grande ville, avait au début éprouvé des difficultés à gagner sa vie et celle de sa jeune épouse. Dans son pays, on était pillard et paysan. A Fès, il fallait pour vivre exercer quelque industrie citadine ou monter un petit commerce. Dans notre famille, vendre et acheter a toujours été considéré comme le métier le plus vil.</p>
+<p class="">Mon père se souvint avoir été à un moment de sa jeunesse dans l&#x27;atelier de l&#x27;un de ses oncles maternels, tisserand de couvertures. Il s&#x27;acheta donc un minimum de matériel, loua un coin dans un atelier et s&#x27;installa tisserand. II faisait honnêtement son travail, améliorait de jour en jour sa production. Bientôt, ses articles furent très disputés et le ménage jouit d&#x27;un certain confort. Mon père avait un vieil ouvrier avec lui sur le métier; Driss le teigneux garnissait les canettes et faisait les commissions.</p>
+<p class="">Driss venait deux fois par jour à la maison: le matin acheter les provisions et au milieu du jour chercher le déjeuner de son patron. Mon père mangeait à l&#x27;atelier. Il venait seulement le soir après la dernière prière. Le vendredi faisait exception. Ce jour-là mon père était à son métier jusqu&#x27;à midi environ; il payait ses employés, allait à la Mosquée pour la grande prière et nous déjeunions en famille.</p>
+<p class="">Driss revint chargé de son lourd panier. Ma mère en fit l&#x27;inventaire. Le teigneux n&#x27;avait rien oublié. La viande avait bon aspect et le vert des cosses de fèves faisait saliver abondamment. Le couffin contenait outre de l&#x27;ail, du persil et quantité de petits paquets d&#x27;épices. Nous avions de l&#x27;huile, du charbon et de la farine pour tout le mois.</p>
+<p class="">Quand ma mère parlait de « l&#x27;œil des envieux », elle pensait sûrement à ces richesses. Les voisines moins fortunées nous jalousaient un peu. Elles n&#x27;ignoraient d&#x27;ailleurs aucun détail de notre vie domestique. Ma mère, de son côté, connaissait les difficultés de tout le monde, l&#x27;état des finances de chaque ménage, les dettes qu&#x27;il contractait, ses dépenses de chaque jour et la qualité de son ordinaire.</p>
+</div>
+<h3 class="t vocab">Vocabulaire difficile</h3><table class="voc"><thead><tr><th>Mot / Expression</th><th>Explication en français</th><th class="ar">En arabe</th></tr></thead><tbody>
+<tr><td class="mot">les ablutions</td><td>toilette rituelle avant la prière</td><td class="ar" dir="rtl" lang="ar">الوضوء</td></tr>
+<tr><td class="mot">un réduit</td><td>très petite pièce</td><td class="ar" dir="rtl" lang="ar">حجرة ضيقة</td></tr>
+<tr><td class="mot">friand (de)</td><td>qui aime beaucoup (un aliment)</td><td class="ar" dir="rtl" lang="ar">مولع بـ</td></tr>
+<tr><td class="mot">se rassasier</td><td>manger à sa faim</td><td class="ar" dir="rtl" lang="ar">يشبع</td></tr>
+<tr><td class="mot">un affront</td><td>offense, humiliation</td><td class="ar" dir="rtl" lang="ar">إهانة</td></tr>
+<tr><td class="mot">un apprenti</td><td>jeune qui apprend un métier</td><td class="ar" dir="rtl" lang="ar">متعلّم حرفة</td></tr>
+<tr><td class="mot">teigneux</td><td>qui a la teigne (maladie du cuir chevelu)</td><td class="ar" dir="rtl" lang="ar">أقرع</td></tr>
+<tr><td class="mot">un couffin</td><td>panier souple pour les provisions</td><td class="ar" dir="rtl" lang="ar">قُفّة</td></tr>
+<tr><td class="mot">prospère</td><td>qui réussit, qui rapporte de l&#x27;argent</td><td class="ar" dir="rtl" lang="ar">مزدهر</td></tr>
+<tr><td class="mot">un pillard</td><td>voleur qui attaque et dérobe</td><td class="ar" dir="rtl" lang="ar">ناهب</td></tr>
+<tr><td class="mot">vil</td><td>bas, méprisable</td><td class="ar" dir="rtl" lang="ar">وضيع / حقير</td></tr>
+<tr><td class="mot">un tisserand</td><td>artisan qui fabrique des tissus</td><td class="ar" dir="rtl" lang="ar">نسّاج / درّاز</td></tr>
+<tr><td class="mot">jalouser</td><td>envier</td><td class="ar" dir="rtl" lang="ar">يحسد</td></tr>
+</tbody></table>
+<h3 class="t fig">Figures de style</h3><button class="rev" data-open="Masquer les figures de style" data-closed="Afficher les figures de style">Afficher les figures de style</button><div class="hid" hidden><table class="grid fig"><thead><tr><th>Figure</th><th>Exemple dans le texte</th><th>Explication</th></tr></thead><tbody>
+<tr><td class="nm">Métaphore</td><td><i>« Dieu ouvrira pour nous toutes les portes de ses trésors »</i></td><td>Les bienfaits de Dieu sont assimilés à des trésors gardés derrière des portes.</td></tr>
+<tr><td class="nm">Métaphore</td><td><i>« vaincre cette résistance »</i></td><td>Le refus poli de la mère est assimilé à un combat que la voisine doit gagner.</td></tr>
+<tr class="none"><td class="nm">Personnification</td><td>—</td><td><i>Aucune personnification dans cet extrait.</i></td></tr>
+<tr class="none"><td class="nm">Comparaison</td><td>—</td><td><i>Aucune comparaison dans cet extrait.</i></td></tr>
+</tbody></table></div>
+<h3 class="t lex">Champs lexicaux</h3><button class="rev" data-open="Masquer les champs lexicaux" data-closed="Afficher les champs lexicaux">Afficher les champs lexicaux</button><div class="hid" hidden><table class="grid lex"><thead><tr><th>Champ lexical</th><th>Mots et expressions du texte</th></tr></thead><tbody>
+<tr><td class="nm">La nourriture</td><td>œufs frits, huile d’olive, pain, beignets, viande, fèves, ail, persil, épices, farine</td></tr>
+<tr><td class="nm">Le travail et les métiers</td><td>jardinier, apprenti, tisserand, atelier, métier, ouvrier, commerce, patron, employés</td></tr>
+<tr><td class="nm">La politesse</td><td>formules, politesse, affront, refuser, accepter, remercia</td></tr>
+<tr><td class="nm">L’aisance et la jalousie</td><td>prospère, confort, richesses, envieux, jalousaient, fortunées, dettes</td></tr>
+</tbody></table></div>
+<h3 class="t quest">Questions de compréhension</h3><ol class="qs">
+<li><div class="q">Que mange la famille ce matin-là ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Des œufs frits à l’huile d’olive et du pain frais.</p></div></li>
+<li><div class="q">Qu&#x27;apporte Fatma Bziouya ? Comment la mère réagit-elle d&#x27;abord ? Pourquoi ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Elle apporte deux beignets dans une assiette de faïence. La mère commence par refuser, « le visage ennuyé, la bouche pincée » : « Je ne peux accepter ! ». La politesse exige de ne pas accepter tout de suite ; elle tient aussi à montrer que sa famille a « amplement de quoi nous rassasier ».</p></div></li>
+<li><div class="q">Qui mange finalement les beignets ? Quelle excuse donne la mère ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>C’est le narrateur, qui en est « particulièrement friand ». La mère prétend que son estomac « ne supporte pas les beignets ».</p></div></li>
+<li><div class="q">Qui est Driss le teigneux ? Quel est son rôle ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>C’est l’apprenti du père. À l’atelier, il garnit les canettes et fait les commissions. Il vient deux fois par jour à la maison : le matin pour acheter les provisions, à midi pour chercher le déjeuner de son patron.</p></div></li>
+<li><div class="q">D&#x27;où viennent les parents du narrateur ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Ils sont d’origine montagnarde : ils viennent d’un village situé à une cinquantaine de kilomètres de Fès.</p></div></li>
+<li><div class="q">Comment le père est-il devenu tisserand ? Pourquoi n&#x27;est-il pas devenu commerçant ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Dans sa jeunesse, il avait travaillé dans l’atelier d’un oncle maternel, tisserand de couvertures. À Fès, il achète un peu de matériel, loue un coin dans un atelier et s’installe tisserand. Il n’est pas devenu commerçant car, dans sa famille, vendre et acheter est considéré comme « le métier le plus vil ».</p></div></li>
+<li><div class="q">Qu&#x27;est-ce qui montre que la famille vit dans « un certain confort » ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><ul><li>la famille mange de la viande « trois à quatre fois par semaine » ;</li><li>le père emploie un vieil ouvrier et un apprenti ;</li><li>la maison a de l’huile, du charbon et de la farine « pour tout le mois ».</li></ul></div></li>
+<li><div class="q">À quoi pense la mère quand elle parle de « l&#x27;œil des envieux » ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Elle pense à « ces richesses » : les provisions et l’aisance du ménage, que les voisines « moins fortunées » jalousent un peu.</p></div></li>
+</ol>
+<div class="pager"><button class="nav" data-go="p6">← Partie précédente</button><span></span><button class="nav" data-go="p8">Partie suivante →</button></div>
+</section>
+<section id="p8" class="part" hidden>
+<header class="banner"><span class="kick">PARTIE 8</span><h2>Le cabochon de verre de Rahma</h2><span class="ref">Chapitre II, p. 14-15</span></header>
+<div class="box resume"><b>Résumé de la scène</b><p>L’enfant aide à écosser les fèves, puis reçoit de Fatma un radis trop fort qu’il jette depuis la terrasse. Dans l’escalier, il croise Rahma, fâchée avec sa mère depuis la dispute : elle lui glisse dans la main un cabochon de verre. Pour l’enfant, c’est un bijou fabuleux qui rejoindra sa Boîte à merveilles ; pour sa mère, « un bout de verre ».</p></div>
+<h3 class="t texte">Texte de la scène</h3><div class="scene">
+<p class="">Les feves furent versées dans un large panier en sparterie en forme de plat.</p>
+<p class="">Tu m&#x27;aideras à les écosser, me dit maman. J&#x27;acquiesçai et me mis aussitôt à l&#x27;ouvrage. Je fus vite dégoûté de ce travail. J&#x27;allai risquer un œil dans chambre de Bziouya. Elle roulait du couscous. Dans un coin, s&#x27;amoncelaient divers légumes navets, carottes, courge rouge et oignons. Notre voisine m&#x27;aimait beaucoup. Elle laissa un moment son couscous pour fouiller dans un panier. Elle me tendit, avec un large sourire, un radis d&#x27;un rouge de rubis long d&#x27;un empan. Je lui fis un sourire pour la remercier et plantai mes dents dans la chair rose de cette friandise. Le goût en était si fort que les larmes me sortirent des yeux. Je ne dis rien, je partis à reculons, grimpai les marches qui conduisationt sur la terrasse et jetai par-dessus le mur qui nous séparait d&#x27;une autre maison, le beau radis.</p>
+<p class="">Le soleil était clair et chaud. Un chat blanc et noir reposait sur le mur et suivait mes mouvements de ses yeux à demi fermés. Je ne m&#x27;en approchai point. Le coup de griffe du matou pensionnaire de Sidi Ali Boughaleb m&#x27;avait appris à me méfier des chats qui ronronnent au soleil.</p>
+<p class="">Ma mère s&#x27;inquiétait déjà de mon absence, elle m&#x27;appelait à la cantonade. Je m&#x27;engageai dans l&#x27;escalier pour redescendre. Quelqu&#x27;un montait pieds nus. Les pas mous et le froufrou des vêtements se rapprochaient. Apparut Rahma. Ma mère ne lui parlait plus depuis leur dispute. Les deux femmes évitaient de se rencontrer, moi, je ne savais pas s&#x27;il fallait lui sourire ou me sauver. Je me plaquai contre le mur et attendis que les événements décidassent pour moi. En arrivant à ma hauteur, Rahma s&#x27;arrêta, me caressa la joue et me glissa un objet dans la main un objet lisse et froid, mais dont le toucher me plongea dans un bain de délice.</p>
+<p class="dial">- C&#x27;est pour toi, me murmura notre voisine.</p>
+<p class="">Je ne répondis rien et courus rejoindre ma mère qui s&#x27;impatientait.</p>
+<p class="">L&#x27;objet était toujours dans le creux de ma main et dégageait une fraîcheur d&#x27;eau de source.</p>
+<p class="">Installé dans un coin de la pièce, j&#x27;osai enfin le regarder. C&#x27;était un gros cabochon de verre à facettes taillé en diamant, un bijou fabuleux et barbare, provenant à n&#x27;en pas douter de quelque palais souterrain où demeurent les puissances de l&#x27;Invisible.</p>
+<p class="">Était-ce un message de ces lointains royaumes? Était-ce un talisman? Était-ce une pierre maudite qui m&#x27;était remise par notre ennemie pour attirer sur la colère des démons? Que m&#x27;importait la colère de tous les démons de la terre!</p>
+<p class="">Je tenais dans mes mains un objet d&#x27;une richesse insoupçonnable.</p>
+<p class="">Il prendra place dans ma Boîte à Merveilles et je saurai découvrir toutes ses vertus.</p>
+<p class="">Ma mère me trouva dans mon coin. Elle me jeta un regard négligent et dit :</p>
+<p class="dial">- Encore un bout de verre! Fais attention de ne pas te blesser.</p>
+</div>
+<h3 class="t vocab">Vocabulaire difficile</h3><table class="voc"><thead><tr><th>Mot / Expression</th><th>Explication en français</th><th class="ar">En arabe</th></tr></thead><tbody>
+<tr><td class="mot">écosser</td><td>enlever la cosse (des fèves, des petits pois)</td><td class="ar" dir="rtl" lang="ar">يقشّر الفول</td></tr>
+<tr><td class="mot">la sparterie</td><td>objets tressés en fibres végétales (alfa)</td><td class="ar" dir="rtl" lang="ar">مصنوعات الحلفاء</td></tr>
+<tr><td class="mot">s&#x27;amonceler</td><td>s&#x27;entasser, former un tas</td><td class="ar" dir="rtl" lang="ar">يتكدّس</td></tr>
+<tr><td class="mot">un empan</td><td>mesure : du pouce au petit doigt, main ouverte</td><td class="ar" dir="rtl" lang="ar">شِبر</td></tr>
+<tr><td class="mot">une friandise</td><td>chose bonne à manger, gourmandise</td><td class="ar" dir="rtl" lang="ar">شيء لذيذ / حلوى</td></tr>
+<tr><td class="mot">à la cantonade</td><td>en parlant fort, à tout le monde</td><td class="ar" dir="rtl" lang="ar">بصوت عالٍ للجميع</td></tr>
+<tr><td class="mot">le froufrou</td><td>léger bruit d&#x27;un tissu qui frotte</td><td class="ar" dir="rtl" lang="ar">حفيف</td></tr>
+<tr><td class="mot">un cabochon</td><td>pierre ou verre poli, de forme bombée</td><td class="ar" dir="rtl" lang="ar">فصّ زجاجي</td></tr>
+<tr><td class="mot">à facettes</td><td>taillé avec plusieurs petites faces</td><td class="ar" dir="rtl" lang="ar">ذو أوجه</td></tr>
+<tr><td class="mot">un talisman</td><td>objet censé porter bonheur ou protéger</td><td class="ar" dir="rtl" lang="ar">طلسم / تميمة</td></tr>
+<tr><td class="mot">insoupçonnable</td><td>qu&#x27;on ne peut pas imaginer</td><td class="ar" dir="rtl" lang="ar">لا يُتصوَّر</td></tr>
+<tr><td class="mot">négligent</td><td>sans attention, indifférent</td><td class="ar" dir="rtl" lang="ar">غير مكترث</td></tr>
+</tbody></table>
+<h3 class="t fig">Figures de style</h3><button class="rev" data-open="Masquer les figures de style" data-closed="Afficher les figures de style">Afficher les figures de style</button><div class="hid" hidden><table class="grid fig"><thead><tr><th>Figure</th><th>Exemple dans le texte</th><th>Explication</th></tr></thead><tbody>
+<tr><td class="nm">Métaphore</td><td><i>« un radis d’un rouge de rubis »</i></td><td>La couleur du radis est assimilée à celle d’une pierre précieuse, le rubis.</td></tr>
+<tr><td class="nm">Métaphore</td><td><i>« me plongea dans un bain de délice »</i></td><td>Le plaisir de toucher l’objet est assimilé à un bain agréable.</td></tr>
+<tr><td class="nm">Métaphore</td><td><i>« un bijou fabuleux et barbare »</i></td><td>Le simple morceau de verre est désigné comme un bijou de conte : c’est le regard de l’enfant qui le transforme.</td></tr>
+<tr><td class="nm">Personnification</td><td><i>« attendis que les événements décidassent pour moi »</i></td><td>Les événements « décident » comme des personnes : l’enfant, timide, n’ose pas choisir.</td></tr>
+<tr class="none"><td class="nm">Comparaison</td><td>—</td><td><i>Aucune comparaison dans cet extrait.</i></td></tr>
+</tbody></table></div>
+<h3 class="t lex">Champs lexicaux</h3><button class="rev" data-open="Masquer les champs lexicaux" data-closed="Afficher les champs lexicaux">Afficher les champs lexicaux</button><div class="hid" hidden><table class="grid lex"><thead><tr><th>Champ lexical</th><th>Mots et expressions du texte</th></tr></thead><tbody>
+<tr><td class="nm">Les légumes et la cuisine</td><td>fèves, écosser, couscous, navets, carottes, courge, oignons, radis</td></tr>
+<tr><td class="nm">Le merveilleux</td><td>bijou fabuleux, palais souterrain, Invisible, royaumes, talisman, pierre maudite, démons, Merveilles</td></tr>
+<tr><td class="nm">Les sensations</td><td>lisse, froid, toucher, fraîcheur, goût, chaud</td></tr>
+<tr><td class="nm">La maison</td><td>chambre, terrasse, mur, escalier, marches, pièce</td></tr>
+</tbody></table></div>
+<h3 class="t quest">Questions de compréhension</h3><ol class="qs">
+<li><div class="q">Quel travail la mère confie-t-elle à l&#x27;enfant ? Le termine-t-il ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Elle lui demande de l’aider à écosser les fèves. Il se met à l’ouvrage, mais il est « vite dégoûté de ce travail » et l’abandonne pour aller voir chez Fatma Bziouya.</p></div></li>
+<li><div class="q">Que lui offre Fatma Bziouya ? Que fait-il de ce cadeau ? Pourquoi ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Elle lui offre un radis « d’un rouge de rubis ». Il y plante les dents, mais le goût est si fort que les larmes lui sortent des yeux. Par politesse, il ne dit rien : il monte sur la terrasse et jette le radis par-dessus le mur.</p></div></li>
+<li><div class="q">Pourquoi l&#x27;enfant ne s&#x27;approche-t-il pas du chat sur la terrasse ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Le coup de griffe du matou de Sidi Ali Boughaleb lui a appris à se méfier « des chats qui ronronnent au soleil ».</p></div></li>
+<li><div class="q">Pourquoi l&#x27;enfant ne sait-il pas comment se comporter quand il croise Rahma ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Sa mère ne parle plus à Rahma depuis leur dispute et les deux femmes s’évitent. L’enfant ne sait pas « s’il fallait lui sourire ou me sauver » : il se plaque contre le mur.</p></div></li>
+<li><div class="q">Que fait Rahma ? Pourquoi ce geste est-il surprenant ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Rahma s’arrête, lui caresse la joue et lui glisse un objet dans la main : « C’est pour toi ». Ce geste est surprenant parce qu’elle est fâchée avec sa mère : il montre sa tendresse pour l’enfant et peut-être un désir de réconciliation.</p></div></li>
+<li><div class="q">Comment l&#x27;enfant imagine-t-il l&#x27;origine du cabochon ? Relevez les trois questions qu&#x27;il se pose.</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Il imagine que le cabochon vient « de quelque palais souterrain où demeurent les puissances de l’Invisible ». Ses trois questions :</p><ul><li>« Était-ce un message de ces lointains royaumes ? »</li><li>« Était-ce un talisman ? »</li><li>« Était-ce une pierre maudite », remise par une ennemie pour attirer la colère des démons ?</li></ul></div></li>
+<li><div class="q">Comparez le regard de l&#x27;enfant et celui de sa mère sur le cabochon.</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><ul><li>Pour l’enfant : « un bijou fabuleux et barbare », « un objet d’une richesse insoupçonnable », un trésor magique.</li><li>Pour la mère : « Encore un bout de verre ! », un objet sans valeur et même dangereux (« Fais attention de ne pas te blesser »).</li></ul><p>Le regard émerveillé de l’enfant s’oppose au regard réaliste de l’adulte.</p></div></li>
+<li><div class="q">Quel est le rôle de la Boîte à merveilles à la fin du chapitre ?</div><button class="rev" data-open="Masquer la réponse" data-closed="Voir la réponse">Voir la réponse</button><div class="hid rep" hidden><p>Le cabochon « prendra place dans ma Boîte à Merveilles ». La Boîte est le refuge de l’enfant : elle recueille ses trésors et lui ouvre le monde du rêve, loin de la peur et des querelles des adultes. Le chapitre, commencé dans la souffrance, s’achève ainsi sur une consolation.</p></div></li>
+</ol>
+<div class="pager"><button class="nav" data-go="p7">← Partie précédente</button><span></span></div>
+</section>
+</main>
+<script>
+(function(){
+var ids=["home"].concat(["p1","p2","p3","p4","p5","p6","p7","p8"]);var cur="home";
+function show(id){
+  if(ids.indexOf(id)<0)id="home";
+  cur=id;
+  ids.forEach(function(i){var s=document.getElementById(i);if(s)s.hidden=(i!==id);});
+  document.querySelectorAll(".tab").forEach(function(t){t.classList.toggle("on",t.dataset.go===id);});
+  var on=document.querySelector(".tab.on");if(on&&on.scrollIntoView)on.scrollIntoView({inline:"center",block:"nearest"});
+  window.scrollTo(0,0);
+  try{history.replaceState(null,"","#"+id);}catch(e){}
+  syncAll();
 }
-function fit(){const p=$("page");let k=1;p.style.setProperty("--k",k);
-  const over=()=>[...p.querySelectorAll(".col")].some(c=>c.scrollHeight>c.clientHeight+2);
-  while(over()&&k>.62){k-=.04;p.style.setProperty("--k",k.toFixed(2))}}
-function off(el){let x=0,y=0,e=el;const p=$("page");while(e&&e!==p){x+=e.offsetLeft;y+=e.offsetTop;e=e.offsetParent}return{x,y,w:el.offsetWidth,h:el.offsetHeight}}
-function drawLinks(){
-  const p=$("page"),c=off(p.querySelector(".center")),k=parseFloat(p.style.getPropertyValue("--k"))||1;let s="";
-  p.querySelectorAll(".items").forEach(it=>{const r=it.querySelector(".rail"),its=it.querySelectorAll(".it");
-    if(!its.length){r.style.height="0";return}const last=its[its.length-1];r.style.height=(last.offsetTop+last.offsetHeight/2+10*k)+"px"});
-  ["L","R"].forEach(side=>{const grps=[...p.querySelectorAll(`.col.${side} .grp`)];
-    grps.forEach((g,i)=>{const pe=g.querySelector(".pill"),pl=off(pe),col=pe.style.background,left=side==="L";
-      const x1=left?c.x:c.x+c.w,y1=c.y+c.h*(.32+.36*(grps.length>1?i/(grps.length-1):.5));
-      const x2=left?pl.x+pl.w-46:pl.x+46,y2=pl.y+pl.h/2;
-      s+=`<path d="M${x1} ${y1} C${x1+(left?-160:160)} ${y1}, ${x2} ${y1+(y2-y1)*.3}, ${x2} ${y2}" fill="none" stroke="${col}" stroke-width="3.5" stroke-linecap="round"/>`})});
-  p.querySelector("svg.links").innerHTML=s;
+function setRev(btn,open){
+  var box=btn.nextElementSibling;if(!box)return;
+  box.hidden=!open;btn.classList.toggle("open",open);
+  btn.textContent=open?btn.dataset.open:btn.dataset.closed;
 }
-function sumInfo(){const mins=data.branches.map(b=>parseInt(b.d)).filter(n=>!isNaN(n));const tot=mins.reduce((a,b)=>a+b,0);
-  const want=parseInt(data.duree);$("sumInfo").textContent=mins.length?`Total des durées : ${tot} min${!isNaN(want)&&want!==tot?` (durée annoncée : ${want} min)`:""}.`:""}
-function scaleStage(){const w=$("stageWrap").clientWidth-32,s=Math.max(.1,Math.min(1,w/1414));
-  $("stage").style.width=1414*s+"px";$("stage").style.height=2000*s+"px";$("page").style.transform=`scale(${s})`}
-
-/* ================= Éditeur ================= */
-let saveTimer;
-function setSave(t){$("saveState").textContent=t}
-function changed(rebuild){
-  if(rebuild)buildBranches();
-  renderPage();setSave("Enregistrement…");
-  clearTimeout(saveTimer);saveTimer=setTimeout(saveNow,1200);
+function sec(){return document.getElementById(cur);}
+function syncAll(){
+  var s=sec();if(!s)return;var b=s.querySelectorAll(".rev");
+  var allOpen=b.length>0&&Array.prototype.every.call(b,function(x){return x.classList.contains("open");});
+  document.getElementById("all").textContent=allOpen?"Tout masquer":"Tout afficher";
+  document.getElementById("all").style.display=b.length?"":"none";
 }
-async function saveNow(){
-  if(!currentId)currentId=newId();
-  try{await db.save(currentId,data);setSave(DEMO?"Enregistré dans ce navigateur":"Enregistré en ligne");buildLib()}
-  catch(e){console.error(e);setSave("Échec de l'enregistrement");toast("Enregistrement impossible. Vérifiez la connexion internet.")}
-}
-function fillFields(){FIELDS.forEach(f=>$(f).value=data[f]||"");
-  document.querySelectorAll("#styleSeg button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.style===(data.style||"couleur")))}
-FIELDS.forEach(f=>$(f).addEventListener("input",e=>{data[f]=e.target.value;changed()}));
-function buildBranches(){
-  const box=$("branches");box.innerHTML="";
-  data.branches.forEach((b,i)=>{
-    const el=document.createElement("div");el.className="br";el.style.setProperty("--c",COLORS[b.c]||COLORS.teal);
-    el.innerHTML=`<div class="br-head">
-      <input type="text" id="bt${i}" aria-label="Nom de la branche" value="${esc(b.t)}">
-      <input type="text" id="bd${i}" aria-label="Durée" placeholder="Durée" value="${esc(b.d||"")}"></div>
-      <textarea id="bi${i}" rows="${Math.max(3,(b.items||[]).length+1)}" aria-label="Cases, une par ligne">${esc((b.items||[]).join("\n"))}</textarea>
-      <div class="row" style="justify-content:space-between">
-        <div class="sw">${Object.entries(COLORS).map(([k,v])=>`<button title="${k}" aria-label="Couleur ${k}" aria-pressed="${b.c===k}" data-c="${k}" style="background:${v}"></button>`).join("")}</div>
-        <div class="seg"><button data-side="L" aria-pressed="${b.side!=="R"}">Gauche</button><button data-side="R" aria-pressed="${b.side==="R"}">Droite</button></div>
-      </div>
-      <div class="row">
-        <button class="btn sm" data-mv="-1" ${i===0?"disabled":""}>↑ Monter</button>
-        <button class="btn sm" data-mv="1" ${i===data.branches.length-1?"disabled":""}>↓ Descendre</button>
-        <button class="btn sm danger" data-del>Supprimer</button>
-      </div>`;
-    el.querySelector(`#bt${i}`).oninput=e=>{b.t=e.target.value;changed()};
-    el.querySelector(`#bd${i}`).oninput=e=>{b.d=e.target.value;changed()};
-    el.querySelector(`#bi${i}`).oninput=e=>{b.items=e.target.value.split("\n");changed()};
-    el.querySelectorAll(".sw button").forEach(x=>x.onclick=()=>{b.c=x.dataset.c;changed(true)});
-    el.querySelectorAll("[data-side]").forEach(x=>x.onclick=()=>{b.side=x.dataset.side;changed(true)});
-    el.querySelectorAll("[data-mv]").forEach(x=>x.onclick=()=>{const j=i+ +x.dataset.mv;[data.branches[i],data.branches[j]]=[data.branches[j],data.branches[i]];changed(true)});
-    armDelete(el.querySelector("[data-del]"),()=>{data.branches.splice(i,1);changed(true)});
-    box.appendChild(el);
-  });
-}
-function armDelete(btn,fn,label){const base=btn.textContent;btn.onclick=()=>{if(btn.dataset.armed){fn()}else{btn.dataset.armed=1;btn.textContent=label||"Confirmer ?";setTimeout(()=>{if(btn.isConnected){delete btn.dataset.armed;btn.textContent=base}},3000)}}}
-$("addBranch").onclick=()=>{const used=data.branches.map(b=>b.c);const c=Object.keys(COLORS).find(k=>!used.includes(k))||"teal";
-  const w=s=>data.branches.filter(b=>(b.side==="R")===(s==="R")).reduce((a,b)=>a+(b.items||[]).length+1,0);
-  data.branches.push({t:"Nouvelle branche",d:"",side:w("L")<=w("R")?"L":"R",c,items:["Première case"]});changed(true)};
-document.querySelectorAll("#styleSeg button").forEach(b=>b.onclick=()=>{data.style=b.dataset.style;fillFields();changed()});
-
-/* ================= Onglets ================= */
-document.querySelectorAll(".tabs button").forEach(t=>t.onclick=()=>{
-  document.querySelectorAll(".tabs button").forEach(x=>x.setAttribute("aria-selected",x===t));
-  document.querySelectorAll("[data-panel]").forEach(p=>p.hidden=p.dataset.panel!==t.dataset.tab);
-  if(t.dataset.tab==="text"&&!$("quick").value)$("quick").value=toText();
-  if(t.dataset.tab==="lib")buildLib();
-  if(t.dataset.tab==="admin")loadUsers();
+document.addEventListener("click",function(ev){
+  var t=ev.target.closest("[data-go]");
+  if(t){show(t.dataset.go);return;}
+  var r=ev.target.closest(".rev");
+  if(r){setRev(r,!r.classList.contains("open"));syncAll();}
 });
-
-/* ================= Saisie rapide ================= */
-function toText(){let s=`${data.titre} | ${data.soustitre} | ${data.duree}\n`;
-  data.branches.forEach(b=>{s+=`\n## ${b.t}${b.d?" | "+b.d:""} | ${b.side==="R"?"droite":"gauche"}\n`+(b.items||[]).filter(x=>x.trim()).map(i=>"- "+i).join("\n")+"\n"});return s}
-function parseText(txt){const out=[];let head=null,cur=null;
-  for(const raw of txt.split(/\r?\n/)){const l=raw.trim();if(!l)continue;
-    if(/^#{1,3}\s/.test(l)){const parts=l.replace(/^#+\s*/,"").split("|").map(s=>s.trim());cur={t:parts[0],d:"",side:"",items:[]};
-      parts.slice(1).forEach(x=>{if(/^(gauche|g)$/i.test(x))cur.side="L";else if(/^(droite|d)$/i.test(x))cur.side="R";else if(x)cur.d=x});out.push(cur)}
-    else if(/^[-*•]\s*/.test(l)&&cur)cur.items.push(l.replace(/^[-*•]\s*/,""));
-    else if(!out.length&&!head)head=l.split("|").map(s=>s.trim());
-    else if(cur)cur.items.push(l)}
-  return{head,branches:out}}
-$("genQuick").onclick=()=>{const r=parseText($("quick").value);
-  if(!r.branches.length){$("quickMsg").textContent="Aucune branche trouvée. Commencez chaque branche par « ## » suivi de son nom.";return}
-  if(r.head){data.titre=r.head[0]||data.titre;data.soustitre=r.head[1]??"";data.duree=r.head[2]??""}
-  const keys=Object.keys(COLORS);let nL=0,nR=0;
-  data.branches=r.branches.map((b,i)=>{const prev=data.branches.find(x=>x.t===b.t);let side=b.side||(nL<=nR?"L":"R");const w=b.items.length+1.5;side==="L"?nL+=w:nR+=w;
-    return{t:b.t,d:b.d,side,c:prev?prev.c:keys[i%keys.length],items:b.items}});
-  fillFields();changed(true);$("quickMsg").textContent=`Carte générée : ${data.branches.length} branches.`;toast("Carte générée")};
-$("fillQuick").onclick=()=>{$("quick").value=toText();$("quickMsg").textContent=""};
-
-/* ================= Mes séances ================= */
-function openSeance(s){currentId=s.id;data=structuredClone(s.data);fillFields();buildBranches();renderPage();$("quick").value="";setSave(DEMO?"Enregistré dans ce navigateur":"Enregistré en ligne");buildLib()}
-function buildLib(){
-  const q=($("libSearch").value||"").toLowerCase().trim(),box=$("libList");
-  const list=[...seances].sort((a,b)=>b.updatedAt-a.updatedAt).filter(s=>!q||[s.data.titre,s.data.soustitre,s.data.matiere,s.data.niveau].join(" ").toLowerCase().includes(q));
-  if(!seances.length){box.innerHTML=`<p class="hint">Aucune séance pour l'instant. Cliquez sur « Nouvelle carte » pour commencer.</p>`;return}
-  if(!list.length){box.innerHTML=`<p class="hint">Aucune séance ne correspond à « ${esc(q)} ».</p>`;return}
-  box.innerHTML="";list.forEach(s=>{const el=document.createElement("div");el.className="lib-item"+(s.id===currentId?" cur":"");
-    const dt=new Date(s.updatedAt).toLocaleDateString("fr-FR",{day:"numeric",month:"short",year:"numeric"});
-    el.innerHTML=`<div><b>${esc(s.data.titre)}</b> ${s.id===currentId?'<span class="badge">ouverte</span>':""}<small>${esc(s.data.matiere)} · ${esc(s.data.niveau)} · ${esc(s.data.soustitre)} · ${dt}</small></div>
-    <div class="row" style="flex-wrap:nowrap"><button class="btn sm" data-open ${s.id===currentId?"disabled":""}>Ouvrir</button><button class="btn sm danger" data-del>Supprimer</button></div>`;
-    el.querySelector("[data-open]").onclick=()=>{openSeance(s);toast("Séance ouverte")};
-    armDelete(el.querySelector("[data-del]"),async()=>{try{await db.remove(s.id);if(s.id===currentId){const n=seances[0];n?openSeance(n):await startNew()}buildLib();toast("Séance supprimée")}catch(e){toast("Suppression impossible")}});
-    box.appendChild(el)});
-}
-$("libSearch").oninput=buildLib;
-async function startNew(d){clearTimeout(saveTimer);currentId=newId();data=d||BLANK();fillFields();buildBranches();renderPage();$("quick").value="";await saveNow();buildLib()}
-$("newMap").onclick=()=>{startNew();toast("Nouvelle carte créée")};
-$("dupMap").onclick=()=>{const d=structuredClone(data);d.titre=d.titre+" (copie)";startNew(d);toast("Copie créée")};
-
-/* ================= Exports ================= */
-function download(name,blob){const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500)}
-const fname=ext=>`carte-${(data.matiere+"-"+data.niveau+"-"+data.titre).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}.${ext}`;
-$("exportJson").onclick=()=>download(fname("json"),new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));
-$("importJson").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();
-  r.onload=()=>{try{const d=JSON.parse(r.result);if(!Array.isArray(d.branches))throw 0;startNew(d);toast("Carte importée")}catch(_){toast("Ce fichier n'est pas une carte valide")}};r.readAsText(f);e.target.value=""};
-$("exportPng").onclick=async()=>{
-  if(!window.html2canvas){toast("Le module d'image n'a pas pu se charger. Vérifiez la connexion.");return}
-  const p=$("page"),st=$("stage"),t=p.style.transform,ov=st.style.overflow;p.style.transform="none";st.style.overflow="visible";
-  try{const cv=await html2canvas(p,{scale:1.7,backgroundColor:"#fff",width:1414,height:2000,windowWidth:1414});cv.toBlob(b=>download(fname("png"),b),"image/png")}
-  finally{p.style.transform=t;st.style.overflow=ov}};
-$("printBtn").onclick=()=>window.print();
-
-/* ================= Administration ================= */
-function genPass(){const a="ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";const v=crypto.getRandomValues(new Uint32Array(10));return [...v].map(x=>a[x%a.length]).join("")}
-$("adGen").onclick=()=>{$("adPass").value=genPass()};
-let lastCreds="";
-$("adForm").onsubmit=async e=>{e.preventDefault();$("adErr").textContent="";$("adOk").textContent="";$("adCopy").hidden=true;
-  const email=$("adEmail").value.trim().toLowerCase(),pass=$("adPass").value.trim();
-  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){$("adErr").textContent="Saisissez un email valide.";return}
-  if(pass.length<6){$("adErr").textContent="Le mot de passe doit faire au moins 6 caractères. Cliquez sur « Générer » pour en créer un.";return}
-  if(DEMO){$("adErr").textContent="La création de comptes fonctionne une fois Firebase configuré.";return}
-  $("adBtn").disabled=true;let existed=false;
-  try{
-    const {createUserWithEmailAndPassword,signOut}=fb.auth;
-    try{await createUserWithEmailAndPassword(fb.auth2,email,pass);await signOut(fb.auth2)}
-    catch(err){if(err.code==="auth/email-already-in-use")existed=true;else throw err}
-    const {doc,setDoc}=fb.fs;
-    await setDoc(doc(fb.db,"autorises",email),{nom:$("adNom").value.trim(),ecole:$("adEcole").value.trim(),role:$("adRole").value,valideLe:Date.now(),validePar:user.email});
-    lastCreds=`Cartes mentales de séance\nAdresse : ${location.origin+location.pathname}\nEmail : ${email}\nMot de passe : ${existed?"(inchangé)":pass}`;
-    $("adOk").textContent=existed?"Ce compte existait déjà : son accès est réactivé avec son ancien mot de passe.":"Compte créé et validé. Donnez-lui son email et son mot de passe.";
-    $("adCopy").hidden=false;$("adForm").reset();loadUsers();
-  }catch(err){console.error(err);$("adErr").textContent=authMsg(err)}
-  finally{$("adBtn").disabled=false}};
-$("adCopy").onclick=async()=>{try{await navigator.clipboard.writeText(lastCreds);toast("Identifiants copiés")}catch(e){toast("Copie impossible : sélectionnez le texte à la main")}};
-async function loadUsers(){
-  const box=$("adList");if(DEMO){box.innerHTML=`<p class="hint">La liste des comptes apparaît une fois Firebase configuré.</p>`;return}
-  box.innerHTML=`<p class="hint">Chargement…</p>`;
-  try{const {collection,getDocs}=fb.fs;const snap=await getDocs(collection(fb.db,"autorises"));
-    const rows=snap.docs.map(d=>({email:d.id,...d.data()})).sort((a,b)=>a.email.localeCompare(b.email));
-    $("adCount").textContent=`${rows.length} compte${rows.length>1?"s":""}`;box.innerHTML="";
-    rows.forEach(u=>{const el=document.createElement("div");el.className="lib-item";const me=u.email===user.email.toLowerCase();
-      el.innerHTML=`<div><b>${esc(u.nom||u.email)}</b> ${u.role==="admin"?'<span class="badge">admin</span>':""}<small>${esc(u.email)}${u.ecole?" · "+esc(u.ecole):""}</small></div>
-      <div class="row" style="flex-wrap:nowrap"><button class="btn sm" data-reset>Lien mot de passe</button>${me?"":`<button class="btn sm danger" data-del>Retirer l'accès</button>`}</div>`;
-      el.querySelector("[data-reset]").onclick=async()=>{try{await fb.auth.sendPasswordResetEmail(fb.authMain,u.email);toast("Email de réinitialisation envoyé à "+u.email)}catch(e){toast(authMsg(e))}};
-      const del=el.querySelector("[data-del]");if(del)armDelete(del,async()=>{try{const {doc,deleteDoc}=fb.fs;await deleteDoc(doc(fb.db,"autorises",u.email));toast("Accès retiré");loadUsers()}catch(e){toast("Impossible de retirer l'accès")}},"Confirmer le retrait");
-      box.appendChild(el)});
-  }catch(e){console.error(e);box.innerHTML=`<p class="err">Impossible de charger les comptes. Vérifiez que les règles Firestore sont bien publiées.</p>`}
-}
-
-/* ================= Connexion ================= */
-function authMsg(e){const c=e&&e.code||"";return({
-  "auth/invalid-credential":"Email ou mot de passe incorrect.","auth/wrong-password":"Email ou mot de passe incorrect.","auth/user-not-found":"Email ou mot de passe incorrect.",
-  "auth/invalid-email":"Cet email n'est pas valide.","auth/user-disabled":"Ce compte a été désactivé. Contactez l'administrateur.",
-  "auth/too-many-requests":"Trop de tentatives. Patientez quelques minutes puis réessayez.","auth/network-request-failed":"Pas de connexion internet.",
-  "auth/weak-password":"Mot de passe trop faible (6 caractères minimum).","auth/operation-not-allowed":"La connexion par email n'est pas activée dans Firebase (Authentication > Méthode de connexion).",
-  "permission-denied":"Action refusée par les règles Firestore."
-})[c]||("Erreur : "+(e&&e.message||e))}
-$("loginForm").onsubmit=async e=>{e.preventDefault();$("lgErr").textContent="";$("lgOk").textContent="";
-  const em=$("lgEmail").value.trim(),pw=$("lgPass").value;
-  if(!em||!pw){$("lgErr").textContent="Saisissez votre email et votre mot de passe.";return}
-  $("lgBtn").disabled=true;$("lgBtn").textContent="Connexion…";
-  try{await fb.auth.signInWithEmailAndPassword(fb.authMain,em,pw)}catch(err){$("lgErr").textContent=authMsg(err)}
-  finally{$("lgBtn").disabled=false;$("lgBtn").textContent="Se connecter"}};
-$("lgReset").onclick=async()=>{$("lgErr").textContent="";$("lgOk").textContent="";const em=$("lgEmail").value.trim();
-  if(!em){$("lgErr").textContent="Saisissez d'abord votre email, puis cliquez de nouveau sur « Mot de passe oublié ».";return}
-  try{await fb.auth.sendPasswordResetEmail(fb.authMain,em);$("lgOk").textContent="Si ce compte existe, un email de réinitialisation vient d'être envoyé."}catch(err){$("lgErr").textContent=authMsg(err)}};
-$("logout").onclick=async()=>{if(DEMO)return;clearTimeout(saveTimer);await fb.auth.signOut(fb.authMain)};
-
-function show(which){$("loading").hidden=which!=="loading";$("login").hidden=which!=="login";$("app").hidden=which!=="app";if(which==="app")scaleStage()}
-
-async function enterApp(){
-  $("whoName").textContent=DEMO?"Mode démo":(profile.nom||user.email);
-  $("logout").hidden=DEMO;$("demoBanner").hidden=!DEMO;
-  $("tab-admin").hidden=!(DEMO||profile.role==="admin");
-  $("libHint").textContent=DEMO?"Mode démo : les séances sont gardées dans ce navigateur.":"Chaque modification est enregistrée en ligne. Vous retrouvez vos séances sur n'importe quel appareil.";
-  show("app");
-  try{seances=await db.list()}catch(e){console.error(e);seances=[];toast("Impossible de charger vos séances.")}
-  if(seances.length){openSeance([...seances].sort((a,b)=>b.updatedAt-a.updatedAt)[0])}
-  else{const d=structuredClone(EXAMPLE);d.enseignant=profile.nom||"";d.ecole=profile.ecole||"";await startNew(d)}
-}
-
-/* ================= Démarrage ================= */
-addEventListener("resize",()=>{if(!$("app").hidden)scaleStage()});
-(async()=>{
-  let cfg=null;
-  try{cfg=(await import("./firebase-config.js")).firebaseConfig}catch(e){cfg=null}
-  DEMO=!cfg||!cfg.apiKey||cfg.apiKey==="A_REMPLACER";
-  if(DEMO){profile={nom:"",ecole:"",role:"admin"};await enterApp();return}
-  try{
-    const V="10.12.2",base=`https://www.gstatic.com/firebasejs/${V}/`;
-    const [appM,authM,fsM]=await Promise.all([import(base+"firebase-app.js"),import(base+"firebase-auth.js"),import(base+"firebase-firestore.js")]);
-    const app=appM.initializeApp(cfg),app2=appM.initializeApp(cfg,"admin-creation");
-    fb={auth:authM,fs:fsM,authMain:authM.getAuth(app),auth2:authM.getAuth(app2),db:fsM.getFirestore(app)};
-    authM.setPersistence(fb.auth2,authM.inMemoryPersistence).catch(()=>{});
-  }catch(e){console.error(e);$("loading").textContent="Impossible de charger le service de connexion. Vérifiez votre connexion internet puis rechargez la page.";return}
-  fb.auth.onAuthStateChanged(fb.authMain,async u=>{
-    if(!u){user=null;profile={};show("login");return}
-    show("loading");
-    try{const snap=await fb.fs.getDoc(fb.fs.doc(fb.db,"autorises",u.email.toLowerCase()));
-      if(!snap.exists()){await fb.auth.signOut(fb.authMain);show("login");$("lgErr").textContent="Ce compte n'est pas (ou plus) validé. Contactez l'administrateur.";return}
-      user=u;profile=snap.data();await enterApp();
-    }catch(e){console.error(e);await fb.auth.signOut(fb.authMain);show("login");$("lgErr").textContent="Accès refusé. Ce compte n'est pas validé par l'administrateur."}
-  });
+document.getElementById("all").addEventListener("click",function(){
+  var s=sec();if(!s)return;var b=s.querySelectorAll(".rev");
+  var allOpen=Array.prototype.every.call(b,function(x){return x.classList.contains("open");});
+  b.forEach(function(x){setRev(x,!allOpen);});syncAll();
+});
+var fs=19;
+function size(d){fs=Math.max(14,Math.min(34,fs+d));document.documentElement.style.setProperty("--fs",fs+"px");}
+document.getElementById("sm").addEventListener("click",function(){size(-2);});
+document.getElementById("lg").addEventListener("click",function(){size(2);});
+document.addEventListener("keydown",function(ev){
+  if(ev.target.tagName==="INPUT"||ev.altKey||ev.ctrlKey||ev.metaKey)return;
+  var i=ids.indexOf(cur);
+  if(ev.key==="ArrowRight"&&i<ids.length-1)show(ids[i+1]);
+  if(ev.key==="ArrowLeft"&&i>0)show(ids[i-1]);
+});
+show((location.hash||"#home").slice(1));
 })();
 </script>
 </body>
