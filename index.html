@@ -186,6 +186,29 @@ a.btn.dl{text-decoration:none;display:inline-block;background:#E0A526;color:#1a1
 .vmark{background:#EBDDFB;border-radius:3px}
 @media print{#gloss{display:none!important}}
 
+.tts{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:#F4F7FB;border:1px solid #D6E2F0;border-radius:12px;padding:10px 12px;margin:0 0 12px}
+.tts .btn{padding:8px 16px;font-size:.9em}
+.tts .btn[disabled]{opacity:.45;cursor:default}
+.tts label{font-size:.85em;color:var(--muted);display:flex;gap:6px;align-items:center}
+.tts select{font:inherit;font-size:.9em;padding:5px 8px;border-radius:8px;border:1px solid #cbd5e1;max-width:220px}
+.ttsmsg{font-size:.85em;color:#b45309}
+.scene p.reading{background:#FFF3CD;box-shadow:-6px 0 0 #E0A526;border-radius:4px}
+.gs{border:0;background:none;cursor:pointer;font-size:1em;padding:0 4px}
+
+.rec{flex-basis:100%;display:flex;gap:10px;align-items:center;flex-wrap:wrap;border-top:1px dashed #C9D6E6;padding-top:8px}
+.rec .btn{padding:7px 14px;font-size:.88em}
+.recbtn.on{background:#d64545;color:#fff;border-color:#d64545;animation:pulse 1.2s infinite}
+@keyframes pulse{50%{opacity:.65}}
+.rectime{font-variant-numeric:tabular-nums;font-weight:700;color:#d64545}
+.recstate{font-size:.85em;color:#2e7d32;font-weight:600}
+.recplay{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.recplay audio{height:38px;max-width:100%}
+a.btn.recdl{text-decoration:none;display:inline-block}
+
+.scene .vw{border-bottom:2px dotted #8E6BBF;cursor:help}
+.scene .w.now{background:#FFC83D;color:#1a1a1a;border-radius:4px;box-shadow:0 0 0 2px #FFC83D;font-weight:700}
+.scene p.reading{background:#FFF6D6}
+
 </style>
 </head>
 <body>
@@ -197,7 +220,7 @@ a.btn.dl{text-decoration:none;display:inline-block;background:#E0A526;color:#1a1
 <div class="tools"><button id="all" title="Afficher ou masquer tout ce qui est caché dans la partie ouverte">Tout afficher</button><button id="sm">A−</button><button id="lg">A+</button></div>
 </div></div>
 <main>
-<section id="home" class="part"><div class="cover"><span class="kick">LA BOÎTE À MERVEILLES · AHMED SEFRIOUI</span><h1>1ère année Baccalauréat</h1><p>Événements · Décorticage · QCM avec score</p><p class="by">Site réalisé par <b>Prof Mohamed Alaoui</b></p></div><div class="cards2"><div class="chap"><h2>Chapitre I</h2><button class="card" data-go="c1-ev"><span class="ic">📖</span><b>Événements</b><small>Repères, 8 événements, mots difficiles FR / AR</small></button><button class="card" data-go="c1-cm"><span class="ic">🧠</span><b>Carte mentale</b><small>Une page, à télécharger en PDF</small></button><button class="card" data-go="c1-p1"><span class="ic">🔍</span><b>Décorticage</b><small>7 parties : texte, vocabulaire, figures de style, questions</small></button><button class="card" data-go="c1-qcm"><span class="ic">✅</span><b>QCM · Quiz</b><small>38 questions, correction et score</small></button></div><div class="chap"><h2>Chapitre II</h2><button class="card" data-go="c2-ev"><span class="ic">📖</span><b>Événements</b><small>Repères, 8 événements, mots difficiles FR / AR</small></button><button class="card" data-go="c2-cm"><span class="ic">🧠</span><b>Carte mentale</b><small>Une page, à télécharger en PDF</small></button><button class="card" data-go="c2-p1"><span class="ic">🔍</span><b>Décorticage</b><small>8 parties : texte, vocabulaire, figures de style, questions</small></button><button class="card" data-go="c2-qcm"><span class="ic">✅</span><b>QCM · Quiz</b><small>32 questions, correction et score</small></button></div></div><div class="box how"><b>Comment utiliser ce site</b><ul><li>Ouvrir le menu <b>Chapitre I</b> ou <b>Chapitre II</b> en haut, puis choisir une rubrique.</li><li>Dans le décorticage, les <b>figures de style</b>, les <b>champs lexicaux</b> et les <b>réponses</b> sont cachés : cliquer sur le bouton pour les afficher.</li><li><b>Surligner</b> un mot du vocabulaire dans un texte (avec la souris ou le doigt) : son <b>explication s’affiche</b>.</li><li>Dans le <b>QCM</b>, choisir une réponse : la correction s’affiche aussitôt et le score est calculé à la fin.</li><li>Les boutons A− et A+ changent la taille du texte (pratique pour la télé).</li></ul></div></section>
+<section id="home" class="part"><div class="cover"><span class="kick">LA BOÎTE À MERVEILLES · AHMED SEFRIOUI</span><h1>1ère année Baccalauréat</h1><p>Événements · Décorticage · QCM avec score</p><p class="by">Site réalisé par <b>Prof Mohamed Alaoui</b></p></div><div class="cards2"><div class="chap"><h2>Chapitre I</h2><button class="card" data-go="c1-ev"><span class="ic">📖</span><b>Événements</b><small>Repères, 8 événements, mots difficiles FR / AR</small></button><button class="card" data-go="c1-cm"><span class="ic">🧠</span><b>Carte mentale</b><small>Une page, à télécharger en PDF</small></button><button class="card" data-go="c1-p1"><span class="ic">🔍</span><b>Décorticage</b><small>7 parties : texte, vocabulaire, figures de style, questions</small></button><button class="card" data-go="c1-qcm"><span class="ic">✅</span><b>QCM · Quiz</b><small>38 questions, correction et score</small></button></div><div class="chap"><h2>Chapitre II</h2><button class="card" data-go="c2-ev"><span class="ic">📖</span><b>Événements</b><small>Repères, 8 événements, mots difficiles FR / AR</small></button><button class="card" data-go="c2-cm"><span class="ic">🧠</span><b>Carte mentale</b><small>Une page, à télécharger en PDF</small></button><button class="card" data-go="c2-p1"><span class="ic">🔍</span><b>Décorticage</b><small>8 parties : texte, vocabulaire, figures de style, questions</small></button><button class="card" data-go="c2-qcm"><span class="ic">✅</span><b>QCM · Quiz</b><small>32 questions, correction et score</small></button></div></div><div class="box how"><b>Comment utiliser ce site</b><ul><li>Ouvrir le menu <b>Chapitre I</b> ou <b>Chapitre II</b> en haut, puis choisir une rubrique.</li><li>Dans le décorticage, les <b>figures de style</b>, les <b>champs lexicaux</b> et les <b>réponses</b> sont cachés : cliquer sur le bouton pour les afficher.</li><li><b>Survoler</b> (ou toucher) un mot souligné dans un texte : son <b>explication</b> s’affiche. Pendant la lecture audio, le mot lu est <b>surligné</b>.</li><li>Dans le <b>QCM</b>, choisir une réponse : la correction s’affiche aussitôt et le score est calculé à la fin.</li><li>Les boutons A− et A+ changent la taille du texte (pratique pour la télé).</li></ul></div></section>
 <section id="c1-ev" class="part" hidden>
 <header class="banner"><span class="kick">CHAPITRE I</span><h2>Les événements</h2><span class="ref">Repères, 8 événements expliqués, mots difficiles (français / arabe)</span></header>
 <h3 class="t texte">Les repères du chapitre</h3><div class="rep-grid">
@@ -294,7 +317,7 @@ a.btn.dl{text-decoration:none;display:inline-block;background:#E0A526;color:#1a1
 <section id="c1-p1" class="part" hidden>
 <header class="banner"><span class="kick">CHAPITRE I · DÉCORTICAGE · PARTIE 1</span><h2>L&#x27;incipit : la solitude du narrateur</h2><span class="ref">Chapitre I, p. 2</span></header>
 <div class="box resume"><b>Résumé de la scène</b><p>Le narrateur adulte se souvient de sa solitude d&#x27;enfant : à six ans, il tend chaque jour un piège pour attraper un moineau qui ne vient jamais, espérant s&#x27;en faire un compagnon.</p></div>
-<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Surlignez un mot du vocabulaire : son explication s’affiche.</p><div class="scene">
+<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Survolez (ou touchez) un mot souligné : son explication s’affiche.</p><div class="tts"><button class="btn ttsplay">🔊 Écouter le texte</button><button class="btn sec ttspause" disabled>⏸ Pause</button><button class="btn sec ttsstop" disabled>⏹ Arrêter</button><label>Vitesse <select class="ttsrate"><option value="0.75">Lente</option><option value="0.9" selected>Normale</option><option value="1.1">Rapide</option></select></label><label>Voix <select class="ttsvoice"></select></label><span class="ttsmsg"></span></div><div class="scene">
 <p class="">Le soir, quand tous dorment, les riches dans leurs chaudes couvertures, les pauvres sur les marches des boutiques ou sous les porches des palais, moi je ne dors pas. Je songe à ma solitude et j’en sens tout le poids. Ma solitude ne date pas d’hier.</p>
 <p class="">Je vois, au fond d’une impasse que le soleil ne visite jamais, un petit garçon de six ans, dresser un piège pour attraper un moineau mais le moineau ne vient jamais. Il désire tant ce petit moineau ! Il ne le mangera pas, il ne le martyrisera pas. Il veut en faire son compagnon. Les pieds nus, sur la terre humide, il court jusqu’au bout de la ruelle pour voir passer les ânes et revient s’asseoir sur le pas de la maison et attendre l’arrivée du moineau qui ne vient pas. Le soir, il rentre le cœur gros et les yeux rougis, balançant au bout de son petit bras, un piège en fil de cuivre.</p>
 </div>
@@ -335,7 +358,7 @@ a.btn.dl{text-decoration:none;display:inline-block;background:#E0A526;color:#1a1
 <section id="c1-p2" class="part" hidden>
 <header class="banner"><span class="kick">CHAPITRE I · DÉCORTICAGE · PARTIE 2</span><h2>Dar Chouafa et ses habitants</h2><span class="ref">Chapitre I, p. 2</span></header>
 <div class="box resume"><b>Résumé de la scène</b><p>Présentation de Dar Chouafa, la maison de la voyante, et de ses habitants étage par étage : la Chouafa au rez-de-chaussée ; Driss El Aouad, Rahma et Zineb au premier ; la famille du narrateur et Fatma Bziouya au deuxième.</p></div>
-<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Surlignez un mot du vocabulaire : son explication s’affiche.</p><div class="scene">
+<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Survolez (ou touchez) un mot souligné : son explication s’affiche.</p><div class="tts"><button class="btn ttsplay">🔊 Écouter le texte</button><button class="btn sec ttspause" disabled>⏸ Pause</button><button class="btn sec ttsstop" disabled>⏹ Arrêter</button><label>Vitesse <select class="ttsrate"><option value="0.75">Lente</option><option value="0.9" selected>Normale</option><option value="1.1">Rapide</option></select></label><label>Voix <select class="ttsvoice"></select></label><span class="ttsmsg"></span></div><div class="scene">
 <p class="">Nous habitions Dar Chouafa, la maison de la voyante. Effectivement, au rez-de-chaussée, habitait une voyante de grande réputation. Des quartiers les plus éloignés, des femmes de toutes les conditions venaient la consulter. Elle était voyante et quelque peu sorcière. Adepte de la confrérie des Gnaouas (gens de Guinée) elle s’offrait, une fois par mois, une séance de musique et de danses nègres. Des nuages de benjoin emplissaient la maison et les crotales et les guimbris nous empêchaient de dormir, toute la nuit.</p>
 <p class="">Je ne comprenais rien au rituel compliqué qui se déroulait au rez-de-chaussée. De notre fenêtre du deuxième étage, je distinguais à travers la fumée des aromates les silhouettes gesticuler. Elles faisaient tinter leurs instruments bizarres. J’entendais des you-you. Les robes étaient tantôt bleu-ciel, tantôt rouge sang, parfois d’un jaune flamboyant. Les lendemains de ces fêtes étaient des jours mornes, plus tristes et plus gris que les jours ordinaires. Je me levais de bonne heure pour aller au Msid, école Coranique située à deux pas de la maison. Les bruits de la nuit roulaient encore dans ma tête, l’odeur du benjoin et de l’encens m’enivrait. Autour de moi, rôdaient les jnouns, les démons noirs évoqués par la sorcière et ses amis avec une frénésie qui touchait au délire. Je sentais les jnouns me frôler de leurs doigts brûlants ; j’entendais leurs rires comme par les nuits d’orage. Mes index dans les oreilles, je criais les versets tracés sur ma planchette avec un accent de désespoir.</p>
 <p class="">Les deux pièces du rez-de-chaussée étaient occupées par la Chouafa principale locataire. Au premier étage habitaient Driss El Aouad, sa femme Rahma et leur fille d’un an plus âgée que moi. Elle s’appelait Zineb et je ne l’aimais pas. Toute cette famille disposait d’une seule pièce, Rahma faisait la cuisine sur le palier. Nous partagions avec Fatma Bziouya le deuxième étage. Nos deux fenêtres faisaient vis-à-vis et donnaient sur le patio, un vieux patio dont les carreaux avaient depuis longtemps perdu leurs émaux de couleur et qui paraissait pavé de briques. Il était tous les jours lavé à grande eau et frotté au balai de doum. Les jnouns aimaient la propreté. Les clientes de la Chouafa avaient dès l’entrée une bonne impression, impression de netteté et de paix qui invitait à l’abandon, aux confidences - autant d’éléments qui aidaient la voyante à dévoiler plus sûrement l’avenir.</p>
@@ -384,7 +407,7 @@ a.btn.dl{text-decoration:none;display:inline-block;background:#E0A526;color:#1a1
 <section id="c1-p3" class="part" hidden>
 <header class="banner"><span class="kick">CHAPITRE I · DÉCORTICAGE · PARTIE 3</span><h2>Le Msid, le rêve et l&#x27;attente</h2><span class="ref">Chapitre I, p. 3</span></header>
 <div class="box resume"><b>Résumé de la scène</b><p>Le narrateur adulte explique comment sa mémoire d&#x27;enfant a gravé des souvenirs très précis ; il se distinguait des autres enfants par son goût du rêve et de l&#x27;invisible plutôt que par l&#x27;imitation des grands.</p></div>
-<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Surlignez un mot du vocabulaire : son explication s’affiche.</p><div class="scene">
+<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Survolez (ou touchez) un mot souligné : son explication s’affiche.</p><div class="tts"><button class="btn ttsplay">🔊 Écouter le texte</button><button class="btn sec ttspause" disabled>⏸ Pause</button><button class="btn sec ttsstop" disabled>⏹ Arrêter</button><label>Vitesse <select class="ttsrate"><option value="0.75">Lente</option><option value="0.9" selected>Normale</option><option value="1.1">Rapide</option></select></label><label>Voix <select class="ttsvoice"></select></label><span class="ttsmsg"></span></div><div class="scene">
 <p class="">J’avais peut-être six ans. Ma mémoire était une cire fraîche et les moindres événements s’y gravaient en images ineffaçables. Il me reste cet album pour égayer ma solitude, pour me prouver à moi-même que je ne suis pas encore mort.</p>
 <p class="">A six ans j’étais seul, peut-être malheureux, mais je n’avais aucun point de repère qui me permît d’appeler mon existence : solitude ou malheur.</p>
 <p class="">Je n’étais ni heureux, ni malheureux. J’étais un enfant seul. Cela, je le savais. Point farouche de nature, j’ébauchai de timides amitiés avec les bambins de l’école coranique, mais leur durée fut brève. Nous habitions des univers différents. J’avais un penchant pour le rêve. Le monde me paraissait un domaine fabuleux, une féerie grandiose où les sorcières entretenaient un commerce familier avec des puissances invisibles. Je désirais que l’Invisible m’admît à participer à ses mystères. Mes petits camarades de l’école se contentaient du visible, surtout quand ce visible se concrétisait en sucreries d’un bleu céleste ou d’un rose de soleil couchant. Ils aimaient grignoter, sucer, mordre à pleines dents. Ils aimaient aussi jouer à la bataille, se prendre à la gorge avec des airs d’assassins, crier pour imiter la voix de leur père, s’insulter pour imiter les voisins, commander pour imiter le maître d’école.</p>
@@ -432,7 +455,7 @@ a.btn.dl{text-decoration:none;display:inline-block;background:#E0A526;color:#1a1
 <section id="c1-p4" class="part" hidden>
 <header class="banner"><span class="kick">CHAPITRE I · DÉCORTICAGE · PARTIE 4</span><h2>Le bain maure</h2><span class="ref">Chapitre I, p. 4</span></header>
 <div class="box resume"><b>Résumé de la scène</b><p>Emmené au bain maure, l&#x27;enfant se sent oppressé par la chaleur, la vapeur et la foule de corps serrés ; convaincu de se trouver en Enfer, il reste seul et apeuré dans un coin jusqu&#x27;au soir.</p></div>
-<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Surlignez un mot du vocabulaire : son explication s’affiche.</p><div class="scene">
+<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Survolez (ou touchez) un mot souligné : son explication s’affiche.</p><div class="tts"><button class="btn ttsplay">🔊 Écouter le texte</button><button class="btn sec ttspause" disabled>⏸ Pause</button><button class="btn sec ttsstop" disabled>⏹ Arrêter</button><label>Vitesse <select class="ttsrate"><option value="0.75">Lente</option><option value="0.9" selected>Normale</option><option value="1.1">Rapide</option></select></label><label>Voix <select class="ttsvoice"></select></label><span class="ttsmsg"></span></div><div class="scene">
 <p class="">Ma mère me calma :</p>
 <p class="dial">— Je t’emmène prendre un bain, je te promets une orange et un œuf dur et tu trouves le moyen de braire comme un âne !</p>
 <p class="">Toujours hoquetant, je répondis :</p>
@@ -482,7 +505,7 @@ a.btn.dl{text-decoration:none;display:inline-block;background:#E0A526;color:#1a1
 <section id="c1-p5" class="part" hidden>
 <header class="banner"><span class="kick">CHAPITRE I · DÉCORTICAGE · PARTIE 5</span><h2>La Boîte à merveilles</h2><span class="ref">Chapitre I, p. 4-5</span></header>
 <div class="box resume"><b>Résumé de la scène</b><p>L&#x27;enfant détaille le contenu de sa Boîte à merveilles — boules de verre, anneaux de cuivre, cadenas, clous, boutons — des objets sans valeur réelle mais qui sont pourtant ses seuls amis.</p></div>
-<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Surlignez un mot du vocabulaire : son explication s’affiche.</p><div class="scene">
+<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Survolez (ou touchez) un mot souligné : son explication s’affiche.</p><div class="tts"><button class="btn ttsplay">🔊 Écouter le texte</button><button class="btn sec ttspause" disabled>⏸ Pause</button><button class="btn sec ttsstop" disabled>⏹ Arrêter</button><label>Vitesse <select class="ttsrate"><option value="0.75">Lente</option><option value="0.9" selected>Normale</option><option value="1.1">Rapide</option></select></label><label>Voix <select class="ttsvoice"></select></label><span class="ttsmsg"></span></div><div class="scene">
 <p class="">Parfois, je vidais simplement ma Boîte à Merveilles par terre et j’inventoriais mes trésors. Un simple bouton de porcelaine me mettait les sens en extase. Quand je l’avais longtemps regardé, j’en caressais des doigts la matière avec respect. Mais il y avait dans cet objet un élément qui ne pouvait être saisi ni par les yeux, ni par les doigts, une mystérieuse beauté intraduisible. Elle me fascinait. Je sentais toute mon impuissance à en jouir pleinement. Je pleurais presque de sentir autour de moi cette étrange chose invisible, impalpable, que je ne pouvais goûter de la langue, mais qui avait un goût et le pouvoir d’enivrer. Et cela s’incarnait dans un bouton de porcelaine et lui donnait ainsi une âme et une vertu de talisman.</p>
 <p class="">Dans la Boîte à Merveilles il y avait une foule d’objets hétéroclites qui, pour moi seul, avaient un sens : des boules de verre, des anneaux de cuivre, un minuscule cadenas sans clef, des clous à tête dorée, des encriers vides, des boutons décorés, des boutons sans décor. Il y en avait en matière transparente, en métal, en nacre. Chacun de ces objets me parlait son langage. C’étaient là mes seuls amis. Bien sûr, j’avais des relations dans le monde de la légende avec des princes très vaillants et des géants au cœur tendre, mais ils habitaient les recoins cachés de mon imagination. Quant à mes boules de verre, mes boutons et mes clous, ils étaient là, à chaque instant, dans leur boîte rectangulaire, prête à me porter secours dans mes heures de chagrin.</p>
 </div>
@@ -518,7 +541,7 @@ a.btn.dl{text-decoration:none;display:inline-block;background:#E0A526;color:#1a1
 <section id="c1-p6" class="part" hidden>
 <header class="banner"><span class="kick">CHAPITRE I · DÉCORTICAGE · PARTIE 6</span><h2>Le bain et la mère conteuse</h2><span class="ref">Chapitre I, p. 5</span></header>
 <div class="box resume"><b>Résumé de la scène</b><p>De retour du bain, la mère raconte la séance à toute la maison avec un grand sens du mime et de la mise en scène ; mais sa gaieté du matin tourne souvent, le soir, à la querelle ou aux larmes.</p></div>
-<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Surlignez un mot du vocabulaire : son explication s’affiche.</p><div class="scene">
+<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Survolez (ou touchez) un mot souligné : son explication s’affiche.</p><div class="tts"><button class="btn ttsplay">🔊 Écouter le texte</button><button class="btn sec ttspause" disabled>⏸ Pause</button><button class="btn sec ttsstop" disabled>⏹ Arrêter</button><label>Vitesse <select class="ttsrate"><option value="0.75">Lente</option><option value="0.9" selected>Normale</option><option value="1.1">Rapide</option></select></label><label>Voix <select class="ttsvoice"></select></label><span class="ttsmsg"></span></div><div class="scene">
 <p class="">Le lendemain du bain, ma mère ne manquait pas de raconter la séance à toute la maison, avec des commentaires détaillés où abondaient les traits pittoresques et les anecdotes. Elle mimait les gestes de telle chérifa connue dans le quartier, la démarche de telle voisine qu’elle n’aimait pas, parlait avec éloge de la caissière ou se révoltait contre les masseuses, ces entremetteuses, mères des calamités, qui escroquaient les clientes sans leur apporter la moindre goutte d’eau. Le bain maure était naturellement le lieu des potins et des commérages. On y faisait connaissance avec des femmes qui n’habitaient pas le quartier. On y allait autant pour se purifier que pour se tenir au courant de ce qui se faisait, de ce qui se disait. Il arrivait qu’une femme chantât un couplet et le couplet faisait ainsi son entrée dans le quartier. Deux ou trois fois, ma mère assista à de vrais crêpages de chignons. De telles scènes donnaient matière à des galas de comédie. Pendant une semaine, ma mère mimait devant les femmes de la maison, les amies de passage et les voisines la dispute et ses phases multiples. On avait droit à un prologue suivi de la présentation des personnages, chacun avec sa silhouette particulière, ses difformités physiques, les caractéristiques de sa voix, de ses gestes et de son regard. On voyait naître le drame, on le voyait se développer, atteindre son paroxysme et finir dans les embrassades ou dans les larmes.</p>
 <p class="">Ma mère remportait auprès des voisines un gros succès. Je n’aimais pas beaucoup ces sortes d’exhibitions. L’excès de gaîté de ma mère était pour moi lié à de fâcheuses conséquences. Le matin, débordante d’enthousiasme, elle ne manquait jamais, le soir, de trouver quelque motif de querelle ou de pleurs. Mon père rentrait toujours tard ; il nous trouvait rarement de bonne humeur. Il subissait presque toujours le récit d’un événement que ma mère se plaisait à peindre avec les couleurs les plus sombres. Quelquefois un incident de mince importance prenait des proportions de catastrophe.</p>
 </div>
@@ -556,7 +579,7 @@ a.btn.dl{text-decoration:none;display:inline-block;background:#E0A526;color:#1a1
 <section id="c1-p7" class="part" hidden>
 <header class="banner"><span class="kick">CHAPITRE I · DÉCORTICAGE · PARTIE 7</span><h2>La lessive et la dispute</h2><span class="ref">Chapitre I, p. 6-7</span></header>
 <div class="box resume"><b>Résumé de la scène</b><p>Rahma fait sa lessive un lundi, jour réservé à la mère du narrateur ; les deux femmes échangent des insultes de fenêtre à fenêtre devant tout le voisinage, jusqu&#x27;à ce que l&#x27;enfant, épuisé par le bruit et la peur, s&#x27;évanouisse.</p></div>
-<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Surlignez un mot du vocabulaire : son explication s’affiche.</p><div class="scene">
+<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Survolez (ou touchez) un mot souligné : son explication s’affiche.</p><div class="tts"><button class="btn ttsplay">🔊 Écouter le texte</button><button class="btn sec ttspause" disabled>⏸ Pause</button><button class="btn sec ttsstop" disabled>⏹ Arrêter</button><label>Vitesse <select class="ttsrate"><option value="0.75">Lente</option><option value="0.9" selected>Normale</option><option value="1.1">Rapide</option></select></label><label>Voix <select class="ttsvoice"></select></label><span class="ttsmsg"></span></div><div class="scene">
 <p class="">Ainsi en fut-il quand Rahma eut l’idée néfaste de faire sa lessive un lundi. Il était établi que ce jour-là appartenait exclusivement à ma mère. De bonne heure, elle occupait le patio, l’encombrait d’auges de bois, de bidons qui servaient de lessiveuses, de seaux pour le rinçage et de paquets de linge sale. A peine vêtue d’un séroual et d’un vieux caftan déchiré, elle s’affairait autour d’un feu improvisé, remuait le contenu du bidon à l’aide d’une longue canne, pestait contre le bois qui donnait plus de fumée que de chaleur, accusait les marchands de savon noir de l’avoir escroquée et appelait sur leurs têtes toutes sortes de malédictions. Le patio ne suffisait pas à son activité. Elle grimpait jusque sur la terrasse, tendait ses cordes, les soutenait à l’aide de perches de mûrier, redescendait brasser des nuages de mousse.</p>
 <p class="">Ce jour-là ma mère m’expédiait à l’école avec, pour vêtement, une simple chemise sous ma djellaba. Le déjeuner était sacrifié. Je devais me contenter d’un quartier de pain enduit de beurre rance, accompagné de trois olives. Notre chambre même perdait son visage habituel. Les matelas gisaient là, sans couvertures, les coussins n’avaient plus d’enveloppes et la fenêtre semblait nue sans son rideau semé de fleurettes rouges.</p>
 <p class="">La soirée était consacrée au pliage des vêtements. Ma mère prenait une chemise toute froissée et sentant le soleil, la déployait sur ses genoux, la regardait par transparence, la pliait, les manches à l’intérieur, avec application, presque avec gravité. Parfois, elle faisait une reprise. Elle n’aimait guère la couture et moi-même, je préférais la voir tirer sur ses cardes ou tourner son rouet. L’aiguille, instrument particulièrement citadin, représentait à mes yeux un symbole de mollesse. Il était de tradition dans notre famille que le métier féminin noble par excellence consistât à travailler la laine. Manier l’aiguille équivalait presque à un reniement. Nous étions Fassis par accident, mais nous restions fidèles à nos origines montagnardes de seigneurs paysans. Ma mère ne manquait jamais d’évoquer ces origines lors des querelles avec les voisines. Elle osa même soutenir devant Rahma que nous étions d’authentiques descendants du Prophète.</p>
@@ -708,7 +731,7 @@ a.btn.dl{text-decoration:none;display:inline-block;background:#E0A526;color:#1a1
 <section id="c2-p1" class="part" hidden>
 <header class="banner"><span class="kick">CHAPITRE II · DÉCORTICAGE · PARTIE 1</span><h2>Le mardi, jour néfaste au Msid</h2><span class="ref">Chapitre II, p. 8</span></header>
 <div class="box resume"><b>Résumé de la scène</b><p>Le mardi est le jour le plus redouté des élèves du Msid : celui de la récitation. Après une nuit de cauchemars, l’enfant retrouve le regard sans pitié du fqih. À six ans, il connaît déjà la peur et la douleur de la baguette.</p></div>
-<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Surlignez un mot du vocabulaire : son explication s’affiche.</p><div class="scene">
+<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Survolez (ou touchez) un mot souligné : son explication s’affiche.</p><div class="tts"><button class="btn ttsplay">🔊 Écouter le texte</button><button class="btn sec ttspause" disabled>⏸ Pause</button><button class="btn sec ttsstop" disabled>⏹ Arrêter</button><label>Vitesse <select class="ttsrate"><option value="0.75">Lente</option><option value="0.9" selected>Normale</option><option value="1.1">Rapide</option></select></label><label>Voix <select class="ttsvoice"></select></label><span class="ttsmsg"></span></div><div class="scene">
 <p class="">Le MARDI, jour néfaste pour les élèves du Msid, me laisse dans la bouche un goût d&#x27;amertume. Tous les mardis sont pour moi couleur de cendre.</p>
 <p class="">Il faisait froid, ma nuit avait été peuplée de cauchemars. Des femmes échevelées menaçaient de me crever les yeux, m&#x27;envoyaient au visage les pires injures. Parfois, l&#x27;une d&#x27;elles me balançait à travers la fenêtre et je m&#x27;enfonçais lourdement dans le vide. Je criai. Une main, combien douce, se posa sur mon front.</p>
 <p class="">Le matin, je me rendis au Msid selon mon habitude. Le fqih avait son regard de tous les mardis.</p>
@@ -755,7 +778,7 @@ a.btn.dl{text-decoration:none;display:inline-block;background:#E0A526;color:#1a1
 <section id="c2-p2" class="part" hidden>
 <header class="banner"><span class="kick">CHAPITRE II · DÉCORTICAGE · PARTIE 2</span><h2>La migraine de la mère et la visite de Lalla Aïcha</h2><span class="ref">Chapitre II, p. 8-9</span></header>
 <div class="box resume"><b>Résumé de la scène</b><p>De retour à la maison, l’enfant trouve sa mère souffrant d’une terrible migraine. Lalla Aïcha, une ancienne voisine, remarque la pâleur de l’enfant, que la mère attribue au mauvais œil. Elle les convainc d’aller l’après-midi même au sanctuaire de Sidi Ali Boughaleb. On boit le thé, puis chacun s’habille pour ce « grand jour ».</p></div>
-<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Surlignez un mot du vocabulaire : son explication s’affiche.</p><div class="scene">
+<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Survolez (ou touchez) un mot souligné : son explication s’affiche.</p><div class="tts"><button class="btn ttsplay">🔊 Écouter le texte</button><button class="btn sec ttspause" disabled>⏸ Pause</button><button class="btn sec ttsstop" disabled>⏹ Arrêter</button><label>Vitesse <select class="ttsrate"><option value="0.75">Lente</option><option value="0.9" selected>Normale</option><option value="1.1">Rapide</option></select></label><label>Voix <select class="ttsvoice"></select></label><span class="ttsmsg"></span></div><div class="scene">
 <p class="">Ma mère me reçut assez froidement. Elle souffrait d&#x27;une terrible migraine. Pour enrayer le mal, elle avait les tempes garnies de rondelles de papier copieusement enduites de colle de farine.</p>
 <p class="">Le déjeuner fut improvisé et la bouilloire sur son brasero entama timidement sa chanson.</p>
 <p class="">Lalla Aïcha, une ancienne voisine, vint nous rendre visite. Ma mère la reçut en se plaignant de ses maux tant physiques que moraux. Elle affectait une voix faible de convalescente, s&#x27;étendait sur les souffrances de telle partie de son corps, serrait violemment des deux mains sa tête empaquetée dans un foulard. Lalla Aïcha lui prodigua toutes sortes de conseils, lui indiqua un fqih dans un quartier éloigné, dont les talismans faisaient miracle. Je me tenais timide et silencieux dans mon coin. La visiteuse remarqua la pâleur de mon visage.</p>
@@ -812,7 +835,7 @@ a.btn.dl{text-decoration:none;display:inline-block;background:#E0A526;color:#1a1
 <section id="c2-p3" class="part" hidden>
 <header class="banner"><span class="kick">CHAPITRE II · DÉCORTICAGE · PARTIE 3</span><h2>Le voyage vers le sanctuaire</h2><span class="ref">Chapitre II, p. 9-10</span></header>
 <div class="box resume"><b>Résumé de la scène</b><p>Dans les rues encombrées, les deux femmes avancent à petits pas et multiplient les recommandations. Lalla Aïcha, lente et corpulente, provoque des embouteillages. Près du cimetière, les étalages de sucreries rappellent à l’enfant sa Boîte à merveilles.</p></div>
-<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Surlignez un mot du vocabulaire : son explication s’affiche.</p><div class="scene">
+<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Survolez (ou touchez) un mot souligné : son explication s’affiche.</p><div class="tts"><button class="btn ttsplay">🔊 Écouter le texte</button><button class="btn sec ttspause" disabled>⏸ Pause</button><button class="btn sec ttsstop" disabled>⏹ Arrêter</button><label>Vitesse <select class="ttsrate"><option value="0.75">Lente</option><option value="0.9" selected>Normale</option><option value="1.1">Rapide</option></select></label><label>Voix <select class="ttsvoice"></select></label><span class="ttsmsg"></span></div><div class="scene">
 <p class="">Enfin, tout le monde s&#x27;engagea dans l&#x27;escalier. Nous nous trouvámes bientôt dans la rue.</p>
 <p class="">Les deux femmes marchaient à tout petits pas, se penchant parfois l&#x27;une sur l&#x27;autre pour se communiquer leurs impressions dans un chuchotement. A la maison, elles faisaient trembler les murs en racontant les moindres futilités, tellement leurs cordes vocales étaient à toute épreuve elles devenaient, dans la rue, aphones et gentiment minaudières.</p>
 <p class="">Parfois je les devançais, mais elles me rattrapaient tous les trois pas pour me prodiguer des conseils de prudence et des recommandations. Je ne devais pas me frotter aux murs: les murs étaient si sales et j&#x27;avais ma superbe djellaba blanche, je devais me moucher souvent avec le beau mouchoir brodé pendu à mon cou, je devais de même m&#x27;écarter des ânes, ne jamais être derrière eux car ils pouvaient ruer et jamais devant car ils prenaient un malin plaisir à mordre les petits enfants.</p>
@@ -861,7 +884,7 @@ a.btn.dl{text-decoration:none;display:inline-block;background:#E0A526;color:#1a1
 <section id="c2-p4" class="part" hidden>
 <header class="banner"><span class="kick">CHAPITRE II · DÉCORTICAGE · PARTIE 4</span><h2>Au sanctuaire : prières et rituels</h2><span class="ref">Chapitre II, p. 10-11</span></header>
 <div class="box resume"><b>Résumé de la scène</b><p>Au sanctuaire, la mère fait boire à son fils l’eau sacrée et lui en passe sur le visage et les membres. Devant le catafalque, les deux femmes implorent le saint à grands cris. La gardienne les félicite, parle de la bonté de Dieu et de l’amour du saint pour les chats, puis reçoit leur offrande.</p></div>
-<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Surlignez un mot du vocabulaire : son explication s’affiche.</p><div class="scene">
+<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Survolez (ou touchez) un mot souligné : son explication s’affiche.</p><div class="tts"><button class="btn ttsplay">🔊 Écouter le texte</button><button class="btn sec ttspause" disabled>⏸ Pause</button><button class="btn sec ttsstop" disabled>⏹ Arrêter</button><label>Vitesse <select class="ttsrate"><option value="0.75">Lente</option><option value="0.9" selected>Normale</option><option value="1.1">Rapide</option></select></label><label>Voix <select class="ttsvoice"></select></label><span class="ttsmsg"></span></div><div class="scene">
 <p class="">Le toit de tuiles vertes qui couvre le mausolée se dressait dans un tendre azur où batifolaient de nuages blancs et roses aux formes capricieuses. Sur les marches de l&#x27;entrée principale, des femmes, assises à même le sol, devisaient entre elles, mâchaient sous leur voile de la gomme parfumée, interpellaient leurs enfants qui jouaient dans la poussière. Elles se serrèrent pour nous laisser un étroit passage.</p>
 <p class="">Nous nous trouvâmes bientôt dans une cour qui me parut immense. Au centre trônaient quatre vaisseaux en terre cuite remplis d&#x27;eau. Ma mère trouva un gobelet et me fit boire. Elle se versa un peu de liquide dans le creux de la main, me passa les doigts sur le visage, les yeux, les jointures des mains et sur les chevilles. Tout en procédant à ce rituel, elle marmonnait de vagues prières, des invocations, me recommandait de rester tranquille, rappelait à Lalla Aïcha telle ou telle péripétie de notre promenade. Je subissais tout cela avec ma patience coutumière. Je me tortillais le cou pour regarder une armée de chats qui se livraient à une folle sarabande à l&#x27;intérieur de ce temple étrange. Au delà de cette cour s&#x27;ouvrait la Zaouia. De chaque côté d&#x27;une pièce carrée où se dressait le catafalque du Saint, deux portes conduisaient aux chambres des pèlerins. Des gens venus de loin, pour se débarrasser de leurs maux, vivaient là avec leurs enfants, attendant la guérison.</p>
 <p class="">En arrivant devant le catafalque, Lalla Aïcha et mère se mirent à appeler à grands cris le saint à leur secours. L&#x27;une ignorant les paroles de l&#x27;autre, chacune lui exposait ses petites misères, frappait du plat de la main le bois du catafalque, gémissait, suppliait, vitupérait contre ses ennemis. Les voix montaient, les mains frappaient le bois du catafalque avec plus d&#x27;énergie et de passion. Un délire sacré, s&#x27;était emparé des deux femmes. Elles énuméraient leurs maux, exposaient leurs faiblesses, demandaient protection, réclamaient vengeance, avouaient impuretés, proclamaient la miséricorde de Dieu et la puissance de Sidi Ali Boughaleb, en appelaient à sa pitié. Épuisées par leur ferveur, elles s&#x27;arrêtèrent enfin. La gardienne du mausolée vint les complimenter sur leur piété et joindre ses prières aux leurs.</p>
@@ -912,7 +935,7 @@ a.btn.dl{text-decoration:none;display:inline-block;background:#E0A526;color:#1a1
 <section id="c2-p5" class="part" hidden>
 <header class="banner"><span class="kick">CHAPITRE II · DÉCORTICAGE · PARTIE 5</span><h2>La griffure du chat</h2><span class="ref">Chapitre II, p. 11</span></header>
 <div class="box resume"><b>Résumé de la scène</b><p>Pendant la prière de la gardienne, l’enfant s’éloigne pour caresser un gros chat, qui le griffe jusqu’au sang. Il hurle ; les femmes l’entourent et tentent de le consoler, mais leur agitation lui donne le vertige. Il rentre en hoquetant et sa mère le couche.</p></div>
-<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Surlignez un mot du vocabulaire : son explication s’affiche.</p><div class="scene">
+<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Survolez (ou touchez) un mot souligné : son explication s’affiche.</p><div class="tts"><button class="btn ttsplay">🔊 Écouter le texte</button><button class="btn sec ttspause" disabled>⏸ Pause</button><button class="btn sec ttsstop" disabled>⏹ Arrêter</button><label>Vitesse <select class="ttsrate"><option value="0.75">Lente</option><option value="0.9" selected>Normale</option><option value="1.1">Rapide</option></select></label><label>Voix <select class="ttsvoice"></select></label><span class="ttsmsg"></span></div><div class="scene">
 <p class="">Lentement, je me glissai hors de cet essaim de femmes pour aller caresser un gros matou étalé de tout son long contre le mur. Il me regarda de ses yeux jaunes, ronronna et m&#x27;envoya un magistral coup de griffe. Le sang gicla. Ma main se mit à me cuire atrocement. Je poussai un cri. Ma mère se précipita, folle d&#x27;inquiétude, bousculant ses voisines, buttant dans son haïk qui traînait sur le sol.</p>
 <p class="">La blessure me faisait mal et je hurlais sans discontinuer. Les femmes posaient des questions, s&#x27;apitoyaient, m&#x27;offraient une orange pour me consoler, m&#x27;appelaient leur petite rose, leur bouquet de jasmin, leur petit fromage blanc. Loin de me calmer, ce tourbillon de visages me donnait le vertige. Je sanglotais à fendre l&#x27;âme. Une main mouillée se posa sur ma figure, un torchon sécha mes larmes et l&#x27;écoulement de mon nez. Le froid de cette main calma mes pleurs, mais je ne cessai pas de hoqueter le long du chemin de retour.</p>
 <p class="">Ma mère me coucha dès l&#x27;arrivée à la maison.</p>
@@ -953,7 +976,7 @@ a.btn.dl{text-decoration:none;display:inline-block;background:#E0A526;color:#1a1
 <section id="c2-p6" class="part" hidden>
 <header class="banner"><span class="kick">CHAPITRE II · DÉCORTICAGE · PARTIE 6</span><h2>Le matin à Dar Chouafa</h2><span class="ref">Chapitre II, p. 11-13</span></header>
 <div class="box resume"><b>Résumé de la scène</b><p>Le lendemain, le père, levé le premier, demande que l’enfant n’aille pas au Msid. De son lit, celui-ci écoute la maison s’éveiller : les moineaux dont il croit comprendre le langage, la Chouafa, Rahma qui gronde Zineb, puis les salutations que les femmes échangent chaque matin sans s’écouter. Il se réjouit d’avoir deux jours et demi loin du fqih.</p></div>
-<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Surlignez un mot du vocabulaire : son explication s’affiche.</p><div class="scene">
+<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Survolez (ou touchez) un mot souligné : son explication s’affiche.</p><div class="tts"><button class="btn ttsplay">🔊 Écouter le texte</button><button class="btn sec ttspause" disabled>⏸ Pause</button><button class="btn sec ttsstop" disabled>⏹ Arrêter</button><label>Vitesse <select class="ttsrate"><option value="0.75">Lente</option><option value="0.9" selected>Normale</option><option value="1.1">Rapide</option></select></label><label>Voix <select class="ttsvoice"></select></label><span class="ttsmsg"></span></div><div class="scene">
 <p class="">Mon père se levait toujours le premier. Je voyais vaguement sa silhouette dans le demi-jour danser lentement. Il s&#x27;enroulait autour des reins une corde de plusieurs coudées en poil de chèvre, qui lui servait de ceinture. Pour cela, il tournait sur lui-même, soulevait une jambe pour laisser passer la corde, soulevait l&#x27;autre alternativement, faisait des gestes larges de ses bras. Il procédait ensuite à l&#x27;arrangement de son turban, mettait sa djellaba et sortait en silence. Ma mère dormait.</p>
 <p class="">Ce matin, j&#x27;entendis mon père lui chuchoter :</p>
 <p class="dial">- Ne l&#x27;envoie pas au Msid, il semble bien fatigué. Ma mère acquiesça et se replongea dans ses couvertures.</p>
@@ -1041,7 +1064,7 @@ a.btn.dl{text-decoration:none;display:inline-block;background:#E0A526;color:#1a1
 <section id="c2-p7" class="part" hidden>
 <header class="banner"><span class="kick">CHAPITRE II · DÉCORTICAGE · PARTIE 7</span><h2>Les beignets, Driss le teigneux et l&#x27;origine des parents</h2><span class="ref">Chapitre II, p. 13-14</span></header>
 <div class="box resume"><b>Résumé de la scène</b><p>Après le déjeuner, Fatma Bziouya offre deux beignets : la mère refuse d’abord par politesse, puis les donne à son fils. Driss le teigneux, l’apprenti du père, vient faire le marché. Le narrateur raconte alors l’origine montagnarde de ses parents et comment son père est devenu tisserand. Cette aisance attire « l’œil des envieux ».</p></div>
-<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Surlignez un mot du vocabulaire : son explication s’affiche.</p><div class="scene">
+<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Survolez (ou touchez) un mot souligné : son explication s’affiche.</p><div class="tts"><button class="btn ttsplay">🔊 Écouter le texte</button><button class="btn sec ttspause" disabled>⏸ Pause</button><button class="btn sec ttsstop" disabled>⏹ Arrêter</button><label>Vitesse <select class="ttsrate"><option value="0.75">Lente</option><option value="0.9" selected>Normale</option><option value="1.1">Rapide</option></select></label><label>Voix <select class="ttsvoice"></select></label><span class="ttsmsg"></span></div><div class="scene">
 <p class="">Ma mère m&#x27;aida à faire mes ablutions et s&#x27;affaira, dans le réduit qui lui servait de cuisine, à activer son feu. Toute la maison retentissait du bruit des soufflets. Il faisait un éclatant soleil. Bientôt la table fut mise. Il y avait des œufs frits à l&#x27;huile d&#x27;olive et du pain frais. Nous nous mîmes à manger. Allal, le mari de Fatma Bziouya, jardinier de son état, fit entendre sa voix à l&#x27;entrée de la maison.</p>
 <p class="dial">- N&#x27;y a-t-il personne? Puis-je passer? Rahma répondit :</p>
 <p class="dial">- Il n&#x27;y a personne. Passe!</p>
@@ -1103,7 +1126,7 @@ a.btn.dl{text-decoration:none;display:inline-block;background:#E0A526;color:#1a1
 <section id="c2-p8" class="part" hidden>
 <header class="banner"><span class="kick">CHAPITRE II · DÉCORTICAGE · PARTIE 8</span><h2>Le cabochon de verre de Rahma</h2><span class="ref">Chapitre II, p. 14-15</span></header>
 <div class="box resume"><b>Résumé de la scène</b><p>L’enfant aide à écosser les fèves, puis reçoit de Fatma un radis trop fort qu’il jette depuis la terrasse. Dans l’escalier, il croise Rahma, fâchée avec sa mère depuis la dispute : elle lui glisse dans la main un cabochon de verre. Pour l’enfant, c’est un bijou fabuleux qui rejoindra sa Boîte à merveilles ; pour sa mère, « un bout de verre ».</p></div>
-<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Surlignez un mot du vocabulaire : son explication s’affiche.</p><div class="scene">
+<h3 class="t texte">Texte de la scène</h3><p class="hint">💡 Survolez (ou touchez) un mot souligné : son explication s’affiche.</p><div class="tts"><button class="btn ttsplay">🔊 Écouter le texte</button><button class="btn sec ttspause" disabled>⏸ Pause</button><button class="btn sec ttsstop" disabled>⏹ Arrêter</button><label>Vitesse <select class="ttsrate"><option value="0.75">Lente</option><option value="0.9" selected>Normale</option><option value="1.1">Rapide</option></select></label><label>Voix <select class="ttsvoice"></select></label><span class="ttsmsg"></span></div><div class="scene">
 <p class="">Les feves furent versées dans un large panier en sparterie en forme de plat.</p>
 <p class="">Tu m&#x27;aideras à les écosser, me dit maman. J&#x27;acquiesçai et me mis aussitôt à l&#x27;ouvrage. Je fus vite dégoûté de ce travail. J&#x27;allai risquer un œil dans chambre de Bziouya. Elle roulait du couscous. Dans un coin, s&#x27;amoncelaient divers légumes navets, carottes, courge rouge et oignons. Notre voisine m&#x27;aimait beaucoup. Elle laissa un moment son couscous pour fouiller dans un panier. Elle me tendit, avec un large sourire, un radis d&#x27;un rouge de rubis long d&#x27;un empan. Je lui fis un sourire pour la remercier et plantai mes dents dans la chair rose de cette friandise. Le goût en était si fort que les larmes me sortirent des yeux. Je ne dis rien, je partis à reculons, grimpai les marches qui conduisationt sur la terrasse et jetai par-dessus le mur qui nous séparait d&#x27;une autre maison, le beau radis.</p>
 <p class="">Le soleil était clair et chaud. Un chat blanc et noir reposait sur le mur et suivait mes mouvements de ses yeux à demi fermés. Je ne m&#x27;en approchai point. Le coup de griffe du matou pensionnaire de Sidi Ali Boughaleb m&#x27;avait appris à me méfier des chats qui ronronnent au soleil.</p>
@@ -1177,6 +1200,7 @@ function closeMenus(){
 function show(id,scrollTo){
   if(ids.indexOf(id)<0)id="home";
   cur=id;
+  stopTTS();
   sections.forEach(function(s){s.hidden=(s.id!==id);});
   var top=id==="home"?"home":id.split("-")[0];
   [].forEach.call(document.querySelectorAll("#menu [data-top]"),function(t){
@@ -1190,6 +1214,7 @@ function show(id,scrollTo){
   try{history.replaceState(null,"","#"+id);}catch(e){}
   if(id.slice(-4)==="-qcm")quizIntro(id.split("-")[0]);
   syncAll();
+  prepScene($(id));
   if(scrollTo){var t=$(scrollTo);if(t)t.scrollIntoView({behavior:"smooth",block:"start"});}
 }
 /* ---------- boutons « afficher / masquer » ---------- */
@@ -1376,12 +1401,13 @@ function lookup(sel){
     else if(!g.verb&&g.core.indexOf(" ")<0&&g.core.length>=5&&core.length>=g.core.length-1&&core.indexOf(g.core.slice(0,-1))===0&&core.length<=g.core.length+2)sc=40;
     if(sc>bs){bs=sc;best=g;}
   });
-  return best;
+  lookup.score=bs;return best;
 }
 var gl=document.createElement("div");gl.id="gloss";gl.setAttribute("role","tooltip");document.body.appendChild(gl);
 function hideGloss(){gl.style.display="none";}
-function showGloss(g,rect){
-  gl.innerHTML='<button class="gx" aria-label="Fermer">×</button><div class="gw">'+nb(g.mot)+'</div><div class="ge">'+nb(g.ex)+'</div>'+(g.ar?'<div class="ga" dir="rtl" lang="ar">'+esc(g.ar)+'</div>':'');
+function showGloss(g,rect,mode){
+  gl.dataset.mode=mode||"sel";
+  gl.innerHTML='<button class="gx" aria-label="Fermer">×</button><div class="gw">'+nb(g.mot)+' <button class="gs" data-say="'+esc(g.mot)+'" title="Écouter">🔊</button></div><div class="ge">'+nb(g.ex)+'</div>'+(g.ar?'<div class="ga" dir="rtl" lang="ar">'+esc(g.ar)+'</div>':'');
   gl.style.display="block";
   var w=gl.offsetWidth,h=gl.offsetHeight,vw=window.innerWidth,vh=window.innerHeight;
   var left=Math.max(8,Math.min(vw-w-8,rect.left+rect.width/2-w/2));
@@ -1407,6 +1433,215 @@ window.addEventListener("scroll",hideGloss,{passive:true});
 document.addEventListener("keydown",function(ev){if(ev.key==="Escape")hideGloss();});
 buildGloss();
 window.__lookup=lookup;
+
+
+/* ---------- mots : découpage, vocabulaire souligné, survol ---------- */
+function prepScene(sec){
+  if(!sec||sec.dataset.prep)return;
+  sec.dataset.prep="1";
+  [].forEach.call(sec.querySelectorAll(".scene p"),function(p){
+    if(p.classList.contains("vide"))return;
+    var txt=p.textContent,frag=document.createDocumentFragment();
+    txt.split(/( +)/).forEach(function(part){
+      if(!part)return;
+      if(/^ +$/.test(part)){frag.appendChild(document.createTextNode(part));return;}
+      var sp=document.createElement("span");sp.className="w";sp.textContent=part;frag.appendChild(sp);
+    });
+    p.textContent="";p.appendChild(frag);
+    var ws=[].slice.call(p.querySelectorAll(".w"));
+    var core=function(w){return w.textContent.replace(/^[^A-Za-zÀ-ÿŒœ]+|[^A-Za-zÀ-ÿŒœ]+$/g,"");};
+    var i=0;
+    while(i<ws.length){
+      var hit=null,len=0;
+      for(var L=3;L>=1&&!hit;L--){
+        if(i+L>ws.length)continue;
+        var cand=ws.slice(i,i+L).map(core).join(" ");
+        if(cand.length<3)continue;
+        var g=lookup(cand);
+        if(L>1&&g&&stripArt(norm(cand)).indexOf(" ")<0)g=null;
+        if(g&&lookup.score>=(L>1?60:50)){hit=g;len=L;}
+      }
+      if(hit){for(var k=0;k<len;k++){ws[i+k].classList.add("vw");ws[i+k].dataset.g=GL.indexOf(hit);}i+=len;}else i++;
+    }
+  });
+}
+var gTimer=null;
+document.addEventListener("mouseover",function(ev){
+  var w=ev.target.closest&&ev.target.closest(".vw");
+  if(w){clearTimeout(gTimer);var g=GL[+w.dataset.g];if(g)showGloss(g,w.getBoundingClientRect(),"hover");}
+  else if(ev.target.closest&&ev.target.closest("#gloss"))clearTimeout(gTimer);
+});
+document.addEventListener("mouseout",function(ev){
+  if(gl.dataset.mode!=="hover")return;
+  if(ev.target.closest&&(ev.target.closest(".vw")||ev.target.closest("#gloss"))){gTimer=setTimeout(hideGloss,250);}
+});
+document.addEventListener("click",function(ev){
+  var w=ev.target.closest&&ev.target.closest(".vw");
+  if(w&&!window.getSelection().toString()&&!ttsState){var g=GL[+w.dataset.g];if(g)showGloss(g,w.getBoundingClientRect(),"sel");}
+});
+
+/* ---------- lecture audio (voix du navigateur) avec le mot lu surligné ---------- */
+var SS=window.speechSynthesis,VOICES=[],ttsState=null,vPref=null;
+try{vPref=localStorage.getItem("bm_voice");}catch(e){}
+var NEURAL=/denise|henri|vivienne|eloise|remy|brigitte|claude|coralie|jerome|jacqueline|yves|yvette|ariane|fabrice|gerard|celeste|charline|alain|maurice/i;
+function vscore(x){
+  var n=x.name,sc=0;
+  if(/natural/i.test(n))sc+=40;
+  if(/online/i.test(n))sc+=10;
+  if(NEURAL.test(n))sc+=8;
+  if(/multilingual/i.test(n))sc+=3;
+  if(/^fr[-_]FR$/i.test(x.lang))sc+=5;
+  if(/hortense|paul|julie/i.test(n))sc+=2;
+  return sc;
+}
+function loadVoices(){
+  if(!SS)return;
+  var v=SS.getVoices().filter(function(x){return /^fr/i.test(x.lang);});
+  v.sort(function(a,b){return vscore(b)-vscore(a)||a.name.localeCompare(b.name);});
+  VOICES=v;
+  [].forEach.call(document.querySelectorAll(".ttsvoice"),function(sel){
+    var keep=sel.value||vPref;
+    sel.innerHTML=v.map(function(x){return '<option value="'+esc(x.name)+'">'+esc(x.name.replace(/Microsoft |Online \(Natural\) - /g,""))+'</option>';}).join("");
+    if(keep&&v.some(function(x){return x.name===keep;}))sel.value=keep;
+  });
+  [].forEach.call(document.querySelectorAll(".ttsmsg"),function(m){
+    m.textContent=v.length?(v.some(function(x){return /natural/i.test(x.name);})?"":"💡 Voix plus naturelle : ouvrez le site avec Microsoft Edge (voix « Natural », internet requis)."):(SS?"Aucune voix française sur cet appareil.":"Lecture audio non disponible dans ce navigateur.");
+  });
+}
+if(SS){loadVoices();if(SS.onvoiceschanged!==undefined)SS.onvoiceschanged=loadVoices;}
+
+/* prononciation : on change seulement ce qui est LU (jamais ce qui est affiché) */
+var PRON={"fqih":"fkih","msid":"meussid","zaouïa":"zaouiya","zaouia":"zaouiya","oignons":"ognons","oignon":"ognon",
+ "jnouns":"djnoun","jnoun":"djnoun","boughaleb":"bou ghaleb","moqqadama":"mokadama","haïk":"aïk","djellaba":"djelaba",
+ "gnaouas":"gnaoua","estomac":"estoma","franc":"fran","francs":"fran","poids":"pois","puits":"pui","respect":"respè",
+ "aspect":"aspè","persil":"persi","cadenas":"cadena","clef":"clé","œufs":"eux","bziouya":"bziouya","kalkliyine":"kalkliyine"};
+var PRON_PRE={"je":1,"j’en":1,"j'en":1,"ne":1,"n’en":1,"n'en":1,"t’en":1,"m’en":1,"s’en":1,"te":1,"me":1,"se":1,"y":1,"j’y":1,"tu":1};
+function pronCore(w,prev){
+  var lw=w.toLowerCase(),m;
+  if((m=/^sens(-tu|-je|-il|-elle)?$/.exec(lw))&&(m[1]||PRON_PRE[prev]))return "sang"+(m[1]||"");
+  if(PRON[lw])return PRON[lw];
+  var k=Math.max(w.lastIndexOf("’"),w.lastIndexOf("'"));
+  if(k>0&&PRON[lw.slice(k+1)])return w.slice(0,k+1)+PRON[lw.slice(k+1)];
+  return w;
+}
+function spokenToken(tok,prev){
+  var m=/^([^A-Za-zÀ-ÿŒœ\d]*)(.*?)([^A-Za-zÀ-ÿŒœ\d]*)$/.exec(tok.replace(/ /g," "));
+  if(!m||!m[2])return /[.,;:!?…]/.test(tok)?"":"";
+  var lead=m[1].replace(/[-—–"«»()\[\]]/g,""),trail=m[3].replace(/[«»"()\[\]]/g,"");
+  return lead+pronCore(m[2],prev)+trail;
+}
+function coreOf(tok){return tok.toLowerCase().replace(/^[^a-zà-ÿœ’']+|[^a-zà-ÿœ’']+$/g,"");}
+function sentencesOf(p){
+  var ws=[].slice.call(p.querySelectorAll(".w")),out=[],cur=null,prev="";
+  ws.forEach(function(sp){
+    var t=spokenToken(sp.textContent,prev);
+    prev=coreOf(sp.textContent);
+    if(!cur)cur={items:[],text:""};
+    if(t){cur.items.push({span:sp,off:cur.text.length});cur.text+=(cur.text?" ":"")+t;cur.items[cur.items.length-1].off=cur.text.length-t.length;}
+    if(/[.!?…]["») ]*$/.test(sp.textContent)&&cur.items.length){out.push(cur);cur=null;}
+  });
+  if(cur&&cur.items.length)out.push(cur);
+  return out;
+}
+function ttsButtons(bar,playing,paused){
+  bar.querySelector(".ttsplay").disabled=playing;
+  bar.querySelector(".ttspause").disabled=!playing;
+  bar.querySelector(".ttsstop").disabled=!playing;
+  bar.querySelector(".ttspause").textContent=paused?"▶ Reprendre":"⏸ Pause";
+}
+function clearNow(){[].forEach.call(document.querySelectorAll(".scene .w.now"),function(x){x.classList.remove("now");});}
+function setNow(sp){
+  clearNow();if(!sp)return;sp.classList.add("now");
+  var r=sp.getBoundingClientRect();
+  if(r.top<130||r.bottom>window.innerHeight-60)sp.scrollIntoView({block:"center",behavior:"smooth"});
+}
+function stopTTS(){
+  if(ttsState){
+    var st=ttsState;ttsState=null;
+    clearInterval(st.est);clearTimeout(st.fb);
+    st.paras.forEach(function(p){p.classList.remove("reading");});
+    clearNow();
+    ttsButtons(st.bar,false,false);
+  }
+  if(SS){try{SS.cancel();}catch(e){}}
+}
+function playTTS(bar,from){
+  if(!SS||!VOICES.length){loadVoices();if(!VOICES.length){bar.querySelector(".ttsmsg").textContent="Aucune voix française disponible : installez une voix française dans Windows.";return;}}
+  stopTTS();
+  try{localStorage.setItem("bm_voice",bar.querySelector(".ttsvoice").value);}catch(e){}
+  var sec=bar.closest("section");prepScene(sec);
+  var paras=[].slice.call(sec.querySelectorAll(".scene p")).filter(function(p){return !p.classList.contains("vide");});
+  if(!paras.length)return;
+  var st={bar:bar,paras:paras,pi:from||0,si:0,sents:null,paused:false};
+  ttsState=st;ttsButtons(bar,true,false);
+  var rate=parseFloat(bar.querySelector(".ttsrate").value)||0.9;
+  var v=VOICES.filter(function(x){return x.name===bar.querySelector(".ttsvoice").value;})[0]||VOICES[0];
+  (function step(){
+    if(ttsState!==st)return;
+    if(st.pi>=paras.length){stopTTS();return;}
+    var p=paras[st.pi];
+    if(!st.sents){
+      paras.forEach(function(x){x.classList.remove("reading");});p.classList.add("reading");
+      var r=p.getBoundingClientRect();if(r.top<130||r.bottom>window.innerHeight-60)p.scrollIntoView({block:"center",behavior:"smooth"});
+      st.sents=sentencesOf(p);st.si=0;
+    }
+    if(st.si>=st.sents.length){st.pi++;st.sents=null;setTimeout(step,250);return;}
+    var sent=st.sents[st.si],u=new SpeechSynthesisUtterance(sent.text);
+    u.lang=v?v.lang:"fr-FR";if(v){try{u.voice=v;}catch(e){}}u.rate=rate;
+    var gotB=false;
+    function findItem(idx){var it=sent.items[0];for(var k=0;k<sent.items.length;k++){if(sent.items[k].off<=idx)it=sent.items[k];else break;}return it;}
+    u.onstart=function(){
+      if(ttsState!==st)return;
+      setNow(sent.items[0].span);
+      clearTimeout(st.fb);
+      st.fb=setTimeout(function(){
+        if(gotB||ttsState!==st)return;
+        var total=sent.text.length,dur=total/(14.5*rate)*1000,t0=Date.now();
+        clearInterval(st.est);
+        st.est=setInterval(function(){
+          if(ttsState!==st||gotB){clearInterval(st.est);return;}
+          var el=Date.now()-t0,idx=Math.min(total-1,Math.floor(el/dur*total));
+          setNow(findItem(idx).span);
+        },90);
+      },700);
+    };
+    u.onboundary=function(ev){
+      if(ttsState!==st||(ev.name&&ev.name!=="word"))return;
+      gotB=true;clearInterval(st.est);
+      setNow(findItem(ev.charIndex).span);
+    };
+    u.onend=function(){if(ttsState===st){clearInterval(st.est);clearTimeout(st.fb);st.si++;step();}};
+    u.onerror=function(ev){if(ttsState===st&&ev.error!=="interrupted"&&ev.error!=="canceled"){stopTTS();bar.querySelector(".ttsmsg").textContent="Erreur de lecture audio.";}};
+    SS.speak(u);
+  })();
+}
+function sayWord(t){
+  if(!SS)return;
+  if(!VOICES.length)loadVoices();
+  var parts=t.replace(/\([^)]*\)/g,"").replace(/ /g," ").trim().split(/ +/),prev="";
+  var txt=parts.map(function(w){var s=spokenToken(w,prev);prev=coreOf(w);return s;}).join(" ");
+  var u=new SpeechSynthesisUtterance(txt);u.lang="fr-FR";
+  var pref=null;try{pref=localStorage.getItem("bm_voice");}catch(e){}
+  var v=VOICES.filter(function(x){return x.name===pref;})[0]||VOICES[0];if(v){try{u.voice=v;u.lang=v.lang;}catch(e){}}
+  u.rate=0.85;try{SS.cancel();}catch(e){}SS.speak(u);
+}
+document.addEventListener("click",function(ev){
+  var b;
+  if((b=ev.target.closest(".ttsplay")))playTTS(b.closest(".tts"),0);
+  else if((b=ev.target.closest(".ttspause"))){
+    if(!ttsState||!SS)return;
+    ttsState.paused=!ttsState.paused;
+    if(ttsState.paused)SS.pause();else SS.resume();
+    ttsButtons(ttsState.bar,true,ttsState.paused);
+  }
+  else if((b=ev.target.closest(".ttsstop")))stopTTS();
+  else if((b=ev.target.closest(".gs")))sayWord(b.dataset.say);
+  else if((b=ev.target.closest(".scene p"))&&ttsState&&b.closest(".scene")===ttsState.paras[0].closest(".scene")&&!window.getSelection().toString()){
+    var i=ttsState.paras.indexOf(b);if(i>=0)playTTS(ttsState.bar,i);
+  }
+});
+window.addEventListener("beforeunload",function(){if(SS)SS.cancel();});
+window.__tts={play:playTTS,stop:stopTTS,state:function(){return ttsState;},spoken:spokenToken,sentences:sentencesOf,prep:prepScene};
 
 /* ---------- clavier ---------- */
 document.addEventListener("keydown",function(ev){
