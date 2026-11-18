@@ -325,6 +325,7 @@ details.how>ul{margin:10px 16px 14px}
 }
 @media(max-width:700px){.cover h1{font-size:23px}.cover p.sub2{font-size:13px}}
 #credit a{color:#fff;font-weight:700;text-decoration:none;white-space:nowrap}#credit a:hover{text-decoration:underline}
+.tthint{flex:1 1 100%;font-size:13px;color:#6b7280;margin-top:4px}
 </style>
 </head>
 <body>
@@ -3580,6 +3581,37 @@ document.addEventListener("keydown",function(ev){
 show((location.hash||"#home").slice(1));
 })();
 
+</script>
+
+<script id="tts-keys">
+(function(){
+"use strict";
+function st(){return window.__tts&&window.__tts.state?window.__tts.state():null;}
+function typing(ev){var t=ev.target&&ev.target.tagName;return t==="INPUT"||t==="SELECT"||t==="TEXTAREA"||(ev.target&&ev.target.isContentEditable);}
+function action(k){
+  if(k===" "||k==="Spacebar")return "toggle";
+  if(k==="PageUp"||k==="ArrowLeft"||k==="ArrowUp")return "pause";
+  if(k==="PageDown"||k==="ArrowRight"||k==="ArrowDown")return "resume";
+  return null;
+}
+document.addEventListener("keydown",function(ev){
+  var s=st();if(!s||typing(ev)||ev.altKey||ev.ctrlKey||ev.metaKey)return;
+  var a=action(ev.key);if(!a)return;
+  ev.preventDefault();ev.stopImmediatePropagation();
+  if(ev.repeat)return;
+  var want=a==="toggle"?!s.paused:a==="pause";
+  if(want!==!!s.paused){var b=s.bar&&s.bar.querySelector(".ttspause");if(b&&!b.disabled)b.click();}
+  if(document.activeElement&&document.activeElement.tagName==="BUTTON")document.activeElement.blur();
+},true);
+document.addEventListener("keyup",function(ev){
+  if(st()&&(ev.key===" "||ev.key==="Spacebar")&&!typing(ev)){ev.preventDefault();ev.stopImmediatePropagation();}
+},true);
+[].forEach.call(document.querySelectorAll(".tts"),function(bar){
+  var h=document.createElement("div");h.className="tthint";
+  h.textContent="⌨ Pendant la lecture : Espace ou bouton « précédent » du pointeur = pause ; Espace ou bouton « suivant » = reprendre.";
+  bar.appendChild(h);
+});
+})();
 </script>
 </body>
 </html>
